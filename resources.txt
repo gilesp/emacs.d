@@ -19,3 +19,6 @@ https://github.com/rdallasgray/graphene
 
 Org Mode
 --------
+http://orgmode.org/worg/org-tutorials/org4beginners.html
+http://orgmode.org/#docs
+http://doc.norang.ca/org-mode.html
