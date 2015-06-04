@@ -7,9 +7,8 @@
  '(auto-save-default nil)
  '(custom-enabled-themes (quote (wheatgrass)))
  '(inhibit-startup-screen t)
- '(initial-buffer-choice "~/Documents/TODO.org")
  '(make-backup-files nil)
- '(org-agenda-files (quote ("~/Documents/TODO.org"))))
+ '(org-agenda-files (quote ("~/Documents/org"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

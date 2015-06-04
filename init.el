@@ -21,6 +21,8 @@
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
+;; see the custom-file for the agenda files configuration
+;; I'm setting it to use all files in a specified directory
 
 ;; don't forget to load our custom file
 (load custom-file)
