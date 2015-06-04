@@ -7,6 +7,7 @@
  '(custom-enabled-themes (quote (wheatgrass)))
  '(inhibit-startup-screen t)
  '(initial-buffer-choice "~/Documents/TODO.org")
+ '(make-backup-files nil)
  '(org-agenda-files (quote ("~/Documents/TODO.org"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
