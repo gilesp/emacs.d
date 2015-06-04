@@ -1,0 +1,21 @@
+Resources for emacs customisations
+==================================
+
+General Advice
+--------------
+Just do it yourself, but look to starter kits for inspiration
+http://www.reddit.com/r/emacs/comments/1udtd1/starting_emacs_with_preludestarter_kits_scares_me/
+
+Starter Kits
+------------
+Oh My Emacs
+https://github.com/xiaohanyu/oh-my-emacs
+
+Emacs 24 Starter Kit
+https://github.com/eschulte/emacs24-starter-kit
+
+Graphene
+https://github.com/rdallasgray/graphene
+
+Org Mode
+--------
