@@ -26,3 +26,4 @@
 (require 'init-packages)
 (require 'init-org)
 (require 'init-switch-window)
+(require 'init-helm)
