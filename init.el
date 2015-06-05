@@ -13,10 +13,16 @@
 ;; perform any other configuration we require
 ;;
 
+;;
 ;; org-mode configuration
-(require 'org)
+;;
+;; load org-mode from source
+;; You first need to check it out from git (git://orgmode.org/org-mode.git)
+;; and build it with "make uncompiled"
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/org-mode/lisp"))
 ;; automatically use org mode for .org, .org_archive and .txt files
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
+(require 'org)
 ;; standard key bindings
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-ca" 'org-agenda)
