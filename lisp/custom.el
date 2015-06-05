@@ -8,7 +8,9 @@
  '(custom-enabled-themes (quote (wheatgrass)))
  '(inhibit-startup-screen t)
  '(make-backup-files nil)
- '(org-agenda-files (quote ("~/Documents/org"))))
+ '(org-agenda-files (quote ("~/Documents/org")))
+ '(org-todo-keyword-faces (quote (("DONE" . success) ("IN-PROGRESS" . diary) ("WAITING" . warning) ("TODO" . error))))
+ '(org-todo-keywords (quote ((sequence "TODO" "IN-PROGRESS" "WAITING" "DONE")))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
