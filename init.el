@@ -4,10 +4,18 @@
 ;; so we can specify all our customisations here
 ;; however, it makes sens to use emacs' own customisations functionality
 ;; (which you can access with M-x customize) for stylistic customisations
-;; and use init.el for more complex stuff such as keybindings
+;; and use init.el for more complex stuff such as keybindings or specific 
+;; feature configurations
 ;;
+
+;; make the lisp directory available to easily load sub-files from
+(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+
 ;; Define a custom location for the file emacs uses to store customisations:
-(setq custom-file "~/.emacs.d/lisp/custom.el")
+;; Keep emacs Custom-settings in separate file
+(setq custom-file (expand-file-name "lisp/custom.el" user-emacs-directory))
+(when (file-exists-p custom-file)
+  (load custom-file))
 
 ;;
 ;; perform any other configuration we require
@@ -30,5 +38,9 @@
 ;; see the custom-file for the agenda files configuration
 ;; I'm setting it to use all files in a specified directory
 
-;; don't forget to load our custom file
-(load custom-file)
+;;
+;; Make "C-x o" prompt for a target window when more than 2 are available
+;(require-package 'switch-window)
+;(require 'switch-window)
+;(setq switch-window-shortcut-style 'alphabet)
+;(global-set-key (kbd "C-x o") 'switch-window)
