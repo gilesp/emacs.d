@@ -11,7 +11,7 @@
  '(inhibit-startup-screen t)
  '(make-backup-files nil)
  '(org-agenda-files (quote ("~/Documents/org")))
- '(scalable-fonts-allowed t))
+ '(scalable-fonts-allowed t)
  '(org-todo-keyword-faces
    (quote
     (("DONE" . success)
