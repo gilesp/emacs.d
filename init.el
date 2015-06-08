@@ -23,6 +23,7 @@
 ;; what each bit of configuration refers to
 ;;-------------------------------------------------------------------------
 
+(require 'init-server)
 (require 'init-packages)
 (require 'init-org)
 (require 'init-switch-window)
