@@ -6,11 +6,13 @@
  '(ansi-color-names-vector ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#ad7fa8" "#8cc4ff" "#eeeeec"])
  '(auto-save-default nil)
  '(custom-enabled-themes (quote (wheatgrass)))
+ '(font-use-system-font t)
  '(inhibit-startup-screen t)
  '(make-backup-files nil)
  '(org-agenda-files (quote ("~/Documents/org")))
  '(org-todo-keyword-faces (quote (("DONE" . success) ("IN-PROGRESS" . diary) ("WAITING" . warning) ("TODO" . error))))
- '(org-todo-keywords (quote ((sequence "TODO" "IN-PROGRESS" "WAITING" "DONE")))))
+ '(org-todo-keywords (quote ((sequence "TODO" "IN-PROGRESS" "WAITING" "DONE"))))
+ '(scalable-fonts-allowed t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
