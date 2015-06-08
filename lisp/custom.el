@@ -10,6 +10,7 @@
  '(font-use-system-font t)
  '(inhibit-startup-screen t)
  '(make-backup-files nil)
+ '(mouse-wheel-progressive-speed nil)
  '(org-agenda-files (quote ("~/Documents/org")))
  '(scalable-fonts-allowed t)
  '(org-todo-keyword-faces
@@ -19,7 +20,9 @@
      ("WAITING" . warning)
      ("TODO" . error))))
  '(org-todo-keywords (quote ((sequence "TODO" "IN-PROGRESS" "WAITING" "DONE"))))
- '(pop-up-frames nil))
+ '(pop-up-frames nil)
+ '(scalable-fonts-allowed t)
+ '(scroll-step 1))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
