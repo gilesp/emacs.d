@@ -22,7 +22,8 @@
  '(org-todo-keywords (quote ((sequence "TODO" "IN-PROGRESS" "WAITING" "DONE"))))
  '(pop-up-frames nil)
  '(scalable-fonts-allowed t)
- '(scroll-step 1))
+ '(scroll-step 1)
+ '(show-paren-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
