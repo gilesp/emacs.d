@@ -15,4 +15,13 @@
 ;; see the custom-file for the agenda files configuration
 ;; I'm setting it to use all files in a specified directory
 
+;; Require markdown export mode
+(require 'ox-md nil t)
+
+;; Require odt export mode
+(require 'ox-odt nil t)
+
+;; Require html export mode
+(require 'ox-html nil t)
+
 (provide 'init-org)
