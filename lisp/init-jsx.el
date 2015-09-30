@@ -1,0 +1,49 @@
+;;; init-jsx --- Configure highlighting for jsx files
+
+(require-package 'flycheck)
+(require-package 'js2-mode)
+(require-package 'json-mode)
+(require-package 'web-mode)
+
+(require 'flycheck)
+(require 'web-mode)
+
+;; Activate automatically for .jsx, .android.js and .ios.js files
+(add-to-list 'auto-mode-alist '("\\.jsx$" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.android.js$" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.ios.js$" . web-mode))
+
+(setq web-mode-engines-alist '(("jsx" . "\\.android.js$")
+			       ("jsx" . "\\.ios.js$")))
+
+(setq web-mode-content-types-alist '(("jsx" . "\\.android.js$")
+				     ("jsx" . "\\.ios.js$")))
+
+
+;; adjust indents for web-mode to 2 spaces
+(defun my-web-mode-hook ()
+  "Hooks for Web mode."
+  (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-css-indent-offset 2)
+  (setq web-mode-code-indent-offset 2)
+  (setq web-mode-enable-auto-pairing t)
+  (setq web-mode-enable-css-colorization t)
+  (subword-mode)
+  (js2-minor-mode)
+  (flycheck-mode)
+  (add-hook 'local-write-file-hooks
+	    (lambda()
+	      (delete-trailing-whitespace)
+	      nil))
+  )
+(add-hook 'web-mode-hook  'my-web-mode-hook)
+
+;; Make js2-mode treat angle brackets as delimiters
+(defun modify-syntax-table-for-jsx ()
+  (modify-syntax-entry ?< "(>")
+  (modify-syntax-entry ?> ")<"))
+
+(add-hook 'js2-mode-hook 'modify-syntax-table-for-jsx)
+
+(provide 'init-jsx)
+;;; init-jsx.el ends here.

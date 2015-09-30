@@ -30,3 +30,4 @@
 (require 'init-helm)
 ;; (require 'init-google-this)
 (require 'init-dockerfile-mode)
+(require 'init-jsx)
