@@ -9,14 +9,16 @@
 (require 'web-mode)
 
 ;; Activate automatically for .jsx, .android.js and .ios.js files
-(add-to-list 'auto-mode-alist '("\\.jsx$" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.js[x]$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.android.js$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.ios.js$" . web-mode))
 
-(setq web-mode-engines-alist '(("jsx" . "\\.android.js$")
+(setq web-mode-engines-alist '(("jsx" . "\\.js[x]$")
+			       ("jsx" . "\\.android.js$")
 			       ("jsx" . "\\.ios.js$")))
 
-(setq web-mode-content-types-alist '(("jsx" . "\\.android.js$")
+(setq web-mode-content-types-alist '(("jsx" . "\\.js[x]$")
+				     ("jsx" . "\\.android.js$")
 				     ("jsx" . "\\.ios.js$")))
 
 
@@ -39,11 +41,20 @@
 (add-hook 'web-mode-hook  'my-web-mode-hook)
 
 ;; Make js2-mode treat angle brackets as delimiters
-(defun modify-syntax-table-for-jsx ()
-  (modify-syntax-entry ?< "(>")
-  (modify-syntax-entry ?> ")<"))
+;;(defun modify-syntax-table-for-jsx ()
+;;  (modify-syntax-entry ?< "(>")
+;;  (modify-syntax-entry ?> ")<"))
 
-(add-hook 'js2-mode-hook 'modify-syntax-table-for-jsx)
+;;(add-hook 'js2-mode-hook 'modify-syntax-table-for-jsx)
+
+;; disable jshint so we can use eslint instead
+(setq-default flycheck-disabled-checkers
+	      (append flycheck-disabled-checkers
+		      '(javascript-jshint)))
+
+;; use eslint with web-mode for jsx files
+(flycheck-add-mode 'javascript-eslint 'web-mode)
+
 
 (provide 'init-jsx)
 ;;; init-jsx.el ends here.
