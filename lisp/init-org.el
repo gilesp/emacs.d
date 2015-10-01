@@ -19,7 +19,7 @@
 (require 'ox-md nil t)
 
 ;; Require odt export mode
-(require 'ox-odt nil t)
+;; (require 'ox-odt nil t)
 
 ;; Require html export mode
 (require 'ox-html nil t)
