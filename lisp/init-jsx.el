@@ -28,11 +28,10 @@
   (setq web-mode-markup-indent-offset 2)
   (setq web-mode-css-indent-offset 2)
   (setq web-mode-code-indent-offset 2)
-  (setq web-mode-enable-auto-pairing t)
   (setq web-mode-enable-css-colorization t)
   (subword-mode)
   (js2-minor-mode)
-  (flycheck-mode)
+  ;;(flycheck-mode)
   (add-hook 'local-write-file-hooks
 	    (lambda()
 	      (delete-trailing-whitespace)
@@ -40,20 +39,13 @@
   )
 (add-hook 'web-mode-hook  'my-web-mode-hook)
 
-;; Make js2-mode treat angle brackets as delimiters
-;;(defun modify-syntax-table-for-jsx ()
-;;  (modify-syntax-entry ?< "(>")
-;;  (modify-syntax-entry ?> ")<"))
-
-;;(add-hook 'js2-mode-hook 'modify-syntax-table-for-jsx)
-
 ;; disable jshint so we can use eslint instead
-(setq-default flycheck-disabled-checkers
-	      (append flycheck-disabled-checkers
-		      '(javascript-jshint)))
+;;(setq-default flycheck-disabled-checkers
+;;	      (append flycheck-disabled-checkers
+;;		      '(javascript-jshint)))
 
 ;; use eslint with web-mode for jsx files
-(flycheck-add-mode 'javascript-eslint 'web-mode)
+;;(flycheck-add-mode 'javascript-eslint 'web-mode)
 
 
 (provide 'init-jsx)
