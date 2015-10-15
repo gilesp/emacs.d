@@ -13,6 +13,10 @@
 (setq helm-buffers-fuzzy-matching t
       helm-recentf-fuzzy-match t)
 
+;; fuzzy matching for helm-apropos
+;; C-x c a
+(setq helm-apropos-fuzzy-match t)
+
 ;; resize the helm buffer automatically
 (helm-autoresize-mode t)
 (helm-mode 1)
