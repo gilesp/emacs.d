@@ -8,6 +8,7 @@
  '(auto-save-default nil)
  '(column-number-mode t)
  '(custom-enabled-themes (quote (wheatgrass)))
+ '(default-frame-alist (quote ((width . 120) (height . 52))))
  '(font-use-system-font t)
  '(inhibit-startup-screen t)
  '(make-backup-files nil)
