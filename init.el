@@ -32,3 +32,4 @@
 (require 'init-dockerfile-mode)
 (require 'init-jsx)
 (require 'init-neotree)
+(require 'init-magit)
