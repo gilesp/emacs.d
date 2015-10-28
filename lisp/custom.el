@@ -6,12 +6,13 @@
  '(ansi-color-names-vector
    ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#ad7fa8" "#8cc4ff" "#eeeeec"])
  '(auto-save-default nil)
+ '(backup-directory-alist (quote (("." . "~/.saves"))))
  '(column-number-mode t)
  '(custom-enabled-themes (quote (wheatgrass)))
  '(default-frame-alist (quote ((width . 120) (height . 52))))
  '(font-use-system-font t)
  '(inhibit-startup-screen t)
- '(make-backup-files nil)
+ '(make-backup-files t)
  '(mouse-wheel-progressive-speed nil)
  '(org-agenda-files (quote ("~/Documents/org")))
  '(org-todo-keyword-faces
