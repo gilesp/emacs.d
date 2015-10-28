@@ -11,6 +11,7 @@
  '(custom-enabled-themes (quote (wheatgrass)))
  '(default-frame-alist (quote ((width . 120) (height . 52))))
  '(font-use-system-font t)
+ '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
  '(make-backup-files t)
  '(mouse-wheel-progressive-speed nil)
