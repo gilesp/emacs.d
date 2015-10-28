@@ -49,5 +49,13 @@
 (add-hook 'web-mode-hook  'my-web-mode-hook)
 
 
+;; adjust indents for json-mode to 2 spaces
+(defun my-json-mode-hook ()
+  "hooks for json-mode."
+  (make-local-variable 'js-indent-level)
+  (setq js-indent-level 2))
+
+(add-hook 'json-mode-hook 'my-json-mode-hook)
+ 
 (provide 'init-jsx)
 ;;; init-jsx.el ends here.
