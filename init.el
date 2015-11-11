@@ -36,4 +36,5 @@
 ;; (require 'init-java)
 (require 'init-duplicateline)
 (require 'init-yaml-mode)
+(require 'init-slack)
 (require 'init-browse-url-chrome)
