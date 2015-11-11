@@ -4,9 +4,18 @@
 (require-package 'js2-mode)
 (require-package 'json-mode)
 (require-package 'web-mode)
+(require-package 'tern)
+(require-package 'tern-auto-complete)
 
 (require 'flycheck)
 (require 'web-mode)
+
+;; setup tern
+(add-hook 'js-mode-hook (lambda () (tern-mode t)))
+(eval-after-load 'tern
+  '(progn
+     (require 'tern-auto-complete)
+     (tern-ac-setup)))
 
 ;; Activate automatically for .jsx and .js files
 (add-to-list 'auto-mode-alist '("\\.js[x]?\\'" . web-mode))
@@ -25,6 +34,8 @@
   (setq indent-tabs-mode nil)
   (subword-mode)
   (js2-minor-mode)
+  (tern-mode)
+  (auto-complete-mode)
 
   (defadvice web-mode-highlight-part (around tweak-jsx activate)
     (if (equal web-mode-content-type "jsx")
@@ -56,6 +67,6 @@
   (setq js-indent-level 2))
 
 (add-hook 'json-mode-hook 'my-json-mode-hook)
- 
+
 (provide 'init-jsx)
 ;;; init-jsx.el ends here.
