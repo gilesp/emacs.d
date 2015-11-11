@@ -35,3 +35,4 @@
 (require 'init-magit)
 ;; (require 'init-java)
 (require 'init-duplicateline)
+(require 'init-yaml-mode)
