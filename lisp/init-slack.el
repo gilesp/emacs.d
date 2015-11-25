@@ -13,8 +13,11 @@
 ;; enable spell checking using flyspell
 (add-hook 'erc-mode-hook 'flyspell-mode)
 
+;; enable scroll to bottom mode
+(add-hook 'erc-mode-hook 'erc-scrolltobottom-mode)
+
 ;; Only add channels to the modeline when my nick or keywords are mentioned
-(setq erc-current-nick-hichlight-type 'nick-or-keyword)
+;; (setq erc-current-nick-highlight-type 'nick-or-keyword)
 
 ;; Highlight keywords
 (setq erc-keywords '("\\b[lL]abs\\b" "\\bbrown bag\\b" "\\bbrown bags\\b" "\\bgiles\\b" "\\bGiles\\b"))
@@ -22,12 +25,14 @@
 ;; Ignore channel event noise
 ;; See https://www.alien.net.au/irc/irc2numerics.html for details of numeric irc message codes
 (setq erc-track-exclude-types '("JOIN" "PART" "QUIT" "NICK" "MODE" "324" "329" "332" "333" "353" "477"))
-(setq erc-hide-list '("JOIN" "PART" "QUIT" "NICK" "NAMES" "MODE" "353" "332" "324" "329"))
+;;(setq erc-hide-list '("JOIN" "PART" "QUIT" "NICK" "NAMES" "MODE" "353" "332" "324" "329"))
+(setq erc-hide-list '("JOIN" "PART" "QUIT" "NICK" "NAMES" "MODE"))
 
 (setq erc-track-use-faces t)
 (setq erc-track-faces-priority-list
       '(erc-current-nick-face erc-keyword-face))
 (setq erc-track-priority-faces-only 'all)
+(setq erc-track-position-in-mode-line t)
 ;; rename server buffers to reflect current network name
 (setq erc-rename-buffers t)
 ;; Kill buffers for channels after /part
@@ -62,20 +67,17 @@
            :password nil
            :nick "giles.paterson"
            :full-name "giles.paterson")
-  (setq erc-autojoin-channels-alist '(
-                                      ("blackpepper.irc.slack.com" "#general"))))
+  (setq erc-autojoin-channels-alist '(("blackpepper.irc.slack.com" "#general"))))
 
 
 ;; use notify-osd (install with apt-get) to inform me of messages
 (defun erc-global-notify (match-type nick message)
   "Notify when a message is recieved."
-  ;;(when erc-public-away-p
-    (notifications-notify
-     :title nick
-     :body message
-     :app-icon "/usr/share/notify-osd/icons/hicolor/scalable/status/notification-message-im.svg"
-     :urgency 'low))
-;;)
+  (notifications-notify
+   :title nick
+   :body message
+   :app-icon "/usr/share/notify-osd/icons/hicolor/scalable/status/notification-message-im.svg"
+   :urgency 'low))
 
 (add-hook 'erc-text-matched-hook 'erc-global-notify)
 
