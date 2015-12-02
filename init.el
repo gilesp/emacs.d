@@ -16,6 +16,15 @@
   (load custom-file))
 
 ;;-------------------------------------------------------------------------
+;; Trivial configuration
+;;
+;; Move to a separate init file when more than a couple of lines required
+;;-------------------------------------------------------------------------
+
+;; Enable auto reloading when files change (will prompt for confirmation)
+(global-auto-revert-mode t)
+
+;;-------------------------------------------------------------------------
 ;; Load any other configuration we require
 ;;
 ;; There will be a corresponding file in the lisp directory
@@ -38,3 +47,4 @@
 (require 'init-yaml-mode)
 (require 'init-slack)
 (require 'init-browse-url-chrome)
+(require 'init-which-key)
