@@ -48,3 +48,4 @@
 (require 'init-slack)
 (require 'init-browse-url-chrome)
 (require 'init-which-key)
+(require 'init-zoom)
