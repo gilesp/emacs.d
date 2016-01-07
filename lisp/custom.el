@@ -11,6 +11,8 @@
  '(custom-enabled-themes (quote (wheatgrass)))
  '(default-frame-alist (quote ((width . 120) (height . 52))))
  '(indent-tabs-mode nil)
+ '(indicate-buffer-boundaries (quote right))
+ '(indicate-empty-lines t)
  '(inhibit-startup-screen t)
  '(make-backup-files t)
  '(mouse-wheel-progressive-speed nil)
@@ -26,7 +28,8 @@
  '(safe-local-variable-values (quote ((docker-image-name . "react-native"))))
  '(scalable-fonts-allowed t)
  '(scroll-step 1)
- '(show-paren-mode t))
+ '(show-paren-mode t)
+ '(tool-bar-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
