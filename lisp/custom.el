@@ -8,7 +8,6 @@
  '(auto-save-default nil)
  '(backup-directory-alist (quote (("." . "~/.saves"))))
  '(column-number-mode t)
- '(custom-enabled-themes (quote (wheatgrass)))
  '(default-frame-alist (quote ((width . 120) (height . 52))))
  '(indent-tabs-mode nil)
  '(indicate-buffer-boundaries (quote right))

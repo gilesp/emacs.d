@@ -34,6 +34,8 @@
 
 (require 'init-server)
 (require 'init-packages)
+
+(require 'init-theme)
 (require 'init-org)
 (require 'init-switch-window)
 (require 'init-helm)
