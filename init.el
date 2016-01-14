@@ -54,3 +54,4 @@
 (require 'init-modeline)
 (require 'init-linenumbers)
 (require 'init-zoom)
+(require 'init-spaceline)
