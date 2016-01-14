@@ -50,6 +50,7 @@
 (require 'init-slack)
 (require 'init-browse-url-chrome)
 (require 'init-which-key)
+(require 'init-swift)
 (require 'init-modeline)
 (require 'init-linenumbers)
 (require 'init-zoom)
