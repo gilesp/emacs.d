@@ -1,0 +1,1 @@
+;; configuration specific to tintin
