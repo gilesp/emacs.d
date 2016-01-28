@@ -5,6 +5,7 @@
 ;; You first need to check it out from git (git://orgmode.org/org-mode.git)
 ;; and build it with "make uncompiled"
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/org-mode/lisp"))
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/org-mode/contrib/lisp"))
 
 (require 'org)
 
@@ -20,6 +21,9 @@
 
 ;; Require markdown export mode
 (require 'ox-md nil t)
+
+;; Require github flavoured markdown export mode
+(require 'ox-gfm)
 
 ;; Require odt export mode
 ;; (require 'ox-odt nil t)
