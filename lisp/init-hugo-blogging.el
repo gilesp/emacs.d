@@ -41,5 +41,34 @@ Return output file name."
 
         ;; ("gp-blog" :components ("org-gilesp-blog"))
         ))
-         
+
+
+;; Abbreviations useful for hugo blogging
+
+;; enable abbrev-mode when in org-mode
+(add-hook 'org-mode-hook (lambda () (abbrev-mode 1)))
+
+(define-skeleton skel-org-block-src
+  "Insert a src block"
+  ""
+  "#+BEGIN_SRC \n"
+  _ - \n
+  "#+END_SRC\n")
+
+(define-abbrev org-mode-abbrev-table "src" "" 'skel-org-block-src)
+
+(define-skeleton skel-org-blog-frontmatter
+  "Insert hugo frontmatter"
+  "title:"
+  "#+BEGIN_EXPORT md\n"
+  "+++\n"
+  "title = \"" str "\"\n"
+  "description = \""_"\"\n"
+  "date = \n"
+  "tags = []\n"
+  "+++\n"
+  "#+END_EXPORT\n")
+
+(define-abbrev org-mode-abbrev-table "hugofront" "" 'skel-org-blog-frontmatter)
+  
 (provide 'init-hugo-blogging)
