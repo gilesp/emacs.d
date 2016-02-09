@@ -24,7 +24,11 @@
      ("TODO" . error))))
  '(org-todo-keywords (quote ((sequence "TODO" "IN-PROGRESS" "WAITING" "DONE"))))
  '(pop-up-frames nil)
- '(safe-local-variable-values (quote ((docker-image-name . "react-native"))))
+ '(safe-local-variable-values
+   (quote
+    ((docker-image-name . "concierge-server")
+     (docker-image-name . "concierge-meeting-listener")
+     (docker-image-name . "react-native"))))
  '(scalable-fonts-allowed t)
  '(scroll-step 1)
  '(show-paren-mode t)
