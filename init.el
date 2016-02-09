@@ -37,6 +37,11 @@
 ;; y or n instead of yes or no.
 (fset 'yes-or-no-p 'y-or-n-p)
 
+;; enable visual line mode with indicators
+;(visual-line-mode)
+;(setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
+;(setq fill-column 80)
+
 ;;-------------------------------------------------------------------------
 ;; Load any other configuration we require
 ;;
