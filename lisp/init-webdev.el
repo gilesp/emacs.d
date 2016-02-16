@@ -12,7 +12,60 @@
 
 (require 'web-mode)
 
-(defun gp-setup-web-mode-indent (n)
+;; I need to use a combination of web-mode and js2-mode as web-mode
+;; and eslint aren't compatible with each other I use web-mode for
+;; html etc. and jsx files (which are mixed content) but js2-mode for
+;; pure javascript and json
+
+(setq-default js2-global-externs '("require"))
+
+(defun gp-js2-mode-hook ()
+  (tern-mode)
+  (subword-mode)
+  (auto-complete-mode)
+  (color-identifiers-mode)
+  (setq indent-tabs-mode nil)
+  (gp-setup-webdev-indent 2)
+  (setq js2-bounce-indent-p t)
+  (setq js2-use-font-lock-faces t)
+  (flycheck-add-mode 'javascript-eslint 'js2-mode)
+  (flycheck-select-checker 'javascript-eslint)
+
+  ;; we're using eslint for parsing, so js2-can shut up
+  (setq js2-show-parse-errors nil)
+  
+  ;; remove trailing whitespace
+  (add-hook 'local-write-file-hooks
+	    (lambda()
+	      (delete-trailing-whitespace)
+	      nil))
+  
+  ;; For Angular, enable M-x imenu for navigation
+  (eval-after-load 'web-mode
+    '(progn
+       ;; angular imenu
+       (add-to-list 'web-mode-imenu-regexp-list
+                    '(" \\(ng-[a-z]*\\)=\"\\([a-zA-Z0-9]*\\)" 1 2 "="))))
+
+  )
+
+(defun gp-tern-setup ()
+  ;; setup tern
+  ;; Don't forget to create a .tern-project file in the root of your javascript project
+  ;; http://ternjs.net/doc/manual.html#configuration
+  (add-hook 'js2-mode-hook (lambda () (gp-js2-mode-hook)))
+  (eval-after-load 'tern
+    '(progn
+       (require 'tern-auto-complete)
+       (tern-ac-setup)))
+
+  ;; function to kill ther tern process incase it stops responding
+  (defun delete-tern-process ()
+    (interactive)
+    (delete-process "Tern"))
+  )
+
+(defun gp-setup-webdev-indent (n)
   (setq coffee-tab-width n) ; coffeescript
   (setq javascript-indent-level n) ; javascript-mode
   (setq js-indent-level n) ; js-mode
@@ -24,7 +77,7 @@
   (setq css-indent-offset n) ; css-mode
   )
 
-(defun gp-setup-web-mode-auto-list ()
+(defun gp-setup-webdev-auto-list ()
   (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.jsp\\'" . web-mode))
@@ -34,11 +87,13 @@
   (add-to-list 'auto-mode-alist '("\\.hbs\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-  ;; Activate automatically for .jsx and .js files
-  (add-to-list 'auto-mode-alist '("\\.js[x]?\\'" . web-mode))
-
+  ;; Use web-mode for jsx files (mixed content)
+  (add-to-list 'auto-mode-alist '("\\.jsx?\\'" . web-mode))
   ;; Ensure web-mode uses the jsx content type for js files
-  (setq web-mode-content-types-alist '(("jsx" . "\\.js[x]?\\'")))
+  (setq web-mode-content-types-alist '(("jsx" . "\\.jsx?\\'")))
+  
+  (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+  (add-to-list 'auto-mode-alist '("\\.json\\'" . js2-mode))
   )
 
 ;; adjust indents for web-mode to 2 spaces
@@ -47,13 +102,12 @@
 
   ;; enable other modes that we need
   (subword-mode) ;; make things CamelCase aware
-;;  (js2-minor-mode) ;; use js2 for highlighting
+  ;;  (js2-minor-mode) ;; use js2 for highlighting
   (tern-mode) ;; use the tern server for refactoring and autocompletion
   (auto-complete-mode) ;; enable autocompleteion
-  (flycheck-mode) ;;enable syntax validation
 
   (setq indent-tabs-mode nil) ;; spaces instead of tabs
-  (gp-setup-web-mode-indent 2) ;; configure various indentation values
+  (gp-setup-webdev-indent 2) ;; configure various indentation values
 
   (setq web-mode-enable-css-colorization t)
 
@@ -70,53 +124,33 @@
 			'(javascript-jshint)))
 
   ;; enable eslint for flycheck when in web-mode
-  (if (equal web-mode-content-type "jsx")
-      (let ((flycheck-add-mode 'javascript-eslint 'web-mode))))
-
   (lambda ()
-            (when (equal web-mode-content-type "html")
-              ;; enable eslint flycheck
-              (flycheck-select-checker 'html-tidy)))
+    (when (equal web-mode-content-type "jsx")
+      (flycheck-select-checker 'javascript-eslint)))
+  
+  (lambda ()
+    (when (equal web-mode-content-type "html")
+      (flycheck-select-checker 'html-tidy)))
 
   ;; remove trailing whitespace
   (add-hook 'local-write-file-hooks
 	    (lambda()
 	      (delete-trailing-whitespace)
 	      nil))
-
-  ;; For Angular, enable M-x imenu for navigation
-  (eval-after-load 'web-mode
-  '(progn
-     ;; angular imenu
-     (add-to-list 'web-mode-imenu-regexp-list
-                  '(" \\(ng-[a-z]*\\)=\"\\([a-zA-Z0-9]*\\)" 1 2 "="))))
-
-  ;; setup tern
-  ;; Don't forget to create a .tern-project file in the root of your javascript project
-  ;; http://ternjs.net/doc/manual.html#configuration
-  (add-hook 'js-mode-hook (lambda () (tern-mode t)))
-  (eval-after-load 'tern
-    '(progn
-       (require 'tern-auto-complete)
-       (tern-ac-setup)))
-
-  ;; function to kill ther tern process incase it stops responding
-  (defun delete-tern-process ()
-    (interactive)
-    (delete-process "Tern"))
-  )
+  )  
 (add-hook 'web-mode-hook  'gp-web-mode-hook)
 
 
 ;; adjust indents for json-mode to 2 spaces
-(defun my-json-mode-hook ()
+(defun gp-json-mode-hook ()
   "hooks for json-mode."
   (make-local-variable 'js-indent-level)
   (setq js-indent-level 2))
 
 (add-hook 'json-mode-hook 'gp-json-mode-hook)
 
-(gp-setup-web-mode-auto-list)
+(gp-setup-webdev-auto-list)
+(gp-tern-setup)
 
 (provide 'init-webdev)
 ;;; init-jsx.el ends here.
