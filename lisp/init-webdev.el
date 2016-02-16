@@ -4,14 +4,12 @@
 ;;; autocomplete provided by tern.
 ;;; supports jsx
 
-(require-package 'flycheck)
 (require-package 'js2-mode)
 (require-package 'json-mode)
 (require-package 'web-mode)
 (require-package 'tern)
 (require-package 'tern-auto-complete)
 
-(require 'flycheck)
 (require 'web-mode)
 
 (defun gp-setup-web-mode-indent (n)
