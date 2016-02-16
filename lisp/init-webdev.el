@@ -1,14 +1,17 @@
 ;;; init-webdev --- Configure web-mode
+;;; Commentary:
 ;;; Currently sets up indentation and highlighting in web-mode
 ;;; Uses eslint, flycheck and js2 modes
 ;;; autocomplete provided by tern.
 ;;; supports jsx
 
+;;; Code:
 (require-package 'js2-mode)
 (require-package 'json-mode)
 (require-package 'web-mode)
 (require-package 'tern)
 (require-package 'tern-auto-complete)
+(require-package 'color-identifiers-mode)
 
 (require 'web-mode)
 
@@ -28,6 +31,8 @@
   (gp-setup-webdev-indent 2)
   (setq js2-bounce-indent-p t)
   (setq js2-use-font-lock-faces t)
+  (setq js2-highlight-external-variables nil)
+  (setq js2-mode-show-parse-errors nil)
   (flycheck-add-mode 'javascript-eslint 'js2-mode)
   (flycheck-select-checker 'javascript-eslint)
 
