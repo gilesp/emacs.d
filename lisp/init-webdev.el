@@ -14,6 +14,12 @@
 (require-package 'color-identifiers-mode)
 
 (require 'web-mode)
+(require 'js2-mode)
+(require 'json-mode)
+(require 'flycheck)
+(require 'tern)
+(require 'tern-auto-complete)
+(require 'color-identifiers-mode)
 
 ;; I need to use a combination of web-mode and js2-mode as web-mode
 ;; and eslint aren't compatible with each other I use web-mode for
@@ -23,6 +29,7 @@
 (setq-default js2-global-externs '("require"))
 
 (defun gp-js2-mode-hook ()
+  "Setup js2-mode as I like it."
   (tern-mode)
   (subword-mode)
   (auto-complete-mode)
@@ -30,14 +37,18 @@
   (setq indent-tabs-mode nil)
   (gp-setup-webdev-indent 2)
   (setq js2-bounce-indent-p t)
-  (setq js2-use-font-lock-faces t)
   (setq js2-highlight-external-variables nil)
   (setq js2-mode-show-parse-errors nil)
   (flycheck-add-mode 'javascript-eslint 'js2-mode)
   (flycheck-select-checker 'javascript-eslint)
+  (setq-default flycheck-disabled-checkers
+                (append flycheck-disabled-checkers '(json-jsonlist)))
+  (setq-default flycheck-disabled-checkers
+                (append flycheck-disabled-checkers '(javascript-jshint)))
+               
 
   ;; we're using eslint for parsing, so js2-can shut up
-  (setq js2-show-parse-errors nil)
+  (setq js2-mode-show-parse-errors nil)
   
   ;; remove trailing whitespace
   (add-hook 'local-write-file-hooks
@@ -55,9 +66,10 @@
   )
 
 (defun gp-tern-setup ()
-  ;; setup tern
-  ;; Don't forget to create a .tern-project file in the root of your javascript project
-  ;; http://ternjs.net/doc/manual.html#configuration
+  "Setup tern.
+Don't forget to create a .tern-project file in the root of your
+javascript project.
+http://ternjs.net/doc/manual.html#configuration"
   (add-hook 'js2-mode-hook (lambda () (gp-js2-mode-hook)))
   (eval-after-load 'tern
     '(progn
@@ -71,6 +83,7 @@
   )
 
 (defun gp-setup-webdev-indent (n)
+  "Set indentation for webdev related modes to N spaces."
   (setq coffee-tab-width n) ; coffeescript
   (setq javascript-indent-level n) ; javascript-mode
   (setq js-indent-level n) ; js-mode
@@ -83,6 +96,7 @@
   )
 
 (defun gp-setup-webdev-auto-list ()
+  "Configure file mode mapping for web-mode and js2-mode."
   (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.jsp\\'" . web-mode))
@@ -142,13 +156,13 @@
 	    (lambda()
 	      (delete-trailing-whitespace)
 	      nil))
-  )  
+  )
 (add-hook 'web-mode-hook  'gp-web-mode-hook)
 
 
 ;; adjust indents for json-mode to 2 spaces
 (defun gp-json-mode-hook ()
-  "hooks for json-mode."
+  "Hooks for json-mode."
   (make-local-variable 'js-indent-level)
   (setq js-indent-level 2))
 
@@ -158,4 +172,4 @@
 (gp-tern-setup)
 
 (provide 'init-webdev)
-;;; init-jsx.el ends here.
+;;; init-webdev.el ends here
