@@ -1,6 +1,9 @@
-;; Helm
-;; See http://tudo.github.io/helm-intro.html for more details
+;;; init-helm.el --- Configuration for Helm
 
+;;; Commentary:
+;;; See http://tudo.github.io/helm-intro.html for more details
+
+;;; Code:
 (require-package 'helm)
 (require-package 'helm-ls-git)
 (require-package 'helm-descbinds)
@@ -28,4 +31,11 @@
 (helm-mode 1)
 (helm-descbinds-mode)
 
+;; specify a readable selection
+(set-face-attribute 'helm-selection nil
+                    :background "goldenrod"
+                    :foreground "dark slate gray"
+                    :slant 'italic)
+
 (provide 'init-helm)
+;;; init-helm.el ends here
