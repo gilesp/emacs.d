@@ -48,8 +48,7 @@
                 (append flycheck-disabled-checkers '(json-jsonlist)))
   (setq-default flycheck-disabled-checkers
                 (append flycheck-disabled-checkers '(javascript-jshint)))
-               
-
+  
   ;; we're using eslint for parsing, so js2-can shut up
   (setq js2-mode-show-parse-errors nil)
   
@@ -63,12 +62,11 @@
     `origami-recursively-toggle-node)
   
   ;; For Angular, enable M-x imenu for navigation
-  (eval-after-load 'web-mode
+  (eval-after-load 'js2-mode
     '(progn
        ;; angular imenu
        (add-to-list 'web-mode-imenu-regexp-list
-                    '(" \\(ng-[a-z]*\\)=\"\\([a-zA-Z0-9]*\\)" 1 2 "="))))
-
+                    '(" \\(ng-[a-z]*\\)=\"\\([a-zA-Z0-9]*\\)" 1 2 "="))))  
   )
 
 (defun gp-tern-setup ()
@@ -119,7 +117,7 @@ http://ternjs.net/doc/manual.html#configuration"
   (setq web-mode-content-types-alist '(("jsx" . "\\.jsx?\\'")))
   
   (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-  (add-to-list 'auto-mode-alist '("\\.json\\'" . js2-mode))
+  (add-to-list 'auto-mode-alist '("\\.json\\'" . json-mode))
   )
 
 ;; adjust indents for web-mode to 2 spaces
