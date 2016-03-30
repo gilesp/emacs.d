@@ -12,6 +12,7 @@
 (require-package 'tern)
 (require-package 'tern-auto-complete)
 (require-package 'color-identifiers-mode)
+(require-package 'origami)
 
 (require 'web-mode)
 (require 'js2-mode)
@@ -20,11 +21,12 @@
 (require 'tern)
 (require 'tern-auto-complete)
 (require 'color-identifiers-mode)
+(require 'origami)
 
 ;; I need to use a combination of web-mode and js2-mode as web-mode
-;; and eslint aren't compatible with each other I use web-mode for
+;; and eslint aren't compatible with each other. I use web-mode for
 ;; html etc. and jsx files (which are mixed content) but js2-mode for
-;; pure javascript and json
+;; pure javascript. json-mode is used for JSON. Amazing.
 
 (setq-default js2-global-externs '("require"))
 
@@ -34,6 +36,7 @@
   (subword-mode)
   (auto-complete-mode)
   (color-identifiers-mode)
+  (origami-mode)
   (setq indent-tabs-mode nil)
   (gp-setup-webdev-indent 2)
   (setq js2-bounce-indent-p t)
@@ -55,6 +58,9 @@
 	    (lambda()
 	      (delete-trailing-whitespace)
 	      nil))
+
+  (define-key ctl-x-map "f"
+    `origami-recursively-toggle-node)
   
   ;; For Angular, enable M-x imenu for navigation
   (eval-after-load 'web-mode
