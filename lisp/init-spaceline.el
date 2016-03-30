@@ -1,9 +1,12 @@
-;; Spaceline
-;; see https://github.com/TheBB/spaceline
+;;; init-spaceline --- Configure spaceline mode
+;;; Commentary:
+;;; see https://github.com/TheBB/spaceline
 
+;;; Code:
 (require-package 'spaceline)
 
 (require 'spaceline-config)
-(spaceline-spacemacs-theme)
+(spaceline-emacs-theme)
 (spaceline-helm-mode t)
 (provide 'init-spaceline)
+;;; init-spaceline.el ends here
