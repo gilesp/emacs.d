@@ -1,9 +1,12 @@
-;;
-;; org-mode configuration
+;; init-org --- Configure Org Mode
+
+;;; Commentary:
 ;;
 ;; load org-mode from source
 ;; You first need to check it out from git (git://orgmode.org/org-mode.git)
 ;; and build it with "make uncompiled"
+
+;;; Code:
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/org-mode/lisp"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/org-mode/contrib/lisp"))
 
@@ -65,3 +68,4 @@
 (add-hook 'org-mode-hook 'gp-org-mode-hook)
 
 (provide 'init-org)
+;;; init-org.el ends here
