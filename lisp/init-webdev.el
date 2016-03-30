@@ -71,6 +71,7 @@ Don't forget to create a .tern-project file in the root of your
 javascript project.
 http://ternjs.net/doc/manual.html#configuration"
   (add-hook 'js2-mode-hook (lambda () (gp-js2-mode-hook)))
+  (add-hook 'js2-mode-hook (lambda () (abbrev-mode 1)))
   (eval-after-load 'tern
     '(progn
        (require 'tern-auto-complete)
@@ -170,6 +171,24 @@ http://ternjs.net/doc/manual.html#configuration"
 
 (gp-setup-webdev-auto-list)
 (gp-tern-setup)
+
+;;; Skeletons:
+;; define skeletons for javascript
+(define-skeleton gp-js2-skel-iife
+  "Insert IIFE block"
+  ""
+  >"(function () {"\n
+  >"\"use strict\";"\n
+  > _ \n
+  >"})();"\n)
+
+(define-skeleton gp-js2-skel-separator
+  "Insert comment separator"
+  ""
+  >"////////////"\n)
+
+(define-abbrev js2-mode-abbrev-table "iife" "" 'gp-js2-skel-iife)
+(define-abbrev js2-mode-abbrev-table "////" "" 'gp-js2-skel-separator)
 
 (provide 'init-webdev)
 ;;; init-webdev.el ends here
