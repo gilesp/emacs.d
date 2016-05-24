@@ -47,7 +47,10 @@
 (require 'init-duplicateline)
 (require 'init-browse-url-chrome)
 (require 'init-modeline)
-(require 'init-linenumbers)
+;; (require 'init-linenumbers)
+;; Do linum setup after a 1 second idle time after Emacs has loaded
+(use-package setup-linenumbers
+  :defer 1)
 (require 'init-zoom)
 (require 'init-spaceline)
 (require 'init-which-key)
