@@ -28,6 +28,9 @@
 ;; Enable auto reloading when files change (will prompt for confirmation)
 (global-auto-revert-mode t)
 
+;; Enable overwriting selected text
+(delete-selection-mode t)
+
 ;;-------------------------------------------------------------------------
 ;; Load any other configuration we require
 ;;
