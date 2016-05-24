@@ -1,6 +1,9 @@
-;; Magit
+;;; init-magit --- Configure magit
+
+;;; Commentary:
 ;; See http://magit.vc/
 
+;;; Code:
 (require-package 'magit)
 (require-package 'git-gutter)
 
@@ -14,3 +17,4 @@
 (global-git-gutter-mode t)
 
 (provide 'init-magit)
+;;; init-magit ends here
