@@ -10,7 +10,7 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/org-mode/lisp"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/org-mode/contrib/lisp"))
 
-(require 'org)
+;; (require 'org)
 
 ;; automatically use org mode for .org, .org_archive and .txt files
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
@@ -22,47 +22,22 @@
 ;; see the custom-file for the agenda files configuration
 ;; I'm setting it to use all files in a specified directory
 
+
 (defun gp-org-mode-hook ()
-  "org mode startup hook"
+  "Org mode startup hook."
   ;; Require markdown export mode
   (require 'ox-md nil t)
   ;; Require github flavoured markdown export mode
   (require 'ox-gfm)
   ;; Require html export mode
-  (require 'ox-html nil t)  
-  (turn-on-auto-fill)
-  ;; Word count
-  (defvar count-words-buffer
-    nil
-    "*Number of words in the buffer.")
-
-  (defun wicked/update-wc ()
-    (interactive)
-    (setq count-words-buffer (number-to-string (count-words-buffer)))
-    (force-mode-line-update))
+  (require 'ox-html nil t)
+  ;; Require OpenDocument Text export mode
+  (setq org-odt-schema-dir "~/.emacs.d/org-mode/etc/schema")
+  (setq org-odt-styles-dir "~/.emacs.d/org-mode/etc/styles")
   
-                                        ; only setup timer once
-  (unless count-words-buffer
-    ;; seed count-words-paragraph
-    ;; create timer to keep count-words-paragraph updated
-    (run-with-idle-timer 1 t 'wicked/update-wc))
-
-  ;; add count words paragraph the mode line
-  (unless (memq 'count-words-buffer global-mode-string)
-    (add-to-list 'global-mode-string "words: " t)
-    (add-to-list 'global-mode-string 'count-words-buffer t)) 
-
-  ;; count number of words in current paragraph
-  (defun count-words-buffer ()
-    "Count the number of words in the current paragraph."
-    (interactive)
-    (save-excursion
-      (goto-char (point-min))
-      (let ((count 0))
-        (while (not (eobp))
-          (forward-word 1)
-          (setq count (1+ count)))
-        count)))
+  (require 'ox-odt nil t)
+  
+  (turn-on-auto-fill)
   )
 
 (add-hook 'org-mode-hook 'gp-org-mode-hook)
