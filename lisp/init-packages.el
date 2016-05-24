@@ -1,3 +1,7 @@
+;;; init-packages --- utility functions to ensure packages are loaded
+
+;;; Commentary:
+;;; Code:
 (require 'package)
 
 ;; Setup package repositores
@@ -6,7 +10,7 @@
 
 ;; Utility function to load packages when required by other config files
 (defun require-package (package)
-  "Install given package"
+  "Ensure requested PACKAGE is installed."
   (if (package-installed-p package)
       t
     (progn
@@ -20,3 +24,4 @@
 (require 'cl-lib)
 
 (provide 'init-packages)
+;;; init-packages ends here

@@ -1,16 +1,20 @@
-;;
-;; This is the first thing emacs loads, so we can specify all our 
-;; customisations here however, it makes sense to use emacs' own 
+;;; init.el --- Load all the things!
+
+;;; Commentary:
+
+;; This is the first thing Emacs loads, so we can specify all our
+;; customisations here however, it makes sense to use Emacs' own
 ;; customisations functionality (which you can access with M-x customize)
-;; for stylistic customisations and use init.el for more complex stuff such 
+;; for stylistic customisations and use init.el for more complex stuff such
 ;; as keybindings or specific feature configurations
 ;;
 
-;; make the lisp directory available to easily load sub-files from
+;;; Code:
+;; make the Lisp directory available to easily load sub-files from
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
-;; Define a custom location for the file emacs uses to store customisations:
-;; Keep emacs Custom-settings in separate file
+;; Define a custom location for the file Emacs uses to store customisations:
+;; Keep Emacs Custom-settings in separate file
 (setq custom-file (expand-file-name "lisp/custom.el" user-emacs-directory))
 (when (file-exists-p custom-file)
   (load custom-file))
@@ -59,3 +63,5 @@
 (setq gilesp-local-file (expand-file-name gilesp-local-filename user-emacs-directory))
 (when (file-readable-p gilesp-local-file)
   (load-file gilesp-local-file))
+(provide 'init)
+;;; init.el ends here
