@@ -42,6 +42,7 @@
 (require 'init-server)
 (require 'init-packages)
 
+(require 'init-exec-path-from-shell)
 (require 'init-flycheck)
 (require 'init-theme)
 (require 'init-org)
