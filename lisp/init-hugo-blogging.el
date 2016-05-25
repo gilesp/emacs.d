@@ -37,6 +37,8 @@ Return output file name."
          :publishing-directory "~/Documents/vurtcouk/content/"
          :recursive t
          :publishing-function gp-org-gfm-publish-to-md
+         :headline-levels 3
+         :body-only t
          )
 
         ;; ("gp-blog" :components ("org-gilesp-blog"))
