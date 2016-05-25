@@ -42,7 +42,7 @@
 (require 'init-server)
 (require 'init-packages)
 
-(require 'init-exec-path-from-shell)
+;; (require 'init-exec-path-from-shell)
 (require 'init-flycheck)
 (require 'init-theme)
 (require 'init-org)
@@ -51,16 +51,14 @@
 (require 'init-duplicateline)
 (require 'init-browse-url-chrome)
 (require 'init-modeline)
-;; (require 'init-linenumbers)
-;; Do linum setup after a 1 second idle time after Emacs has loaded
-(use-package setup-linenumbers
-  :defer 1)
+
 (require 'init-zoom)
 (require 'init-spaceline)
 (require 'init-which-key)
 (require 'init-neotree)
 (require 'init-magit)
 (require 'init-hugo-blogging)
+(require 'init-linenumbers)
 ;; (require 'init-google-this)
 
 ;; load machine specific init file
@@ -70,5 +68,6 @@
 (setq gilesp-local-file (expand-file-name gilesp-local-filename user-emacs-directory))
 (when (file-readable-p gilesp-local-file)
   (load-file gilesp-local-file))
+
 (provide 'init)
 ;;; init.el ends here

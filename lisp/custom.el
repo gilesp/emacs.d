@@ -13,6 +13,9 @@
  '(indicate-buffer-boundaries (quote right))
  '(indicate-empty-lines t)
  '(inhibit-startup-screen t)
+ '(magit-process-password-prompt-regexps
+   (quote
+    ("^\\(Enter \\)?[Pp]assphrase\\( for \\(RSA \\)?key '.*'\\)?: ?$" "^\\(Enter \\)?[Pp]assword\\( for '\\(?99:.*\\)'\\)?: ?$" "^.*'s password: ?$" "^Yubikey for .*: ?$" "^Enter PIN for '.*': ?$")))
  '(make-backup-files t)
  '(mouse-wheel-progressive-speed nil)
  '(org-agenda-files (quote ("~/Documents/org")))
