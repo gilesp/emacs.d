@@ -60,6 +60,7 @@
 (require 'init-neotree)
 (require 'init-magit)
 (require 'init-hugo-blogging)
+(require 'init-yasnippet)
 
 ;; (require 'init-google-this)
 
