@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: js2-iife
+# key: iife
+# --
+(function () {
+  "use strict"
+  $0
+})
