@@ -1,5 +1,9 @@
+;;; init-hugo-blogging --- Setup orgmode to publish markdown for my blog
+
+;;; Commentary:
 ;; Functionality to support blogging with org mode and hugo
 
+;;; Code:
 (require-package 'toml-mode)
 
 (add-to-list 'auto-mode-alist '("\\.toml\\'" . toml-mode))
@@ -17,9 +21,9 @@
 (defun gp-org-gfm-publish-to-md (plist filename pub-dir)
   "Publish an org file to Github Flavoured Markdown.
 
-FILENAME is the filename of the Org file to be published.  PLIST
-is the property list for the given project.  PUB-DIR is the
-publishing directory.
+PLIST is the property list for the given project.
+FILENAME is the filename of the Org file to be published.
+PUB-DIR is the publishing directory.
 
 Return output file name."
   (org-publish-org-to 'gfm filename ".md" plist pub-dir))
@@ -40,37 +44,8 @@ Return output file name."
          :headline-levels 3
          :body-only t
          )
-
         ;; ("gp-blog" :components ("org-gilesp-blog"))
         ))
 
-
-;; Abbreviations useful for hugo blogging
-
-;; enable abbrev-mode when in org-mode
-(add-hook 'org-mode-hook (lambda () (abbrev-mode 1)))
-
-(define-skeleton skel-org-block-src
-  "Insert a src block"
-  ""
-  "#+BEGIN_SRC \n"
-  _ - \n
-  "#+END_SRC\n")
-
-(define-abbrev org-mode-abbrev-table "src" "" 'skel-org-block-src)
-
-(define-skeleton skel-org-blog-frontmatter
-  "Insert hugo frontmatter"
-  "title:"
-  "#+BEGIN_EXPORT md\n"
-  "+++\n"
-  "title = \"" str "\"\n"
-  "description = \""_"\"\n"
-  "date = \n"
-  "tags = []\n"
-  "+++\n"
-  "#+END_EXPORT\n")
-
-(define-abbrev org-mode-abbrev-table "hugofront" "" 'skel-org-blog-frontmatter)
-  
 (provide 'init-hugo-blogging)
+;;; init-hugo-blogging ends here
