@@ -42,6 +42,8 @@
 (require 'init-server)
 (require 'init-packages)
 
+(require 'init-linenumbers)
+
 ;; (require 'init-exec-path-from-shell)
 (require 'init-flycheck)
 (require 'init-theme)
@@ -58,7 +60,7 @@
 (require 'init-neotree)
 (require 'init-magit)
 (require 'init-hugo-blogging)
-(require 'init-linenumbers)
+
 ;; (require 'init-google-this)
 
 ;; load machine specific init file

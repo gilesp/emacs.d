@@ -1,30 +1,32 @@
-;;; init-linenumbers --- Sets up nlinum
+;;; init-linenumbers --- Sets up linum
 
 ;;; Commentary:
 ;;; Configure line numbering globally (I work with code more than plain text)
 
 ;;; Code:
-(require-package 'nlinum)
-;; smart width for line numbers
-;;(setq nlinum-format "%d")
+(require-package 'linum)
 
-;; Preset width nlinum
-(add-hook 'nlinum-mode-hook
-          (lambda ()
-            (when nlinum-mode
-              (setq nlinum--width
-                    ;; works with the default `nlinum-format'
-                    (length (number-to-string
-                             (count-lines (point-min) (point-max)))))
-              ;; use this instead if your `nlinum-format' has one space
-              ;; (or other character) after the number
-              ;;(1+ (length (number-to-string
-              ;;             (count-lines (point-min) (point-max)))))
-              (nlinum--flush))))
+(defun linum-format-func (line)
+  "Align linum LINE number to the right."
+  (let ((w (length (number-to-string (count-lines (point-min) (point-max))))))
+    (propertize (format (format "%%%dd " w) line) 'face 'linum)))
 
-;; enable line numbers mode
-(require 'nlinum)
-(global-nlinum-mode 1)
+(setq linum-format 'linum-format-func)
+;;(setq linum-format "%d ")
+
+(defun linum-update-window-scale-fix (win)
+  "Fix linum spacing for WIN scaled text."
+  (set-window-margins win
+		      (ceiling (* (if (boundp 'text-scale-mode-step)
+				      (expt text-scale-mode-step
+					    text-scale-mode-amount) 1)
+				  (if (car (window-margins))
+				      (car (window-margins)) 1)
+				  ))))
+(advice-add #'linum-update-window :after #'linum-update-window-scale-fix)
+
+(global-linum-mode t)
+
 
 (provide 'init-linenumbers)
 ;;; init-linenumbers.el ends here
