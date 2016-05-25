@@ -7,16 +7,24 @@
 (require-package 'helm)
 (require-package 'helm-ls-git)
 (require-package 'helm-descbinds)
+(require-package 'helm-git-grep)
 (require 'helm)
 (require 'helm-config)
 (require 'helm-ls-git)
 (require 'helm-descbinds)
+(require 'helm-git-grep)
 
 ;; Key Bindings
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "C-x b") 'helm-mini)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "C-x C-d") 'helm-browse-project)
+(global-set-key (kbd "C-c g") 'helm-git-grep)
+;; Invoke `helm-git-grep' from isearch.
+(define-key isearch-mode-map (kbd "C-c g") 'helm-git-grep-from-isearch)
+;; Invoke `helm-git-grep' from other helm.
+(eval-after-load 'helm
+  '(define-key helm-map (kbd "C-c g") 'helm-git-grep-from-helm))
 
 ;; fuzzy matching for helm-mini
 (setq helm-buffers-fuzzy-matching t
