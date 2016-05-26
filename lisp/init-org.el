@@ -7,6 +7,9 @@
 ;; and build it with "make uncompiled"
 
 ;;; Code:
+
+(require-package 'org-bullets)
+
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/org-mode/lisp"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/org-mode/contrib/lisp"))
 
@@ -38,6 +41,17 @@
   (require 'ox-odt nil t)
   
   (turn-on-auto-fill)
+
+  (setq org-hide-emphasis-markers t)
+
+  (font-lock-add-keywords 'org-mode
+                          '(("^ +\\([-*]\\) "
+                             (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+
+
+  (require 'org-bullets)
+  (org-bullets-mode 1)
+
   )
 
 (add-hook 'org-mode-hook 'gp-org-mode-hook)
