@@ -3,6 +3,6 @@
 # key: iife
 # --
 (function () {
-  "use strict"
+  "use strict";
   $0
-})
+})();
