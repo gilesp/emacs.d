@@ -28,5 +28,6 @@
         "^Yubikey for .*: ?$"
         "^Enter PIN for '.*': ?$"))
 
+(setq git-commit-summary-max-length 80)
 (provide 'init-magit)
 ;;; init-magit ends here
