@@ -37,13 +37,16 @@
   ;; Require OpenDocument Text export mode
   (setq org-odt-schema-dir "~/.emacs.d/org-mode/etc/schema")
   (setq org-odt-styles-dir "~/.emacs.d/org-mode/etc/styles")
-  
   (require 'ox-odt nil t)
   
   (turn-on-auto-fill)
 
+  ;; actually emphasise text (e.g. show as italic instead of /italic/)
   (setq org-hide-emphasis-markers t)
 
+  (setq org-src-fontify-natively t)
+
+  ;; replace list indicators with bullet points
   (font-lock-add-keywords 'org-mode
                           '(("^ +\\([-*]\\) "
                              (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
@@ -52,9 +55,30 @@
   (require 'org-bullets)
   (org-bullets-mode 1)
 
+  ;;set variable pitch font for org, but keep fixed width for code etc.
+  (variable-pitch-mode t)
+  (setq line-spacing 3)
   )
 
 (add-hook 'org-mode-hook 'gp-org-mode-hook)
+
+(defun gp-adjoin-to-list-or-symbol (element list-or-symbol)
+  (let ((list (if (not (listp list-or-symbol))
+                  (list list-or-symbol)
+                list-or-symbol)))
+    (require 'cl-lib)
+    (cl-adjoin element list)))
+
+(eval-after-load "org"
+  '(mapc
+    (lambda (face)
+      (set-face-attribute
+       face nil
+       :inherit
+       (gp-adjoin-to-list-or-symbol
+        'fixed-pitch
+        (face-attribute face :inherit))))
+    (list 'org-code 'org-block 'org-block-begin-line 'org-block-end-line 'org-verbatim 'org-macro 'org-table)))
 
 (provide 'init-org)
 ;;; init-org.el ends here
