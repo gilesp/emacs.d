@@ -53,7 +53,7 @@
 (require 'init-duplicateline)
 (require 'init-browse-url-chrome)
 (require 'init-modeline)
-
+(require 'init-markdown)
 (require 'init-zoom)
 (require 'init-spaceline)
 (require 'init-which-key)
