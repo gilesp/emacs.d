@@ -13,6 +13,7 @@
 (require-package 'tern-auto-complete)
 (require-package 'color-identifiers-mode)
 (require-package 'origami)
+(require-package 'sass-mode)
 
 (require 'web-mode)
 (require 'js2-mode)
@@ -22,6 +23,7 @@
 (require 'tern-auto-complete)
 (require 'color-identifiers-mode)
 (require 'origami)
+(require 'sass-mode)
 
 ;; I need to use a combination of web-mode and js2-mode as web-mode
 ;; and eslint aren't compatible with each other. I use web-mode for
@@ -97,6 +99,7 @@ http://ternjs.net/doc/manual.html#configuration"
   (setq web-mode-css-indent-offset n) ; web-mode, css in html file
   (setq web-mode-code-indent-offset n) ; web-mode, js code in html file
   (setq css-indent-offset n) ; css-mode
+  (setq sass-indent-ffset n) ; sass-mode
   )
 
 (defun gp-setup-webdev-auto-list ()
@@ -117,6 +120,7 @@ http://ternjs.net/doc/manual.html#configuration"
   
   (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
   (add-to-list 'auto-mode-alist '("\\.json\\'" . json-mode))
+  (add-to-list 'auto-mode-alist '("\\.scss\\'" . sass-mode))
   )
 
 ;; adjust indents for web-mode to 2 spaces
