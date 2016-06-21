@@ -1,3 +1,8 @@
 /elpa
 /org-mode
 /node_modules
+/auto-save-list
+bookmarks
+session.*
+tramp
+recentf
