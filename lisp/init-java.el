@@ -1,42 +1,54 @@
-;; Java development configuration
+;; init-java.el --- Java development configuration
+
+;;; Commentary:
 ;; Makes use of Eclipse and Eclim
 
 ;; Make sure you have installed Eclipse locally.
 ;; Make sure you have installed eclim (http://eclim.org/install.html) locally.
+
+;; Or make use of my handy-dandy eclimd docker image, available at
+;; https://github.com/gilesp/docker/tree/master/eclimd
+
+;;; Code:
 (require-package 'emacs-eclim)
 (require-package 'company)
-
-;; Variables
-(setq eclim-auto-save t
-      eclim-eclipse-dirs "/home/giles/software/eclipse"
-      eclim-executable "/home/giles/software/eclipse/eclim"
-      eclimd-default-workspace "home/giles/projects/eclipse/workspace"
-      help-at-pt-display-when-idle t
-      help-at-pt-timer-delay 0.1
-      )
+(require-package 'color-identifiers-mode)
 
 (require 'eclim)
-(require 'eclimd)
-(global-eclim-mode)
+(require 'company)
+(require 'company-emacs-eclim)
+(require 'color-identifiers-mode)
 
-(defun my-java-mode-hook ()
+;; Variables
+(setq eclim-executable "/home/giles/bin/eclim")
+(setq eclim-auto-save t)
+(setq help-at-pt-display-when-idle t)
+(setq help-at-pt-timer-delay 0.1)
+(help-at-pt-set-timer)
+
+(global-eclim-mode)
+(company-emacs-eclim-setup)
+(global-company-mode t)
+
+(defun gp-java-mode-hook ()
+  (company-mode)
+  (color-identifiers-mode)
   ;; auto complete
-  (company-eclim)
   ;; key-bindings
   (define-key eclim-mode-map (kbd "C-c C-n") 'eclim-problems-next-same-window)
   (define-key eclim-mode-map (kbd "C-c C-p")  'eclim-problems-previous-same-window)
   
 ;;  (eclim-mode)
-;;  (auto-fill-mode)
+  (auto-fill-mode)
   ;;  (gtags-mode)
   ;;  (flyspell-prog-mode)
   ;;  (flymake-mode)
 ;;  (eclim-mode)
-;;  (subword-mode)
-;;  (yas-minor-mode)
-;;  (smartscan-mode)
-;;  (idle-highlight-mode)
-;;  (help-at-pt-set-timer)
+  (subword-mode)
+  (yas-minor-mode)
+  ;; (smartscan-mode)
+  ;; (idle-highlight-mode)
+  (help-at-pt-set-timer)
   
 ;;  (define-key c-mode-base-map (kbd "<f2>") 'eclim-problems)
 ;;  (define-key c-mode-base-map (kbd "M-m") 'eclim-java-find-declaration)
@@ -65,7 +77,7 @@
   ;; Indent arguments on the next line as indented body.
   (c-set-offset 'arglist-intro '+))
 
-(add-hook 'java-mode-hook 'my-java-mode-hook)
+(add-hook 'java-mode-hook 'gp-java-mode-hook)
 
 
 (provide 'init-java)
