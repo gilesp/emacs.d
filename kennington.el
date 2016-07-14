@@ -4,4 +4,5 @@
 (require 'init-slack)
 (require 'init-webdev)
 (require 'init-swift)
-;; (require 'init-java)
+(require 'init-java)
+(require 'init-mu4e)
