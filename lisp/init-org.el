@@ -19,12 +19,18 @@
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
 
 ;; standard key bindings
-(global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-ca" 'org-agenda)
-(global-set-key "\C-cb" 'org-iswitchb)
 ;; see the custom-file for the agenda files configuration
 ;; I'm setting it to use all files in a specified directory
 
+;; capture todo items using C-c c t
+(define-key global-map (kbd "C-c c") 'org-capture)
+(setq org-capture-templates
+      '(("t" "todo" entry (file+headline "todo.org" "Tasks")
+         "* TODO [#B] %?")))
+
+(setq org-mobile-directory "~/Documents/Dropbox/org/mobile")
+(setq org-mobile-inbox-for-pull "~/Documents/Dropbox/org/mobilesinbox.org")
 
 (defun gp-org-mode-hook ()
   "Org mode startup hook."
@@ -44,6 +50,7 @@
   ;; actually emphasise text (e.g. show as italic instead of /italic/)
   (setq org-hide-emphasis-markers t)
 
+  ;; syntax highlight code blocks
   (setq org-src-fontify-natively t)
 
   ;; replace list indicators with bullet points

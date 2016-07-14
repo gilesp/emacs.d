@@ -18,7 +18,9 @@
     ("^\\(Enter \\)?[Pp]assphrase\\( for \\(RSA \\)?key '.*'\\)?: ?$" "^\\(Enter \\)?[Pp]assword\\( for '\\(?99:.*\\)'\\)?: ?$" "^.*'s password: ?$" "^Yubikey for .*: ?$" "^Enter PIN for '.*': ?$")))
  '(make-backup-files t)
  '(mouse-wheel-progressive-speed nil)
- '(org-agenda-files (quote ("~/Documents/org")))
+ '(org-agenda-files (quote ("todo.org")))
+ '(org-agenda-window-setup (quote current-window))
+ '(org-directory "~/Documents/Dropbox/org")
  '(org-todo-keyword-faces
    (quote
     (("DONE" . success)
@@ -42,4 +44,5 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "Inconsolata" :foundry "unknown" :slant normal :weight normal :height 128 :width normal))))
+ '(italic ((t (:slant italic))))
  '(linum ((t (:background "#3f3f3f" :foreground "#636363" :height 0.9)))))
