@@ -65,6 +65,9 @@
   ;;set variable pitch font for org, but keep fixed width for code etc.
   (variable-pitch-mode t)
   (setq line-spacing 3)
+
+  ;; disable linum
+  (linum-mode -1)
   )
 
 (add-hook 'org-mode-hook 'gp-org-mode-hook)

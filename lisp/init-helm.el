@@ -45,5 +45,11 @@
                     :foreground "dark slate gray"
                     :slant 'italic)
 
+;; Disable line numbers in helm buffers
+(when linum-mode
+  (add-hook 'helm-after-initialize-hook (lambda ()
+                                          (with-helm-buffer
+                                            (linum-mode 0)))))
+
 (provide 'init-helm)
 ;;; init-helm.el ends here
