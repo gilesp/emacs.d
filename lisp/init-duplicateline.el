@@ -1,5 +1,8 @@
+;;; init-duplicateline --- Adds functionality to duplicate a line
+;;; Commentary:
+;;; Code:
 (defun duplicate-line (arg)
-  "Duplicate current line, leaving point in lower line."
+  "Duplicate current line ARG, leaving point in lower line."
   (interactive "*p")
 
   ;; save the point for undo
@@ -36,3 +39,4 @@
 (global-set-key (kbd "C-d") 'duplicate-line)
 
 (provide 'init-duplicateline)
+;;; init-duplicateline.el ends here
