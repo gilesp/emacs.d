@@ -6,14 +6,14 @@
 ;;; Code:
 (require-package 'toml-mode)
 
-(add-to-list 'auto-mode-alist '("\\.toml\\'" . toml-mode))
+(use-package toml-mode
+  :mode "\\.toml\\'")
 
 ;; function to insert ISO8601 timestamp
 (defun insert-timestamp ()
   "Insert the current time at point, as an ISO8601 timestamp."
   (interactive)
   (insert (format-time-string "%Y-%m-%dT%TZ")))
-
 
 ;; org publish method that will use github flavoured markdown (prodived by ox-gfm)
 ;; rather than plain markdown
