@@ -18,6 +18,8 @@
 
 ;; make the Lisp directory available to easily load sub-files from
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+;; to avoid flycheck warnings when requiring files, inherit load-path
+(setq-default flycheck-emacs-lisp-load-path 'inherit)
 
 ;; Define a custom location for the file Emacs uses to store customisations:
 ;; Keep Emacs Custom-settings in separate file
