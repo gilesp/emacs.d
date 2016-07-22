@@ -1,12 +1,16 @@
+;;; init-autocorrect --- configures autocorrection of spelling mistakes
+
+;;; Commentary:
 ;; Autocorrect spelling mistakes
 ;; Taken from http://endlessparentheses.com/ispell-and-abbrev-the-perfect-auto-correct.html
 
+;;; Code:
 (define-key ctl-x-map "\C-i"
-  `endless/ispell-word-then-abbrev)
+  `gp-ispell-word-then-abbrev)
 
-(defun endless/ispell-word-then-abbrev (p)
+(defun gp-ispell-word-then-abbrev (p)
   "Call `ispell-word', then create an abbrev for it.
-With prefix P, create local abbrev. Otherwise it will
+With prefix P, create local abbrev.  Otherwise it will
 be global."
   (interactive "P")
   (let (bef aft)
@@ -29,3 +33,4 @@ be global."
 (setq-default abbrev-mode t)
 
 (provide 'init-autocorrect)
+;;; init-autocorrect.el ends here
