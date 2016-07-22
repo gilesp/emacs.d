@@ -15,7 +15,7 @@
 
 ;; Utility function to load packages when required by other config files
 (defun require-package (package)
-  "DEPRECATED - Ensure requested PACKAGE is installed."
+  "Ensure requested PACKAGE is installed."
   (if (package-installed-p package)
       t
     (progn
