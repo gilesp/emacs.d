@@ -1,4 +1,12 @@
-(add-to-list 'load-path (expand-file-name "lisp/dockerfile-mode" user-emacs-directory))
-(require 'dockerfile-mode)
-(add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
+;;; init-dockerfile-mode --- Load and configure dockerfile-mode
+;;; Commentary:
+;; Load and configure dockerfile-mode
+
+;;; Code:
+(require-package 'dockerfile-mode)
+
+(use-package dockerfile-mode
+  :mode "Dockerfile\\'")
+
 (provide 'init-dockerfile-mode)
+;;; init-dockerfile-mode.el ends here
