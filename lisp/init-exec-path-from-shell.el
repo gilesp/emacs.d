@@ -9,4 +9,4 @@
 (exec-path-from-shell-copy-env "SSH_AUTH_SOCK")
 
 (provide 'init-exec-path-from-shell)
-;;; init-exec-path-from-shell ends here
+;;; init-exec-path-from-shell.el ends here
