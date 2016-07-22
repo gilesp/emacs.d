@@ -4,13 +4,12 @@
 ;;; Configure line numbering globally (I work with code more than plain text)
 
 ;;; Code:
-(require-package 'linum)
-
 (defun linum-format-func (line)
   "Align linum LINE number to the right."
   (let ((w (length (number-to-string (count-lines (point-min) (point-max))))))
     (propertize (format (format "%%%dd " w) line) 'face 'linum)))
 
+(defvar linum-format)
 (setq linum-format 'linum-format-func)
 ;;(setq linum-format "%d ")
 
@@ -26,7 +25,6 @@
 (advice-add #'linum-update-window :after #'linum-update-window-scale-fix)
 
 (global-linum-mode t)
-
 
 (provide 'init-linenumbers)
 ;;; init-linenumbers.el ends here
