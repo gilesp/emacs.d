@@ -12,7 +12,6 @@
 
 (package-initialize)
 
-
 ;; Utility function to load packages when required by other config files
 (defun require-package (package)
   "Ensure requested PACKAGE is installed."
@@ -24,6 +23,8 @@
 
 ;; Bootstrap use-package
 (require-package 'use-package)
+;; makesure use-package auto install packages
+(setq use-package-always-ensure t)
 
 ;; Enable use of common lisp functions
 ;;(require-package 'cl-lib)

@@ -3,8 +3,6 @@
 ;; Load and configure dockerfile-mode
 
 ;;; Code:
-(require-package 'dockerfile-mode)
-
 (use-package dockerfile-mode
   :mode "Dockerfile\\'")
 

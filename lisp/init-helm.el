@@ -4,11 +4,6 @@
 ;;; See http://tudo.github.io/helm-intro.html for more details
 
 ;;; Code:
-(require-package 'helm)
-(require-package 'helm-ls-git)
-(require-package 'helm-descbinds)
-(require-package 'helm-git-grep)
-
 (use-package helm
   :diminish helm-mode
   :init

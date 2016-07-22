@@ -4,8 +4,6 @@
 ;; Functionality to support blogging with org mode and hugo
 
 ;;; Code:
-(require-package 'toml-mode)
-
 (use-package toml-mode
   :mode "\\.toml\\'")
 
