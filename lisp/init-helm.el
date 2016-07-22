@@ -8,48 +8,65 @@
 (require-package 'helm-ls-git)
 (require-package 'helm-descbinds)
 (require-package 'helm-git-grep)
-(require 'helm)
-(require 'helm-config)
-(require 'helm-ls-git)
-(require 'helm-descbinds)
-(require 'helm-git-grep)
 
-;; Key Bindings
-(global-set-key (kbd "M-x") 'helm-M-x)
-(global-set-key (kbd "C-x b") 'helm-mini)
-(global-set-key (kbd "C-x C-f") 'helm-find-files)
-(global-set-key (kbd "C-x C-d") 'helm-browse-project)
-(global-set-key (kbd "C-c g") 'helm-git-grep)
-;; Invoke `helm-git-grep' from isearch.
-(define-key isearch-mode-map (kbd "C-c g") 'helm-git-grep-from-isearch)
-;; Invoke `helm-git-grep' from other helm.
-(eval-after-load 'helm
-  '(define-key helm-map (kbd "C-c g") 'helm-git-grep-from-helm))
+(use-package helm
+  :diminish helm-mode
+  :init
+  (progn
+    (require 'helm-config)
+    (require 'helm-ls-git)
+    (require 'helm-git-grep)
 
-;; fuzzy matching for helm-mini
-(setq helm-buffers-fuzzy-matching t
-      helm-recentf-fuzzy-match t)
+    (setq helm-idle-delay 0.01
+          helm-input-idle-delay 0.01
+          helm-M-x-requires-pattern nil
+          helm-ff-skip-boring-files t
+          helm-buffers-fuzzy-matching t
+          helm-recentf-fuzzy-match t
+          helm-apropos-fuzzy-match t
+          )
+    
+    (helm-mode))
+  :config
+  (progn
+    (helm-autoresize-mode)
+    (set-face-attribute 'helm-selection nil
+                        :background "goldenrod"
+                        :foreground "dark slate gray"
+                        :slant 'italic)
+    ;; Disable line numbers in helm buffers
+    (when linum-mode
+      (add-hook 'helm-after-initialize-hook (lambda ()
+                                              (with-helm-buffer
+                                                (linum-mode 0))))))
+  :bind (("M-x" . helm-M-x)
+         ("C-x C-b" . helm-buffers-list)
+         ("C-x b" . helm-mini)
+         ("C-x C-f" . helm-find-files)
+         ("C-x C-d" . helm-browse-project)
+         ("M-y" . helm-show-kill-ring)
+         ))
 
-;; fuzzy matching for helm-apropos
-;; C-x c a
-(setq helm-apropos-fuzzy-match t)
+(use-package helm-descbinds
+  :defer t
+  :init
+  (progn
+    (helm-descbinds-mode t))
+  :bind (("C-h b" . helm-descbinds)
+         ("C-h w" . helm-descbinds)))
 
-;; resize the helm buffer automatically
-(helm-autoresize-mode t)
-(helm-mode 1)
-(helm-descbinds-mode)
+(use-package helm-ls-git
+  :defer t
+  :config
+  (progn
+    (setq helm-ls-git-status-command 'magit-status-internal)))
 
-;; specify a readable selection
-(set-face-attribute 'helm-selection nil
-                    :background "goldenrod"
-                    :foreground "dark slate gray"
-                    :slant 'italic)
-
-;; Disable line numbers in helm buffers
-(when linum-mode
-  (add-hook 'helm-after-initialize-hook (lambda ()
-                                          (with-helm-buffer
-                                            (linum-mode 0)))))
+(use-package helm-git-grep
+  :defer t
+  :bind (("C-x C-g" . helm-git-grep)
+         ("C-c g" . helm-git-grep-from-helm)
+         :map isearch-mode-map
+         ("C-c g" . helm-git-grep-from-isearch)))
 
 (provide 'init-helm)
 ;;; init-helm.el ends here
