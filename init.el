@@ -75,8 +75,8 @@
 ;; load machine specific init file
 ;; it looks for a file names <hostname>.el and loads it if present
 ;; use it for require-ing different configs for each machine you use
-(setq gilesp-local-filename (concat system-name ".el"))
-(setq gilesp-local-file (expand-file-name gilesp-local-filename user-emacs-directory))
+(defvar gilesp-local-filename (concat system-name ".el"))
+(defvar gilesp-local-file (expand-file-name gilesp-local-filename user-emacs-directory))
 (when (file-readable-p gilesp-local-file)
   (load-file gilesp-local-file))
 
