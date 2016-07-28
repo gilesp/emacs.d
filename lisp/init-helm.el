@@ -12,8 +12,10 @@
     (require 'helm-ls-git)
     (require 'helm-git-grep)
 
-    (setq helm-idle-delay 0.01
+    (setq helm-candidate-number-limit 100
+          helm-idle-delay 0.01
           helm-input-idle-delay 0.01
+          helm-yas-display-key-on-candidate t
           helm-M-x-requires-pattern nil
           helm-ff-skip-boring-files t
           helm-buffers-fuzzy-matching t
@@ -39,6 +41,8 @@
          ("C-x b" . helm-mini)
          ("C-x C-f" . helm-find-files)
          ("C-x C-d" . helm-browse-project)
+         ("C-x c o" . helm-occur)
+         ("C-h a" . helm-apropos)
          ("M-y" . helm-show-kill-ring)
          ))
 
