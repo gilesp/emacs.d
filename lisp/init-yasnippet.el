@@ -3,17 +3,19 @@
 ;;; By default, yasnippet will look for snippets in ~/.emacs.d/snippets
 
 ;;; Code:
-(require-package 'yasnippet)
 
-;; enable this if you want to also look for snippets in a particular directory
-;;(setq yas-snippet-dirs (append yas-snippet-dirs
-;;                               '("~/Downloads/interesting-snippets")))
+(use-package yasnippet
+  :diminsh yas-minor-mode
+  :init (yas-global-mode)
+  :config
+  (progn
+    (yas-global-mode)
+    (add-hook 'hippie-expand-try-functions-list 'yas-hippie-try-expand)
+    (setq yas-expand-only-for-last-commands nil)
+    (bind-key "\t" 'hippie-expand yas-minor-mode-map)
+    (add-to-list 'yas-prompt-functions 'gp/yas-helm-prompt)))
 
-(require 'yasnippet)
-
-(message "required yasnippet")
-
-(defun gp-yas-helm-prompt (prompt choices &optional display-fn)
+(defun gp/yas-helm-prompt (prompt choices &optional display-fn)
   "Use helm to select a snippet.
 Put this into `yas-prompt-functions.'"
   (interactive)
@@ -34,10 +36,5 @@ Put this into `yas-prompt-functions.'"
           (cdr (assoc result rmap))))
     nil))
 
-(setq yas-prompt-functions (append yas-prompt-functions '(gp-yas-helm-prompt)))
-
-(yas-global-mode 1)
-(message "yas-global-mode enabled")
 (provide 'init-yasnippet)
-(message "init-yasnippet done.")
 ;;; init-yasnippet ends here
