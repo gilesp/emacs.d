@@ -30,9 +30,6 @@
       '(("t" "todo" entry (file+headline "todo.org" "Tasks")
          "* TODO [#B] %?")))
 
-(setq org-mobile-directory "~/Documents/Dropbox/org/mobile")
-(setq org-mobile-inbox-for-pull "~/Documents/Dropbox/org/mobilesinbox.org")
-
 (defun gp-org-mode-hook ()
   "Org mode startup hook."
   ;; Require markdown export mode
