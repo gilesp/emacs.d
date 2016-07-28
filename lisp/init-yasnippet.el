@@ -5,7 +5,7 @@
 ;;; Code:
 
 (use-package yasnippet
-  :diminsh yas-minor-mode
+  :diminish yas-minor-mode
   :init (yas-global-mode)
   :config
   (progn
