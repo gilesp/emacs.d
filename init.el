@@ -34,6 +34,9 @@
 ;; Enable overwriting selected text
 (delete-selection-mode t)
 
+;; y or n instead of yes or no.
+(fset 'yes-or-no-p 'y-or-n-p)
+
 ;;-------------------------------------------------------------------------
 ;; Load any other configuration we require
 ;;
@@ -44,7 +47,7 @@
 
 (require 'init-server)
 (require 'init-packages)
-
+(require 'init-editing)
 (require 'init-linenumbers)
 
 ;; (require 'init-exec-path-from-shell)
