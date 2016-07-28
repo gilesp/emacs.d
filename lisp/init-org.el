@@ -9,6 +9,7 @@
 ;;; Code:
 
 (require-package 'org-bullets)
+(require-package 'writegood-mode)
 
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/org-mode/lisp"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/org-mode/contrib/lisp"))
@@ -44,6 +45,12 @@
   (setq org-odt-schema-dir "~/.emacs.d/org-mode/etc/schema")
   (setq org-odt-styles-dir "~/.emacs.d/org-mode/etc/styles")
   (require 'ox-odt nil t)
+
+  ;;enable writegood mode to check we write good english
+  (require 'writegood-mode)
+  ;;functions to perform readability scoring.
+  (global-set-key "\C-c\C-gg" 'writegood-grade-level)
+  (global-set-key "\C-c\C-ge" 'writegood-reading-ease)
   
   (turn-on-auto-fill)
 
