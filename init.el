@@ -56,6 +56,7 @@
 (require 'init-org)
 (require 'init-switch-window)
 (require 'init-helm)
+(require 'init-projectile)
 (require 'init-duplicateline)
 (require 'init-browse-url-chrome)
 (require 'init-modeline)

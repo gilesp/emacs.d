@@ -35,7 +35,6 @@
      (docker-image-name . "concierge-meeting-listener")
      (docker-image-name . "react-native"))))
  '(scalable-fonts-allowed t)
- '(scroll-step 1)
  '(show-paren-mode t)
  '(tool-bar-mode nil))
 (custom-set-faces

@@ -42,5 +42,16 @@ point reaches the beginning or end of the buffer, stop there."
 (global-set-key [remap move-beginning-of-line]
                 'gp/smarter-move-beginning-of-line)
 
+;; Comment or uncomment region
+(global-set-key (kbd "C-;") 'comment-or-uncomment-region)
+
+
+;; scrolling!
+(use-package smooth-scrolling
+  :init
+  (progn
+    (require 'smooth-scrolling)
+    (setq smooth-scroll-margin 5)))
+
 (provide 'init-editing)
 ;;; init-editing.el ends here
