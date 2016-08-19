@@ -41,6 +41,8 @@ Return output file name."
          :publishing-function gp-org-gfm-publish-to-md
          :headline-levels 3
          :body-only t
+         :with-footnotes t
+         :with-toc 0
          )
         ;; ("gp-blog" :components ("org-gilesp-blog"))
         ))
