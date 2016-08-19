@@ -51,6 +51,9 @@
   
   (turn-on-auto-fill)
 
+  ;; enable on the fly spell checking
+  (flyspell-mode 1)
+  
   ;; actually emphasise text (e.g. show as italic instead of /italic/)
   (setq org-hide-emphasis-markers t)
 
