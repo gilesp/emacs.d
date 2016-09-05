@@ -11,11 +11,9 @@
 
 ;;; Code:
 (require-package 'emacs-eclim)
-(require-package 'company)
 (require-package 'color-identifiers-mode)
 
 (require 'eclim)
-(require 'company)
 (require 'company-emacs-eclim)
 (require 'color-identifiers-mode)
 
@@ -28,10 +26,8 @@
 
 (global-eclim-mode)
 (company-emacs-eclim-setup)
-(global-company-mode t)
 
 (defun gp-java-mode-hook ()
-  (company-mode)
   (color-identifiers-mode)
   ;; auto complete
   ;; key-bindings

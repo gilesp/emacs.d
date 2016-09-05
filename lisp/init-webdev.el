@@ -10,7 +10,7 @@
 (require-package 'json-mode)
 (require-package 'web-mode)
 (require-package 'tern)
-(require-package 'tern-auto-complete)
+(require-package 'company-tern)
 (require-package 'color-identifiers-mode)
 (require-package 'origami)
 (require-package 'sass-mode)
@@ -20,7 +20,7 @@
 (require 'json-mode)
 (require 'flycheck)
 (require 'tern)
-(require 'tern-auto-complete)
+(require 'company-tern)
 (require 'color-identifiers-mode)
 (require 'origami)
 (require 'sass-mode)
@@ -36,7 +36,6 @@
   "Setup js2-mode as I like it."
   (tern-mode)
   (subword-mode)
-  (auto-complete-mode)
   (color-identifiers-mode)
   (origami-mode)
   (setq indent-tabs-mode nil)
@@ -50,6 +49,7 @@
                 (append flycheck-disabled-checkers '(json-jsonlist)))
   (setq-default flycheck-disabled-checkers
                 (append flycheck-disabled-checkers '(javascript-jshint)))
+  (add-to-list 'company-backends 'company-tern)
   
   ;; we're using eslint for parsing, so js2-can shut up
   (setq js2-mode-show-parse-errors nil)
@@ -77,10 +77,6 @@ Don't forget to create a .tern-project file in the root of your
 javascript project.
 http://ternjs.net/doc/manual.html#configuration"
   (add-hook 'js2-mode-hook (lambda () (gp-js2-mode-hook)))
-  (eval-after-load 'tern
-    '(progn
-       (require 'tern-auto-complete)
-       (tern-ac-setup)))
 
   ;; function to kill ther tern process incase it stops responding
   (defun delete-tern-process ()
@@ -131,7 +127,6 @@ http://ternjs.net/doc/manual.html#configuration"
   (subword-mode) ;; make things CamelCase aware
   ;;  (js2-minor-mode) ;; use js2 for highlighting
   (tern-mode) ;; use the tern server for refactoring and autocompletion
-  (auto-complete-mode) ;; enable autocompleteion
 
   (setq indent-tabs-mode nil) ;; spaces instead of tabs
   (gp-setup-webdev-indent 2) ;; configure various indentation values

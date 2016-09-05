@@ -54,6 +54,7 @@
 (require 'init-packages)
 (require 'init-editing)
 (require 'init-linenumbers)
+(require 'init-autocompletion)
 
 ;; (require 'init-exec-path-from-shell)
 (require 'init-flycheck)
