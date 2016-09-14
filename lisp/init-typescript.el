@@ -15,8 +15,11 @@
     (company-mode +1))
   (add-hook 'typescript-mode-hook 'gp/setup-tide-mode)
   (add-hook 'before-save-hook 'tide-format-before-save)
-  (setq tide-format-options '(:insertSpaceAfterFunctionKeywordForAnonymousFunctions t
-                                                                                    :placeOpenBraceOnNewLineForFunctions nil))
+  (setq tide-format-options '(:tabSize 2
+                                       :convertTabsToSpaces t
+                                       :insertSpaceAfterFunctionKeywordForAnonymousFunctions t
+                                       :placeOpenBraceOnNewLineForFunctions nil
+                                       :))
   (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-mode))
   (add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
   (add-hook 'web-mode-hook
