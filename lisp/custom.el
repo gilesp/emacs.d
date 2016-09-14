@@ -18,16 +18,6 @@
     ("^\\(Enter \\)?[Pp]assphrase\\( for \\(RSA \\)?key '.*'\\)?: ?$" "^\\(Enter \\)?[Pp]assword\\( for '\\(?99:.*\\)'\\)?: ?$" "^.*'s password: ?$" "^Yubikey for .*: ?$" "^Enter PIN for '.*': ?$")))
  '(make-backup-files t)
  '(mouse-wheel-progressive-speed nil)
- '(org-agenda-files (quote ("todo.org")))
- '(org-agenda-window-setup (quote current-window))
- '(org-directory "~/Documents/Dropbox/org")
- '(org-todo-keyword-faces
-   (quote
-    (("DONE" . success)
-     ("IN-PROGRESS" . diary)
-     ("WAITING" . warning)
-     ("TODO" . error))))
- '(org-todo-keywords (quote ((sequence "TODO" "IN-PROGRESS" "WAITING" "DONE"))))
  '(pop-up-frames nil)
  '(safe-local-variable-values
    (quote

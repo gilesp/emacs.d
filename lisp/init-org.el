@@ -14,7 +14,28 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/org-mode/lisp"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/org-mode/contrib/lisp"))
 
+(defvar org-agenda-files)
+(defvar org-agenda-window-setup)
+(defvar org-directory)
+(defvar org-todo-keyword-faces)
+(defvar org-todo-keywords)
+(defvar org-capture-templates)
+(defvar org-odt-schema-dir)
+(defvar org-odt-styles-dir)
+(defvar org-hide-emphasis-markers)
+(defvar org-src-fontify-natively)
+
 ;; (require 'org)
+(setq org-agenda-window-setup (quote current-window))
+(setq org-directory "~/Documents/Dropbox/org")
+(setq org-agenda-files (list (expand-file-name "todo.org" org-directory)))
+(setq org-todo-keyword-faces
+  (quote
+   (("DONE" . success)
+    ("IN-PROGRESS" . diary)
+    ("WAITING" . warning)
+    ("TODO" . error))))
+(setq org-todo-keywords (quote ((sequence "TODO" "IN-PROGRESS" "WAITING" "DONE"))))
 
 ;; automatically use org mode for .org, .org_archive and .txt files
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
@@ -27,8 +48,14 @@
 ;; capture todo items using C-c c t
 (define-key global-map (kbd "C-c c") 'org-capture)
 (setq org-capture-templates
-      '(("t" "todo" entry (file+headline "todo.org" "Tasks")
-         "* TODO [#B] %?")))
+      '(("t" "Todo"
+         entry (file+headline "todo.org" "Tasks")
+         "* TODO [#B] %?")
+        ("j" "Journal Entry"
+         entry (file+datetree "journal.org")
+         "* %?"
+         :empty-lines 1)
+        ))
 
 (defun gp-org-mode-hook ()
   "Org mode startup hook."
