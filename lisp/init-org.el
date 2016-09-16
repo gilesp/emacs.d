@@ -40,34 +40,101 @@
     (mapc 'require org-modules)
     ;; configuration
     (setq org-directory "~/Documents/Dropbox/org")
-    
-    ;; agenda
+
+    ;;
+    ;; Agenda config
+    ;;
+    ;; All the agenda/capture/refile stuff is heavily influenced by http://doc.norang.ca/org-mode.html
     (setq org-agenda-window-setup (quote current-window))
     (setq org-agenda-files (list (expand-file-name "todo.org" org-directory)
+                                 (expand-file-name "refile.org" org-directory)
                                  (expand-file-name "projects/" org-directory)
                                  (expand-file-name "projects/work/" org-directory)
-                                 (expand-file-name "projects/home/" org-directory)))
+                                 (expand-file-name "projects/personal/" org-directory)))
     
     (add-hook 'org-mode-hook 'turn-on-auto-fill)
     
+    (setq org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "STARTED(s)" "|" "DONE(d)")
+                              (sequence "WAITING(w@/!)" "DEFERRED(e)" "|" "CANCELLED(c@/!)" "MEETING")))
     (setq org-todo-keyword-faces
           (quote
            (("DONE" . success)
-            ("STARTED" . diary)
+            ("STARTED" . underline)
             ("WAITING" . warning)
-            ("TODO" . error))))
-    (setq org-todo-keywords '((sequence "TODO(t)" "PLAN(p)" "NEXT-ACTION(n)" "STARTED(s)" "WAITING(w@/!)" "DEFERRED(e)" "APPT" "|" "DONE(d!/!)" "CANCELLED(c@/!)")))
+            ("TODO" . error)
+            ("NEXT" . highlight)
+            ("DEFERRED" . default)
+            ("CANCELLED" . default)
+            ("MEETING" . diary))))
 
+    ;; allow changing from any task todo state to another by selecting appropriate key from the menu
+    ;; C-c C-t KEY
+    (setq org-use-fast-todo-selection t)
+
+    ;; set appropriate tags on tasks (used for filtering)
+    (setq org-todo-state-tags-triggers
+          '(("CANCELLED" ("CANCELLED" . t))
+            ("WAITING" ("WAITING" . t))
+            ("DEFERRED" ("WAITING") ("DEFERRED" . t))
+            (done ("WAITING") ("DEFERRED"))
+            ("TODO" ("WAITING") ("CANCELLED") ("DEFERRED"))
+            ("NEXT" ("WAITING") ("CANCELLED") ("DEFERRED"))
+            ("DONE" ("WAITING") ("CANCELLED") ("DEFERRED"))))
+    
     (setq org-capture-templates
           '(("t" "Todo"
-             entry (file+headline "todo.org" "Tasks")
+             entry (file "refile.org" "Tasks")
              "* TODO [#B] %?")
+            ("n" "Note"
+             entry (file "refile.org" "Notes")
+             "* %? :NOTE:\n%U\n%a\n")
             ("j" "Journal Entry"
              entry (file+datetree "journal.org")
              "* %?"
              :empty-lines 1)
             ))
 
+    ;;
+    ;; Refile config
+    ;;
+    ;; Targets include this file and any file contributing to the agenda - up to 9 levels deep
+    (setq org-refile-targets (quote ((nil :maxlevel . 9)
+                                     (org-agenda-files :maxlevel . 9))))
+
+
+    ;; Allow refile to create parent tasks with confirmation
+    (setq org-refile-allow-creating-parent-nodes (quote confirm))
+
+    ;; Exclude DONE state tasks from refile targets
+    (defun gp/verify-refile-target ()
+      "Exclude todo keywords with a done state from refile targets"
+      (not (member (nth 2 (org-heading-components)) org-done-keywords)))
+
+    (setq org-refile-target-verify-function 'gp/verify-refile-target)
+
+    ;;
+    ;; Custom agenda views
+    ;;
+    ;; do not dim blocked tasks
+    (setq org-agenda-dim-blocked-tasks nil)
+
+    ;; compact the block agenda view
+    (setq org-agenda-compact-blocks t)
+
+    ;; custom agenda commands
+    (setq org-agenda-custom-commands
+          '(("N" "Notes" tags "NOTE"
+             ((org-agenda-overriding-header "Notes")
+              (org-tags-match-list-sublevels t)))
+            (" " "Agenda"
+             ((agenda "" nil)
+              (tags "REFILE"
+                    ((org-agenda-overriding-header "Tasks to Refile")
+                     (org-tags-match-list-sublevels nil)))
+              nil))))
+    ;;
+    ;; General Config
+    ;;
     ;; actually emphasise text (e.g. show as italic instead of /italic/)
     (setq org-hide-emphasis-markers t)
 
@@ -80,12 +147,7 @@
                                (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
     (org-bullets-mode 1)
 
-    ;; enable on the fly spell checking
-    (flyspell-mode 1)
-
-    
-
-    (defun gp-org-mode-hook ()
+    (defun gp/org-mode-hook ()
       ;;set variable pitch font for org, but keep fixed width for code etc.
       (variable-pitch-mode t)
       (setq line-spacing 3)
@@ -93,7 +155,10 @@
       ;; disable linum
       (linum-mode -1)
 
-      (defun gp-adjoin-to-list-or-symbol (element list-or-symbol)
+      ;; enable on the fly spell checking
+      (flyspell-mode 1)
+      
+      (defun gp/adjoin-to-list-or-symbol (element list-or-symbol)
         (let ((list (if (not (listp list-or-symbol))
                         (list list-or-symbol)
                       list-or-symbol)))
@@ -105,12 +170,12 @@
          (set-face-attribute
           face nil
           :inherit
-          (gp-adjoin-to-list-or-symbol
+          (gp/adjoin-to-list-or-symbol
            'fixed-pitch
            (face-attribute face :inherit))))
        (list 'org-code 'org-block 'org-block-begin-line 'org-block-end-line 'org-verbatim 'org-macro 'org-table))
       )
-    (add-hook 'org-mode-hook 'gp-org-mode-hook)
+    (add-hook 'org-mode-hook 'gp/org-mode-hook)
     ))
 
 ;; TODO: Figure out where the odt schema files live so I can include them in the config
