@@ -2,18 +2,9 @@
 
 ;;; Commentary:
 ;;
-;; load org-mode from source
-;; You first need to check it out from git (git://orgmode.org/org-mode.git)
-;; and build it with "make uncompiled"
+;; load and configure org-mode
 
 ;;; Code:
-
-(require-package 'org-bullets)
-(require-package 'writegood-mode)
-
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/org-mode/lisp"))
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/org-mode/contrib/lisp"))
-
 (defvar org-agenda-files)
 (defvar org-agenda-window-setup)
 (defvar org-directory)
@@ -25,62 +16,55 @@
 (defvar org-hide-emphasis-markers)
 (defvar org-src-fontify-natively)
 
-;; (require 'org)
-(setq org-agenda-window-setup (quote current-window))
-(setq org-directory "~/Documents/Dropbox/org")
-(setq org-agenda-files (list (expand-file-name "todo.org" org-directory)))
-(setq org-todo-keyword-faces
-  (quote
-   (("DONE" . success)
-    ("IN-PROGRESS" . diary)
-    ("WAITING" . warning)
-    ("TODO" . error))))
-(setq org-todo-keywords (quote ((sequence "TODO" "IN-PROGRESS" "WAITING" "DONE"))))
 
-;; automatically use org mode for .org, .org_archive and .txt files
-(add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
+(use-package writegood-mode
+  :bind (("C-c C-g g" . writegood-grade-level)
+         ("C-c C-g e" . writegood-reading-ease)))
 
-;; standard key bindings
-(global-set-key "\C-ca" 'org-agenda)
-;; see the custom-file for the agenda files configuration
-;; I'm setting it to use all files in a specified directory
+(use-package org
+  :mode (("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
+  :ensure org-plus-contrib
+  :init
+  (require-package 'org-bullets)
+  (let ((my-org-modules
+         '(ox-md
+           ox-gfm
+           ox-html)))
+    (dolist (m my-org-modules)
+      (add-to-list 'org-modules m)))
+  :bind (("C-c l" . org-store-link)
+         ("C-c a" . org-agenda)
+         ("C-c b" . org-iswitchb)
+         ("C-c c" . org-capture))
+  :config
+  (mapc 'require org-modules)
+  ;; configuration
+  (setq org-directory "~/Documents/Dropbox/org")
 
-;; capture todo items using C-c c t
-(define-key global-map (kbd "C-c c") 'org-capture)
-(setq org-capture-templates
-      '(("t" "Todo"
-         entry (file+headline "todo.org" "Tasks")
-         "* TODO [#B] %?")
-        ("j" "Journal Entry"
-         entry (file+datetree "journal.org")
-         "* %?"
-         :empty-lines 1)
-        ))
-
-(defun gp-org-mode-hook ()
-  "Org mode startup hook."
-  ;; Require markdown export mode
-  (require 'ox-md nil t)
-  ;; Require github flavoured markdown export mode
-  (require 'ox-gfm)
-  ;; Require html export mode
-  (require 'ox-html nil t)
-  ;; Require OpenDocument Text export mode
-  (setq org-odt-schema-dir "~/.emacs.d/org-mode/etc/schema")
-  (setq org-odt-styles-dir "~/.emacs.d/org-mode/etc/styles")
-  (require 'ox-odt nil t)
-
-  ;;enable writegood mode to check we write good english
-  (require 'writegood-mode)
-  ;;functions to perform readability scoring.
-  (global-set-key "\C-c\C-gg" 'writegood-grade-level)
-  (global-set-key "\C-c\C-ge" 'writegood-reading-ease)
+  (add-hook 'org-mode-hook 'turn-on-auto-fill)
   
-  (turn-on-auto-fill)
-
-  ;; enable on the fly spell checking
-  (flyspell-mode 1)
+  ;; agenda
+  (setq org-agenda-window-setup (quote current-window))
+  (setq org-agenda-files (list (expand-file-name "todo.org" org-directory)))
   
+  (setq org-todo-keyword-faces
+        (quote
+         (("DONE" . success)
+          ("STARTED" . diary)
+          ("WAITING" . warning)
+          ("TODO" . error))))
+  (setq org-todo-keywords '((sequence "TODO(t)" "PLAN(p)" "NEXT-ACTION(n)" "STARTED(s)" "WAITING(w@/!)" "DEFERRED(e)" "APPT" "|" "DONE(d!/!)" "CANCELLED(c@/!)")))
+
+  (setq org-capture-templates
+        '(("t" "Todo"
+           entry (file+headline "todo.org" "Tasks")
+           "* TODO [#B] %?")
+          ("j" "Journal Entry"
+           entry (file+datetree "journal.org")
+           "* %?"
+           :empty-lines 1)
+          ))
+
   ;; actually emphasise text (e.g. show as italic instead of /italic/)
   (setq org-hide-emphasis-markers t)
 
@@ -91,10 +75,10 @@
   (font-lock-add-keywords 'org-mode
                           '(("^ +\\([-*]\\) "
                              (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
-
-
-  (require 'org-bullets)
   (org-bullets-mode 1)
+
+  ;; enable on the fly spell checking
+  (flyspell-mode 1)
 
   ;;set variable pitch font for org, but keep fixed width for code etc.
   (variable-pitch-mode t)
@@ -102,27 +86,30 @@
 
   ;; disable linum
   (linum-mode -1)
+
+  (defun gp-adjoin-to-list-or-symbol (element list-or-symbol)
+    (let ((list (if (not (listp list-or-symbol))
+                    (list list-or-symbol)
+                  list-or-symbol)))
+      (require 'cl-lib)
+      (cl-adjoin element list)))
+
+  (mapc
+   (lambda (face)
+     (set-face-attribute
+      face nil
+      :inherit
+      (gp-adjoin-to-list-or-symbol
+       'fixed-pitch
+       (face-attribute face :inherit))))
+   (list 'org-code 'org-block 'org-block-begin-line 'org-block-end-line 'org-verbatim 'org-macro 'org-table))
   )
 
-(add-hook 'org-mode-hook 'gp-org-mode-hook)
-
-(defun gp-adjoin-to-list-or-symbol (element list-or-symbol)
-  (let ((list (if (not (listp list-or-symbol))
-                  (list list-or-symbol)
-                list-or-symbol)))
-    (require 'cl-lib)
-    (cl-adjoin element list)))
-
-(eval-after-load "org"
-  '(mapc
-    (lambda (face)
-      (set-face-attribute
-       face nil
-       :inherit
-       (gp-adjoin-to-list-or-symbol
-        'fixed-pitch
-        (face-attribute face :inherit))))
-    (list 'org-code 'org-block 'org-block-begin-line 'org-block-end-line 'org-verbatim 'org-macro 'org-table)))
+;; TODO: Figure out where the odt schema files live so I can include them in the config
+;; Require OpenDocument Text export mode
+;;  (setq org-odt-schema-dir "~/.emacs.d/org-mode/etc/schema")
+;;  (setq org-odt-styles-dir "~/.emacs.d/org-mode/etc/styles")
+;;  (require 'ox-odt nil t)
 
 (provide 'init-org)
 ;;; init-org.el ends here

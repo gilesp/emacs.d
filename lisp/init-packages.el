@@ -9,12 +9,13 @@
 ;; Setup package repositores
 (add-to-list 'package-archives '("melpa" ."http://melpa.org/packages/"))
 (add-to-list 'package-archives '("melpa-stable" ."http://stable.melpa.org/packages/"))
+(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 
 (package-initialize)
 
 ;; Utility function to load packages when required by other config files
 (defun require-package (package)
-  "Ensure requested PACKAGE is installed."
+  "DEPRECATED - use use-package instead Ensure requested PACKAGE is installed."
   (if (package-installed-p package)
       t
     (progn
