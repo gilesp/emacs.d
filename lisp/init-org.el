@@ -17,17 +17,6 @@
 (defvar org-src-fontify-natively)
 
 
-;; hook to run when org-mode is started, to turn on certain modes etc.
-(defun gp/org-mode-hook ()
-  ;;set variable pitch font for org, but keep fixed width for code etc.
-  (variable-pitch-mode t)
-
-  ;; disable linum
-  (linum-mode -1)
-
-  ;; enable on the fly spell checking
-  (flyspell-mode 1))
-
 (use-package writegood-mode
   :bind (("C-c C-g g" . writegood-grade-level)
          ("C-c C-g e" . writegood-reading-ease)))
@@ -43,6 +32,17 @@
   :bind (("C-c l" . org-store-link)
          ("C-c a" . org-agenda)
          ("C-c c" . org-capture))
+  :preface
+  ;; hook to run when org-mode is started, to turn on certain modes etc.
+  (defun gp/org-mode-hook ()
+    ;;set variable pitch font for org, but keep fixed width for code etc.
+    (variable-pitch-mode t)
+
+    ;; disable linum
+    (linum-mode -1)
+
+    ;; enable on the fly spell checking
+    (flyspell-mode 1))
   :config
   (progn
     (require 'ox-md)
@@ -144,6 +144,12 @@
               (tags "REFILE"
                     ((org-agenda-overriding-header "Tasks to Refile")
                      (org-tags-match-list-sublevels nil)))
+              (tags-todo "WORK/NEXT"
+                         ((org-agenda-overriding-header "Work Next Tasks")
+                          (org-tags-match-list-sublevels nil)))
+              (tags-todo "PERSONAL/NEXT"
+                         ((org-agenda-overriding-header "Personal Next Tasks")
+                          (org-tags-match-list-sublevels nil)))
               nil))))
     ;;
     ;; General Config
@@ -160,27 +166,32 @@
                                (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
     
 
-    (defun gp/adjoin-to-list-or-symbol (element list-or-symbol)
-      (let ((list (if (not (listp list-or-symbol))
-                      (list list-or-symbol)
-                    list-or-symbol)))
-        (require 'cl-lib)
-        (cl-adjoin element list)))
-
-    (mapc
-     (lambda (face)
-       (set-face-attribute
-        face nil
-        :inherit
-        (gp/adjoin-to-list-or-symbol
-         'fixed-pitch
-         (face-attribute face :inherit))))
-     (list 'org-code 'org-block 'org-block-begin-line 'org-block-end-line 'org-verbatim 'org-macro 'org-table 'org-link 'org-footnote 'org-date))
-    
-    
     
     ))
 
+
+(eval-after-load "org"
+  '(progn
+     (defun gp/adjoin-to-list-or-symbol (element list-or-symbol)
+       (let ((list (if (not (listp list-or-symbol))
+                       (list list-or-symbol)
+                     list-or-symbol)))
+         (require 'cl-lib)
+         (cl-adjoin element list)))
+
+
+     (mapc
+      (lambda (face)
+        (set-face-attribute
+         face nil
+         :inherit
+         (gp/adjoin-to-list-or-symbol
+          'fixed-pitch
+          (face-attribute face :inherit))))
+      (list 'org-code 'org-block 'org-block-begin-line 'org-block-end-line 'org-verbatim 'org-macro 'org-table 'org-link 'org-footnote 'org-date))
+     )
+  )
+                 
 ;; TODO: Figure out where the odt schema files live so I can include them in the config
 ;; Require OpenDocument Text export mode
 ;;  (setq org-odt-schema-dir "~/.emacs.d/org-mode/etc/schema")
