@@ -25,6 +25,8 @@
 
 (define-abbrev-table 'calendar-mode-abbrev-table '())
 
+(define-abbrev-table 'change-log-mode-abbrev-table '())
+
 (define-abbrev-table 'comint-mode-abbrev-table '())
 
 (define-abbrev-table 'completion-list-mode-abbrev-table '())
@@ -45,6 +47,8 @@
 
 (define-abbrev-table 'css-mode-abbrev-table '())
 
+(define-abbrev-table 'diff-mode-abbrev-table '())
+
 (define-abbrev-table 'dig-mode-abbrev-table '())
 
 (define-abbrev-table 'dockerfile-mode-abbrev-table '())
@@ -56,6 +60,12 @@
 (define-abbrev-table 'emacs-lisp-byte-code-mode-abbrev-table '())
 
 (define-abbrev-table 'emacs-lisp-mode-abbrev-table '())
+
+(define-abbrev-table 'epa-info-mode-abbrev-table '())
+
+(define-abbrev-table 'epa-key-list-mode-abbrev-table '())
+
+(define-abbrev-table 'epa-key-mode-abbrev-table '())
 
 (define-abbrev-table 'erc-list-menu-mode-abbrev-table '())
 
@@ -73,10 +83,15 @@
 
 (define-abbrev-table 'gdb-script-mode-abbrev-table '())
 
+(define-abbrev-table 'gfm-mode-abbrev-table '())
+
 (define-abbrev-table 'global-abbrev-table
   '(
     ("constraings" "constraints" nil 0)
+    ("flecible" "flexible" nil 0)
     ("hte" "the" nil 0)
+    ("new" "new" nil 0)
+    ("recognize" "recognise" nil 0)
     ("worng" "wrong" nil 0)
    ))
 
@@ -94,15 +109,25 @@
 
 (define-abbrev-table 'gnus-sticky-article-mode-abbrev-table '())
 
+(define-abbrev-table 'grep-mode-abbrev-table '())
+
 (define-abbrev-table 'gud-mode-abbrev-table '())
 
+(define-abbrev-table 'haml-mode-abbrev-table '())
+
+(define-abbrev-table 'helm-git-grep-mode-abbrev-table '())
+
 (define-abbrev-table 'helm-grep-mode-abbrev-table '())
+
+(define-abbrev-table 'helm-major-mode-abbrev-table '())
 
 (define-abbrev-table 'helm-moccur-mode-abbrev-table '())
 
 (define-abbrev-table 'help-mode-abbrev-table '())
 
 (define-abbrev-table 'html-mode-abbrev-table '())
+
+(define-abbrev-table 'ibuffer-mode-abbrev-table '())
 
 (define-abbrev-table 'idl-mode-abbrev-table '())
 
@@ -130,9 +155,47 @@
 
 (define-abbrev-table 'lisp-mode-abbrev-table '())
 
+(define-abbrev-table 'log-edit-mode-abbrev-table '())
+
+(define-abbrev-table 'magit-cherry-mode-abbrev-table '())
+
+(define-abbrev-table 'magit-diff-mode-abbrev-table '())
+
+(define-abbrev-table 'magit-log-mode-abbrev-table '())
+
+(define-abbrev-table 'magit-log-select-mode-abbrev-table '())
+
+(define-abbrev-table 'magit-merge-preview-mode-abbrev-table '())
+
+(define-abbrev-table 'magit-mode-abbrev-table '())
+
+(define-abbrev-table 'magit-popup-mode-abbrev-table '())
+
+(define-abbrev-table 'magit-process-mode-abbrev-table '())
+
+(define-abbrev-table 'magit-reflog-mode-abbrev-table '())
+
+(define-abbrev-table 'magit-refs-mode-abbrev-table '())
+
+(define-abbrev-table 'magit-repolist-mode-abbrev-table '())
+
+(define-abbrev-table 'magit-revision-mode-abbrev-table '())
+
+(define-abbrev-table 'magit-stash-mode-abbrev-table '())
+
+(define-abbrev-table 'magit-stashes-mode-abbrev-table '())
+
+(define-abbrev-table 'magit-status-mode-abbrev-table '())
+
+(define-abbrev-table 'markdown-mode-abbrev-table '())
+
 (define-abbrev-table 'message-mode-abbrev-table '())
 
 (define-abbrev-table 'messages-buffer-mode-abbrev-table '())
+
+(define-abbrev-table 'mu4e-org-mode-abbrev-table '())
+
+(define-abbrev-table 'mu4e~update-mail-mode-abbrev-table '())
 
 (define-abbrev-table 'neotree-mode-abbrev-table '())
 
@@ -170,6 +233,10 @@
   '(
    ))
 
+(define-abbrev-table 'ruby-mode-abbrev-table '())
+
+(define-abbrev-table 'sass-mode-abbrev-table '())
+
 (define-abbrev-table 'select-tags-table-mode-abbrev-table '())
 
 (define-abbrev-table 'sgml-mode-abbrev-table '())
@@ -179,6 +246,8 @@
 (define-abbrev-table 'shell-mode-abbrev-table '())
 
 (define-abbrev-table 'smime-mode-abbrev-table '())
+
+(define-abbrev-table 'snippet-mode-abbrev-table '())
 
 (define-abbrev-table 'special-mode-abbrev-table '())
 
@@ -193,6 +262,10 @@
 (define-abbrev-table 'tar-mode-abbrev-table '())
 
 (define-abbrev-table 'text-mode-abbrev-table '())
+
+(define-abbrev-table 'tide-references-mode-abbrev-table '())
+
+(define-abbrev-table 'typescript-mode-abbrev-table '())
 
 (define-abbrev-table 'url-cookie-mode-abbrev-table '())
 
