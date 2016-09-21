@@ -48,6 +48,7 @@
     (require 'ox-md)
     (require 'ox-gfm)
     (require 'ox-html)
+    (require 'org-protocol)
     
     (add-hook 'org-mode-hook 'gp/org-mode-hook)
     
@@ -105,6 +106,12 @@
              entry (file+datetree "journal.org")
              "* %?"
              :empty-lines 1)
+            ("p" "Protocol"
+             entry (file+headline "refile.org" "Notes")
+             "* %:description :RESEARCH:\n#+BEGIN_QUOTE\n%i\n\n -- %:link %u\n #+END_QUOTE\n\n%?")
+            ("L" "Protocol Link"
+             entry (file+headline "refile.org" "Notes")
+             "* %? [[%:link][%:description]] \nCaptured On: %u")
             ))
 
     ;;
