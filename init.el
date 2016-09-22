@@ -13,6 +13,10 @@
 
 ;; make the Lisp directory available to easily load sub-files from
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+
+;; store any non-packaged lisp code in a local site-lisp
+(add-to-list 'load-path (expand-file-name "site-lisp" user-emacs-directory))
+
 ;; to avoid flycheck warnings when requiring files, inherit load-path
 (setq-default flycheck-emacs-lisp-load-path 'inherit)
 

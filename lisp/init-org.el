@@ -49,12 +49,18 @@
     (require 'ox-gfm)
     (require 'ox-html)
     (require 'org-protocol)
+
+    ;; This functionality isn't in a package yet.
+    ;; I installed it into ~/.emacs.d/site-lisp with wget https://raw.githubusercontent.com/alphapapa/org-protocol-capture-html/master/org-protocol-capture-html.el
+    (require 'org-protocol-capture-html)
     
     (add-hook 'org-mode-hook 'gp/org-mode-hook)
     
     ;; configuration
     (setq org-directory "~/Documents/Dropbox/org")
     (setq line-spacing 3)
+    (setq org-startup-with-inline-images t)
+    
     ;;
     ;; Agenda config
     ;;
@@ -108,10 +114,13 @@
              :empty-lines 1)
             ("p" "Protocol"
              entry (file+headline "refile.org" "Notes")
-             "* %:description :RESEARCH:\n#+BEGIN_QUOTE\n%i\n\n -- %:link %u\n #+END_QUOTE\n\n%?")
+             "* %:description :NOTE:RESEARCH:\n#+BEGIN_QUOTE\n%i\n\n -- %:link %u\n #+END_QUOTE\n\n%?")
             ("L" "Protocol Link"
              entry (file+headline "refile.org" "Notes")
-             "* %? [[%:link][%:description]] \nCaptured On: %u")
+             "* %? [[%:link][%:description]] :NOTE:RESEARCH:\nCaptured On: %u")
+            ("P" "Pandoc Converted Website"
+             entry (file+headline "refile.org" "Notes")
+             "* %a :NOTE:RESEARCH:\n\n%U %?\n\n%:initial")
             ))
 
     ;;
