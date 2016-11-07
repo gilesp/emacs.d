@@ -26,12 +26,13 @@
  :config
  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
+;; :ensure org-plus-contrib
 (use-package org
   :mode (("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
-  :ensure org-plus-contrib
   :bind (("C-c l" . org-store-link)
          ("C-c a" . org-agenda)
          ("C-c c" . org-capture))
+  :pin org ;; Use version from orgmode.org/elpa instead of gnu
   :preface
   ;; hook to run when org-mode is started, to turn on certain modes etc.
   (defun gp/org-mode-hook ()
@@ -43,11 +44,17 @@
 
     ;; enable on the fly spell checking
     (flyspell-mode 1))
+  :init
+  (use-package ox-tufte
+    :defer t)
+  (use-package ox-gfm
+    :defer t)
   :config
   (progn
     (require 'ox-md)
     (require 'ox-gfm)
     (require 'ox-html)
+    (require 'ox-tufte)
     (require 'org-protocol)
 
     ;; This functionality isn't in a package yet.
@@ -70,7 +77,8 @@
                                  (expand-file-name "refile.org" org-directory)
                                  (expand-file-name "projects/" org-directory)
                                  (expand-file-name "projects/work/" org-directory)
-                                 (expand-file-name "projects/personal/" org-directory)))
+                                 (expand-file-name "projects/personal/" org-directory)
+                                 (expand-file-name "personal_schedule.org" org-directory)))
     
     (add-hook 'org-mode-hook 'turn-on-auto-fill)
     
@@ -185,7 +193,6 @@
     
     ))
 
-
 (eval-after-load "org"
   '(progn
      (defun gp/adjoin-to-list-or-symbol (element list-or-symbol)
@@ -209,6 +216,7 @@
   )
                  
 ;; TODO: Figure out where the odt schema files live so I can include them in the config
+;; These live in ~/.emacs.d/elpa/org-YYYYMMDD/etc/ but I'm not sure if I need to specify them now
 ;; Require OpenDocument Text export mode
 ;;  (setq org-odt-schema-dir "~/.emacs.d/org-mode/etc/schema")
 ;;  (setq org-odt-styles-dir "~/.emacs.d/org-mode/etc/styles")
