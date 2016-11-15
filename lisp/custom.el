@@ -18,6 +18,9 @@
     ("^\\(Enter \\)?[Pp]assphrase\\( for \\(RSA \\)?key '.*'\\)?: ?$" "^\\(Enter \\)?[Pp]assword\\( for '\\(?99:.*\\)'\\)?: ?$" "^.*'s password: ?$" "^Yubikey for .*: ?$" "^Enter PIN for '.*': ?$")))
  '(make-backup-files t)
  '(mouse-wheel-progressive-speed nil)
+ '(package-selected-packages
+   (quote
+    (rainbow-identifiers eclim color-identifiers-mode tern js2-mode yasnippet git-gutter magit neotree projectile helm ox-gfm ox-tufte company-emacs-eclim zoom-frm yaml-mode writegood-mode which-key web-mode use-package toml-mode tide switch-window swift-mode spaceline smooth-scrolling sass-mode origami org-plus-contrib org-gcal org-bullets markdown-mode labburn-theme json-mode helm-projectile helm-ls-git helm-git-grep helm-descbinds dockerfile-mode company-tern)))
  '(pop-up-frames nil)
  '(safe-local-variable-values
    (quote

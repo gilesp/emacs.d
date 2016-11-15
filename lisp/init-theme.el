@@ -6,9 +6,12 @@
 ;;; Code:
 ;;(require-package 'aurora-theme)
 (require-package 'labburn-theme)
+(require-package 'rainbow-identifiers)
 
 ;;(load-theme 'aurora t)
 (load-theme 'labburn t)
+
+(setq rainbow-identifiers-choose-face-function 'rainbow-identifiers-cie-l*a*b*-choose-face)
 
 (provide 'init-theme)
 ;;; init-theme ends here

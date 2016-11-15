@@ -10,12 +10,11 @@
 ;; https://github.com/gilesp/docker/tree/master/eclimd
 
 ;;; Code:
-(require-package 'emacs-eclim)
-(require-package 'color-identifiers-mode)
+(require-package 'eclim)
+(require-package 'company-emacs-eclim)
 
 (require 'eclim)
 (require 'company-emacs-eclim)
-(require 'color-identifiers-mode)
 
 ;; Variables
 (setq eclim-executable "/home/giles/bin/eclim")
@@ -28,7 +27,7 @@
 (company-emacs-eclim-setup)
 
 (defun gp-java-mode-hook ()
-  (color-identifiers-mode)
+  (rainbow-identifiers-mode)
   ;; auto complete
   ;; key-bindings
   (define-key eclim-mode-map (kbd "C-c C-n") 'eclim-problems-next-same-window)

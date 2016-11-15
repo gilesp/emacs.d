@@ -11,7 +11,6 @@
 (require-package 'web-mode)
 (require-package 'tern)
 (require-package 'company-tern)
-(require-package 'color-identifiers-mode)
 (require-package 'origami)
 (require-package 'sass-mode)
 
@@ -21,7 +20,7 @@
 (require 'flycheck)
 (require 'tern)
 (require 'company-tern)
-(require 'color-identifiers-mode)
+(require 'rainbow-identifiers)
 (require 'origami)
 (require 'sass-mode)
 
@@ -36,7 +35,7 @@
   "Setup js2-mode as I like it."
   (tern-mode)
   (subword-mode)
-  (color-identifiers-mode)
+  (rainbow-identifiers-mode)
   (origami-mode)
   (setq indent-tabs-mode nil)
   (gp-setup-webdev-indent 2)
