@@ -39,6 +39,10 @@
 ;; Move to a separate init file when more than a couple of lines required
 ;;-------------------------------------------------------------------------
 
+;; Unbind Pesky Sleep Button
+(global-unset-key [(control z)])
+(global-unset-key [(control x)(control z)])
+
 ;; Enable auto reloading when files change (will prompt for confirmation)
 (global-auto-revert-mode t)
 
