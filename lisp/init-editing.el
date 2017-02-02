@@ -7,7 +7,20 @@
 (setq sentence-end-double-space nil)
 
 ;; Unicode!
+;; UTF-8 All the things!
+; disable CJK coding/encoding (Chinese/Japanese/Korean characters)
+(setq utf-translate-cjk-mode nil)
+(setq locale-coding-system 'utf-8)
+(setq default-file-name-coding-system 'utf-8)
+(setq buffer-file-coding-system 'utf-8)
+(set-language-environment 'utf-8)
+;; set the default encoding system
 (prefer-coding-system 'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-selection-coding-system 'utf-8)
+;; Treat clipboard input as UTF-8 string first; compound text next, etc.
 (when (display-graphic-p)
   (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING)))
 
@@ -52,6 +65,11 @@ point reaches the beginning or end of the buffer, stop there."
   (progn
     (require 'smooth-scrolling)
     (setq smooth-scroll-margin 5)))
+
+;; uniquify buffer names
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'post-forward
+      uniquify-separator "::")
 
 (provide 'init-editing)
 ;;; init-editing.el ends here
