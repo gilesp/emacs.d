@@ -35,7 +35,7 @@
   "Setup js2-mode as I like it."
   (tern-mode)
   (subword-mode)
-  (rainbow-identifiers-mode)
+  ;;(rainbow-identifiers-mode)
   (origami-mode)
   (setq indent-tabs-mode nil)
   (gp-setup-webdev-indent 2)
