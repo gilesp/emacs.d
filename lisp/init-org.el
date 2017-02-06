@@ -37,7 +37,7 @@
   ;; hook to run when org-mode is started, to turn on certain modes etc.
   (defun gp/org-mode-hook ()
     ;;set variable pitch font for org, but keep fixed width for code etc.
-    (variable-pitch-mode t)
+    ;;(variable-pitch-mode t)
 
     ;; disable linum
     (linum-mode -1)
