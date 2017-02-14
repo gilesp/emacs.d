@@ -6,20 +6,37 @@
 ;; sentences end with a single space
 (setq sentence-end-double-space nil)
 
+;; font config.
+;; If it's installed, use Hack font, otherwise fall back to DejaVu Sans Mono
+(if (member "Hack" (font-family-list))
+    (progn
+      (set-face-attribute 'default nil :font "Hack")
+      (add-to-list 'default-frame-alist '(font . "Hack"))
+      (set-fontset-font t 'unicode "Hack" nil))
+  (set-face-attribute 'default nil :font "DejaVu Sans Mono")
+  (add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono"))
+  (set-fontset-font t 'unicode "DejaVu Sans Mono" nil))
+
+;; specify fallback fonts for all unicode characters not in main font
+(when (member "Noto Sans" (font-family-list))
+  (set-fontset-font t 'unicode "Noto Sans" nil 'append))
+(when (member "Symbola" (font-family-list))
+  (set-fontset-font t 'unicode "Symbola" nil 'append))
+
 ;; Unicode!
 ;; UTF-8 All the things!
 ; disable CJK coding/encoding (Chinese/Japanese/Korean characters)
 (setq utf-translate-cjk-mode nil)
-(setq locale-coding-system 'utf-8)
-(setq default-file-name-coding-system 'utf-8)
-(setq buffer-file-coding-system 'utf-8)
-(set-language-environment 'utf-8)
+(setq locale-coding-system 'utf-8-unix)
+(setq default-file-name-coding-system 'utf-8-unix)
+(setq buffer-file-coding-system 'utf-8-unix)
+(set-language-environment "UTF-8")
 ;; set the default encoding system
 (prefer-coding-system 'utf-8)
-(set-default-coding-systems 'utf-8)
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
-(set-selection-coding-system 'utf-8)
+(set-default-coding-systems 'utf-8-unix)
+(set-terminal-coding-system 'utf-8-unix)
+(set-keyboard-coding-system 'utf-8-unix)
+(set-selection-coding-system 'utf-8-unix)
 ;; Treat clipboard input as UTF-8 string first; compound text next, etc.
 (when (display-graphic-p)
   (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING)))
