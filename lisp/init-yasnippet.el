@@ -13,7 +13,9 @@
     (add-hook 'hippie-expand-try-functions-list 'yas-hippie-try-expand)
     (setq yas-expand-only-for-last-commands nil)
     (bind-key "\t" 'hippie-expand yas-minor-mode-map)
-    (add-to-list 'yas-prompt-functions 'gp/yas-helm-prompt)))
+    ;(add-to-list 'yas-prompt-functions 'gp/yas-helm-prompt)
+    )
+  )
 
 (defun gp/yas-helm-prompt (prompt choices &optional display-fn)
   "Use helm to select a snippet.
