@@ -89,7 +89,7 @@
 (require 'init-magit)
 (require 'init-hugo-blogging)
 (require 'init-yasnippet)
-(require 'init-typescript)
+;; (require 'init-typescript)
 
 ;; (require 'init-google-this)
 
