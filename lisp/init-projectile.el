@@ -10,21 +10,16 @@
   :config
   (progn
     (setq projectile-keymap-prefix (kbd "C-c p"))
-    ;(setq projectile-completion-system 'helm)
+    (setq projectile-completion-system 'helm)
     (setq projectile-enable-caching t)
     (add-to-list 'projectile-globally-ignored-files "node-modules"))
   :config
   (projectile-global-mode))
 
 ;; enable the helm versions of projectile functions
-;(use-package helm-projectile
-;  :config
-;  (helm-projectile-on))
-
-;; enable the counsel versions of projectile functions
-(use-package counsel-projectile
+(use-package helm-projectile
   :config
-  (counsel-projectile-on))
+  (helm-projectile-on))
 
 (provide 'init-projectile)
 ;;; init-projectile.el ends here
