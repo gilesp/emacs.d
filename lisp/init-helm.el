@@ -67,5 +67,9 @@
          :map isearch-mode-map
          ("C-c g" . helm-git-grep-from-isearch)))
 
+(use-package helm-swoop
+  :bind
+  ("C-s" . helm-swoop))
+
 (provide 'init-helm)
 ;;; init-helm.el ends here
