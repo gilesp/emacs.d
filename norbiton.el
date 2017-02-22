@@ -9,6 +9,8 @@
 (require 'init-dockerfile-mode)
 (require 'init-yaml-mode)
 (require 'init-webdev)
+;; (require 'init-lang-javascript)
+;; (require 'init-lang-web)
 ;; (require 'init-swift)
 ;; (require 'init-java)
 (require 'init-typescript)
