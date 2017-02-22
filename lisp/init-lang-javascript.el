@@ -4,27 +4,8 @@
 ;; An alternative (hopefully lighter touch) approach to init-webdev.el
 
 ;;; Code:
-
-;; use local eslint from node_modules before global
-;; http://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-eslint-executable
-(defun gp/use-eslint-from-node-modules ()
-  (let* ((root (locate-dominating-file
-                (or (buffer-file-name) default-directory)
-                "node_modules"))
-         (eslint (and root
-                      (expand-file-name "node_modules/eslint/bin/eslint.js"
-                                        root))))
-    (when (and eslint (file-executable-p eslint))
-      (setq-local flycheck-javascript-eslint-executable eslint))))
-
 (defvar flycheck-javascript-eslint-executable)
-(defun gp/setup-local-eslint ()
-  "If ESLint found in node_modules directory - use that for flycheck.
- Intended for use in PROJECTILE-AFTER-SWITCH-PROJECT-HOOK."
-  (interactive)
-  (let ((local-eslint (expand-file-name "./node_modules/.bin/eslint")))
-    (setq flycheck-javascript-eslint-executable
-          (and (file-exists-p local-eslint) local-eslint))))
+(defvar js2-indent-level)
 
 ;; https://github.com/mooz/js2-mode
 (use-package js2-mode
@@ -36,6 +17,18 @@
   :mode
   ("\\.js$" . js2-mode)
   ("\\.json$" . js2-jsx-mode)
+  :init
+  ;; use local eslint from node_modules before global
+  ;; http://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-eslint-executable
+  (defun gp/use-eslint-from-node-modules ()
+    (let* ((root (locate-dominating-file
+                  (or (buffer-file-name) default-directory)
+                  "node_modules"))
+           (eslint (and root
+                        (expand-file-name "node_modules/eslint/bin/eslint.js"
+                                          root))))
+      (when (and eslint (file-executable-p eslint))
+        (setq-local flycheck-javascript-eslint-executable eslint))))
   :config
   (custom-set-variables '(js2-strict-inconsistent-return-warning nil))
   (custom-set-variables '(js2-strict-missing-semi-warning nil))
@@ -44,9 +37,6 @@
   (setq js2-indent-level 2)
   (setq js2-basic-offset 2)
 
-  (use-package nvm
-    :init
-    (nvm-use (caar (last (nvm--installed-versions)))))
   
   
   ;; tern :- IDE like features for javascript and completion
@@ -57,14 +47,13 @@
       "Hook for `js-mode'."
       (set (make-local-variable 'company-backends)
            '((company-tern company-files)))
-      (flycheck-select-checker 'javascript-eslint)
-      (flycheck-mode)
       (company-mode))
     (add-hook 'js2-mode-hook 'gp/js-mode-hook))
 
   (add-hook 'js2-mode-hook 'tern-mode)
 
-  (add-hook 'flycheck-mode-hook #'gp/setup-local-eslint)
+  ;; (add-hook 'flycheck-mode-hook #'gp/setup-local-eslint)
+  (add-hook 'flycheck-mode-hook #'gp/use-eslint-from-node-modules)
   
   ;; company backend for tern
   ;; http://ternjs.net/doc/manual.html#emacs
