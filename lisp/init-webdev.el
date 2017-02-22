@@ -31,19 +31,19 @@
 
 (setq-default js2-global-externs '("require"))
 
-(defun gp-js2-mode-hook ()
+(defun gp/js2-mode-hook ()
   "Setup js2-mode as I like it."
   (tern-mode)
   (subword-mode)
   ;;(rainbow-identifiers-mode)
   (origami-mode)
   (setq indent-tabs-mode nil)
-  (gp-setup-webdev-indent 2)
+  (gp/setup-webdev-indent 2)
   (setq js2-bounce-indent-p t)
   (setq js2-highlight-external-variables nil)
   (setq js2-mode-show-parse-errors nil)
+  (add-hook 'flycheck-mode-hook #'gp/use-eslint-from-node-modules)
   (flycheck-add-mode 'javascript-eslint 'js2-mode)
-  (flycheck-select-checker 'javascript-eslint)
   (setq-default flycheck-disabled-checkers
                 (append flycheck-disabled-checkers '(json-jsonlist)))
   (setq-default flycheck-disabled-checkers
@@ -70,12 +70,24 @@
                     '(" \\(ng-[a-z]*\\)=\"\\([a-zA-Z0-9]*\\)" 1 2 "="))))  
   )
 
-(defun gp-tern-setup ()
+;; use local eslint from node_modules before global
+;; http://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-eslint-executable
+(defun gp/use-eslint-from-node-modules ()
+  (let* ((root (locate-dominating-file
+                (or (buffer-file-name) default-directory)
+                "node_modules"))
+         (eslint (and root
+                      (expand-file-name "node_modules/eslint/bin/eslint.js"
+                                        root))))
+    (when (and eslint (file-executable-p eslint))
+      (setq-local flycheck-javascript-eslint-executable eslint))))
+
+(defun gp/tern-setup ()
   "Setup tern.
 Don't forget to create a .tern-project file in the root of your
 javascript project.
 http://ternjs.net/doc/manual.html#configuration"
-  (add-hook 'js2-mode-hook (lambda () (gp-js2-mode-hook)))
+  (add-hook 'js2-mode-hook (lambda () (gp/js2-mode-hook)))
 
   ;; function to kill ther tern process incase it stops responding
   (defun delete-tern-process ()
@@ -83,7 +95,7 @@ http://ternjs.net/doc/manual.html#configuration"
     (delete-process "Tern"))
   )
 
-(defun gp-setup-webdev-indent (n)
+(defun gp/setup-webdev-indent (n)
   "Set indentation for webdev related modes to N spaces."
   (setq coffee-tab-width n) ; coffeescript
   (setq javascript-indent-level n) ; javascript-mode
@@ -97,7 +109,7 @@ http://ternjs.net/doc/manual.html#configuration"
   (setq sass-indent-ffset n) ; sass-mode
   )
 
-(defun gp-setup-webdev-auto-list ()
+(defun gp/setup-webdev-auto-list ()
   "Configure file mode mapping for web-mode and js2-mode."
   (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
@@ -119,7 +131,7 @@ http://ternjs.net/doc/manual.html#configuration"
   )
 
 ;; adjust indents for web-mode to 2 spaces
-(defun gp-web-mode-hook ()
+(defun gp/web-mode-hook ()
   "Hooks for Web mode."
 
   ;; enable other modes that we need
@@ -128,7 +140,7 @@ http://ternjs.net/doc/manual.html#configuration"
   (tern-mode) ;; use the tern server for refactoring and autocompletion
 
   (setq indent-tabs-mode nil) ;; spaces instead of tabs
-  (gp-setup-webdev-indent 2) ;; configure various indentation values
+  (gp/setup-webdev-indent 2) ;; configure various indentation values
 
   (setq web-mode-enable-css-colorization t)
 
@@ -159,19 +171,19 @@ http://ternjs.net/doc/manual.html#configuration"
 	      (delete-trailing-whitespace)
 	      nil))
   )
-(add-hook 'web-mode-hook  'gp-web-mode-hook)
+(add-hook 'web-mode-hook  'gp/web-mode-hook)
 
 
 ;; adjust indents for json-mode to 2 spaces
-(defun gp-json-mode-hook ()
+(defun gp/json-mode-hook ()
   "Hooks for json-mode."
   (make-local-variable 'js-indent-level)
   (setq js-indent-level 2))
 
-(add-hook 'json-mode-hook 'gp-json-mode-hook)
+(add-hook 'json-mode-hook 'gp/json-mode-hook)
 
-(gp-setup-webdev-auto-list)
-(gp-tern-setup)
+(gp/setup-webdev-auto-list)
+(gp/tern-setup)
 
 (provide 'init-webdev)
 ;;; init-webdev.el ends here
