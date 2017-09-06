@@ -8,12 +8,13 @@
 ;; work related config
 (require 'init-dockerfile-mode)
 (require 'init-yaml-mode)
-(require 'init-webdev)
-;; (require 'init-lang-javascript)
-;; (require 'init-lang-web)
+;; (require 'init-webdev)
+(require 'init-lang-javascript)
+(require 'init-lang-web)
 ;; (require 'init-swift)
 ;; (require 'init-java)
 (require 'init-typescript)
+(require 'init-editorconfig)
 
 (provide 'kennington)
 ;;; norbiton.el ends here
