@@ -44,8 +44,8 @@
 
   ;; editing enhancements for web-mode
   ;; https://github.com/jtkDvlp/web-mode-edit-element
-  (use-package web-mode-edit-element
-    :config (add-hook 'web-mode-hook 'web-mode-edit-element-minor-mode))
+  ;;(use-package web-mode-edit-element
+  ;;  :config (add-hook 'web-mode-hook 'web-mode-edit-element-minor-mode))
 
   (defun gp/web-mode-hook ()
     "Hook for `web-mode' config for company-backends."
