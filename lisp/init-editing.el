@@ -81,6 +81,7 @@ point reaches the beginning or end of the buffer, stop there."
   :init
   (progn
     (require 'smooth-scrolling)
+    (smooth-scrolling-mode 1)
     (setq smooth-scroll-margin 5)))
 
 ;; uniquify buffer names
