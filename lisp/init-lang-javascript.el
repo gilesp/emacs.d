@@ -16,7 +16,7 @@
                ("C-c C-l" . js-load-file-and-go)))
   :mode
   ("\\.js$" . js2-mode)
-  ("\\.json$" . js2-jsx-mode)
+  ("\\.json$" . json-mode)
   :init
   ;; use local eslint from node_modules before global
   ;; http://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-eslint-executable
@@ -37,8 +37,6 @@
   (setq js2-indent-level 2)
   (setq js2-basic-offset 2)
 
-  
-  
   ;; tern :- IDE like features for javascript and completion
   ;; http://ternjs.net/doc/manual.html#emacs
   (use-package tern
@@ -52,7 +50,6 @@
 
   (add-hook 'js2-mode-hook 'tern-mode)
 
-  ;; (add-hook 'flycheck-mode-hook #'gp/setup-local-eslint)
   (add-hook 'flycheck-mode-hook #'gp/use-eslint-from-node-modules)
   
   ;; company backend for tern
