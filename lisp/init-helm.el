@@ -27,11 +27,6 @@
   :config
   (progn
     (helm-autoresize-mode)
-    (set-face-attribute 'helm-selection nil
-                        :background "goldenrod"
-                        :foreground "dark slate gray"
-                        :slant 'italic)
-    ;; Disable line numbers in helm buffers
     (when linum-mode
       (add-hook 'helm-after-initialize-hook (lambda ()
                                               (with-helm-buffer
