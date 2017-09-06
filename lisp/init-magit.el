@@ -4,11 +4,15 @@
 ;; See http://magit.vc/
 
 ;;; Code:
+
+(use-package git-gutter
+  :diminish git-gutter-mode
+  :config
+  (global-git-gutter-mode))
+
 (require-package 'magit)
-(require-package 'git-gutter)
 
 (require 'magit)
-(require 'git-gutter)
 
 ;; Bind magit status to C-x g for ease of use
 (global-set-key (kbd "C-x g") 'magit-status)
@@ -18,7 +22,6 @@
 
 (setq magit-process-connection-type t)
 (setq global-magit-file-buffer-mode t)
-(global-git-gutter-mode t)
 
 (setq magit-process-password-prompt-regexps
       '("^\\(Enter \\)?[Pp]assphrase\\( for \\(RSA \\)?key '.*'\\)?: ?$"
@@ -28,6 +31,6 @@
         "^Yubikey for .*: ?$"
         "^Enter PIN for '.*': ?$"))
 
-(setq git-commit-summary-max-length 80)
+(setq git-commit-summary-max-length 120)
 (provide 'init-magit)
 ;;; init-magit ends here

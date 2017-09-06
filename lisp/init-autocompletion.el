@@ -13,6 +13,7 @@
 
 (use-package company
   :bind (("\t" . gp/complete-or-indent))
+  :diminish company-mode
   :defer t
   :config (global-company-mode))
 
