@@ -16,13 +16,8 @@
     (company-mode +1))
   ;; aligns annotation to the right hand side
   (setq company-tooltip-align-annotations t)
-  (add-hook 'typescript-mode-hook 'gp-setup-tide-mode)
-  (add-hook 'before-save-hook 'tide-format-before-save)
-  (setq tide-format-options '(:tabSize 2
-                                       :convertTabsToSpaces t
-                                       :insertSpaceAfterFunctionKeywordForAnonymousFunctions t
-                                       :placeOpenBraceOnNewLineForFunctions nil
-                                       :))
+  (add-hook 'typescript-mode-hook #'gp-setup-tide-mode)
+  ;;(add-hook 'before-save-hook 'tide-format-before-save)
   (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-mode))
   (add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
   (add-hook 'web-mode-hook
