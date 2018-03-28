@@ -26,7 +26,7 @@
 ;; Unicode!
 ;; UTF-8 All the things!
 ; disable CJK coding/encoding (Chinese/Japanese/Korean characters)
-(setq utf-translate-cjk-mode nil)
+; (setq utf-translate-cjk-mode nil)
 (setq locale-coding-system 'utf-8-unix)
 (setq default-file-name-coding-system 'utf-8-unix)
 (setq buffer-file-coding-system 'utf-8-unix)
@@ -43,7 +43,6 @@
 
 ;; Usually I want to go to the right indentation on a new line
 (global-set-key (kbd "RET") 'newline-and-indent)
-
 
 (defun gp/smarter-move-beginning-of-line (arg)
   "Move point back to indentation of beginning of line.
@@ -77,6 +76,11 @@ point reaches the beginning or end of the buffer, stop there."
 
 
 ;; scrolling!
+
+;; don't scroll past end of buffer
+(setq scroll-conservatively 101)
+
+;; smooth scrolling
 (use-package smooth-scrolling
   :init
   (progn

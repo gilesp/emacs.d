@@ -22,9 +22,10 @@
          ("C-c C-g e" . writegood-reading-ease)))
 
 (use-package org-bullets
- :ensure t
  :config
  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+
+(setq package-check-signature nil)
 
 ;; :ensure org-plus-contrib
 (use-package org
@@ -49,6 +50,7 @@
     :defer t)
   (use-package ox-gfm
     :defer t)
+  (use-package org-gcal)
   :config
   (progn
     (require 'ox-md)
@@ -65,6 +67,8 @@
     
     ;; configuration
     (setq org-directory "~/Documents/Dropbox/org")
+    (setq cal-directory "~/Documents/Dropbox/org/calendars")
+    
     (setq line-spacing 3)
     (setq org-startup-with-inline-images t)
     
@@ -78,7 +82,22 @@
                                  (expand-file-name "projects/" org-directory)
                                  (expand-file-name "projects/work/" org-directory)
                                  (expand-file-name "projects/personal/" org-directory)
-                                 (expand-file-name "personal_schedule.org" org-directory)))
+                                 (expand-file-name "personal_schedule.org" org-directory)
+                                 (expand-file-name "calendars/" org-directory)))
+
+    ;; org-gcal config
+    (setq
+     org-gcal-client-id "603475159806-f87h1knp429dkbqei98f8csk68fo2f7n.apps.googleusercontent.com"
+     org-gcal-client-secret "AnnpgXKHwUIMyyqrNSsW2liG"
+     org-gcal-file-alist '(("giles@vurt.co.uk" .
+                            "~/Documents/Dropbox/org/calendars/personal.org")
+                           ("jj55h065t2qkbiu351jirv09kk@group.calendar.google.com" .
+                            "~/Documents/Dropbox/org/calendars/oliver.org")
+                           ("7ahnde9usu8cj8ni2c7idtrq48@group.calendar.google.com" .
+                            "~/Documents/Dropbox/org/calendars/house.org")))
+
+    (add-hook 'org-agenda-mode-hook (lambda () (org-gcal-sync) ))
+    (add-hook 'org-capture-after-finalize-hook (lambda () (org-gcal-sync) ))
     
     (add-hook 'org-mode-hook 'turn-on-auto-fill)
     
@@ -191,30 +210,47 @@
     
 
     
+    ;; (add-hook 'org-mode-hook
+    ;;           '(lambda ()
+    ;;              (variable-pitch-mode 1)
+    ;;              ((mapc function )
+    ;;               (lambda (face)
+    ;;                 (set-face-attribute face nil :inherit 'fixed-pitch))
+    ;;               (list 'org-code
+    ;;                     'org-link
+    ;;                     'org-block
+    ;;                     'org-table
+    ;;                     'org-block-begin-line
+    ;;                     'org-block-end-line
+    ;;                     'org-src-block
+    ;;                     'org-verbatim
+    ;;                     'org-date
+    ;;                     'org-meta-line
+    ;;                     'org-document-info-keyword))))
     ))
 
-(eval-after-load "org"
-  '(progn
-     (defun gp/adjoin-to-list-or-symbol (element list-or-symbol)
-       (let ((list (if (not (listp list-or-symbol))
-                       (list list-or-symbol)
-                     list-or-symbol)))
-         (require 'cl-lib)
-         (cl-adjoin element list)))
+;; (eval-after-load "org"
+;;   '(progn
+;;      (defun gp/adjoin-to-list-or-symbol (element list-or-symbol)
+;;        (let ((list (if (not (listp list-or-symbol))
+;;                        (list list-or-symbol)
+;;                      list-or-symbol)))
+;;          (require 'cl-lib)
+;;          (cl-adjoin element list)))
 
 
-     (mapc
-      (lambda (face)
-        (set-face-attribute
-         face nil
-         :inherit
-         (gp/adjoin-to-list-or-symbol
-          'fixed-pitch
-          (face-attribute face :inherit))))
-      (list 'org-code 'org-block 'org-block-begin-line 'org-block-end-line 'org-verbatim 'org-macro 'org-table 'org-link 'org-footnote 'org-date))
-     )
-  )
-                 
+;;      (mapc
+;;       (lambda (face)
+;;         (set-face-attribute
+;;          face nil
+;;          :inherit
+;;          (gp/adjoin-to-list-or-symbol
+;;           'fixed-pitch
+;;           (face-attribute face :inherit))))
+;;       (list 'org-code 'org-block 'org-block-begin-line 'org-block-end-line 'org-verbatim 'org-macro 'org-table 'org-link 'org-footnote 'org-date))
+;;      )
+;;   )
+
 ;; TODO: Figure out where the odt schema files live so I can include them in the config
 ;; These live in ~/.emacs.d/elpa/org-YYYYMMDD/etc/ but I'm not sure if I need to specify them now
 ;; Require OpenDocument Text export mode
