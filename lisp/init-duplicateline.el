@@ -1,42 +1,46 @@
 ;;; init-duplicateline --- Adds functionality to duplicate a line
 ;;; Commentary:
 ;;; Code:
-(defun duplicate-line (arg)
-  "Duplicate current line ARG, leaving point in lower line."
-  (interactive "*p")
+(use-package duplicate-thing
+  :ensure t
+  :bind(("C-c C-d" . duplicate-thing)))
 
-  ;; save the point for undo
-  (setq buffer-undo-list (cons (point) buffer-undo-list))
+;; (defun duplicate-line (arg)
+;;   "Duplicate current line ARG, leaving point in lower line."
+;;   (interactive "*p")
 
-  ;; local variables for start and end of line
-  (let ((bol (save-excursion (beginning-of-line) (point)))
-        eol)
-    (save-excursion
+;;   ;; save the point for undo
+;;   (setq buffer-undo-list (cons (point) buffer-undo-list))
 
-      ;; don't use forward-line for this, because you would have
-      ;; to check whether you are at the end of the buffer
-      (end-of-line)
-      (setq eol (point))
+;;   ;; local variables for start and end of line
+;;   (let ((bol (save-excursion (beginning-of-line) (point)))
+;;         eol)
+;;     (save-excursion
 
-      ;; store the line and disable the recording of undo information
-      (let ((line (buffer-substring bol eol))
-            (buffer-undo-list t)
-            (count arg))
-        ;; insert the line arg times
-        (while (> count 0)
-          (newline)         ;; because there is no newline in 'line'
-          (insert line)
-          (setq count (1- count)))
-        )
+;;       ;; don't use forward-line for this, because you would have
+;;       ;; to check whether you are at the end of the buffer
+;;       (end-of-line)
+;;       (setq eol (point))
 
-      ;; create the undo information
-      (setq buffer-undo-list (cons (cons eol (point)) buffer-undo-list)))
-    ) ; end-of-let
+;;       ;; store the line and disable the recording of undo information
+;;       (let ((line (buffer-substring bol eol))
+;;             (buffer-undo-list t)
+;;             (count arg))
+;;         ;; insert the line arg times
+;;         (while (> count 0)
+;;           (newline)         ;; because there is no newline in 'line'
+;;           (insert line)
+;;           (setq count (1- count)))
+;;         )
 
-  ;; put the point in the lowest line and return
-  (next-line arg))
+;;       ;; create the undo information
+;;       (setq buffer-undo-list (cons (cons eol (point)) buffer-undo-list)))
+;;     ) ; end-of-let
 
-(global-set-key (kbd "C-d") 'duplicate-line)
+;;   ;; put the point in the lowest line and return
+;;   (next-line arg))
+
+;; (global-set-key (kbd "C-d") 'duplicate-line)
 
 (provide 'init-duplicateline)
 ;;; init-duplicateline.el ends here
