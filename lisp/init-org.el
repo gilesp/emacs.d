@@ -50,6 +50,8 @@
   (setq org-directory "~/Documents/Dropbox/org")
   (setq org-default-notes-file (expand-file-name "dump.org" org-directory))
   (setq org-startup-with-inline-images t)
+  (setq org-completion-use-ido nil) ;; so we can use helm for refiling
+  (setq org-outline-path-complete-in-steps nil) ;; so we can use helm for refiling
   :config
   (progn
     ;; This functionality isn't in a package yet.
@@ -107,13 +109,13 @@
     
     (setq org-capture-templates
           '(("t" "Todo"
-             entry (file+headline "todo.org" "Things to do")
+             entry (file "todo.org")
              "* TODO %?")
             ("m" "Multi-part Todo"
-             entry (file+headline "todo.org" "Things to do")
+             entry (file "todo.org")
              "* TODO %? [/]\n- [ ] ")
             ("n" "Note"
-             entry (file+headline "dump.org" "Notes")
+             entry (file "dump.org")
              "* %? :NOTE:\n%U\n")))
 
     ;;
@@ -152,13 +154,14 @@
              ((tags "REFILE"
                     ((org-agenda-overriding-header "Things to Refile")
                      (org-tags-match-list-sublevels nil)))
-              (tags-todo "BLOCKED"
-                         ((org-agenda-overriding-header "Blocked Tasks")
-                          (org-tags-match-list-sublevels nil)))
-              (tags-todo "STARTED"
-                         ((org-agenda-overriding-header "In Progress")
-                          (org-tags-match-list-sublevels nil)))
-              nil))))
+              (todo "BLOCKED"
+                    ((org-agenda-overriding-header "Blocked Tasks")))
+              (todo "STARTED"
+                    ((org-agenda-overriding-header "In Progress")))
+              (todo "TODO"
+                    ((org-agenda-overriding-header "Tasks")))
+              nil)
+             )))
     ))
 
 (use-package ox-tufte
