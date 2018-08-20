@@ -21,15 +21,13 @@
   :bind (("C-c C-g g" . writegood-grade-level)
          ("C-c C-g e" . writegood-reading-ease)))
 
-(use-package org-bullets
- :config
- (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
-
 (setq package-check-signature nil)
+
+(use-package olivetti)
 
 ;; :ensure org-plus-contrib
 (use-package org
-  :mode (("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
+  :mode ("\\.org\\'" . org-mode)
   :bind (("C-c l" . org-store-link)
          ("C-c a" . org-agenda)
          ("C-c c" . org-capture))
@@ -37,40 +35,42 @@
   :preface
   ;; hook to run when org-mode is started, to turn on certain modes etc.
   (defun gp/org-mode-hook ()
-    ;;set variable pitch font for org, but keep fixed width for code etc.
-    ;;(variable-pitch-mode t)
-
     ;; disable linum
     (linum-mode -1)
 
     ;; enable on the fly spell checking
-    (flyspell-mode 1))
+    (flyspell-mode 1)
+
+    ;; center the text area and set a minimal fringe
+    (olivetti-mode)
+    (olivetti-set-width 120)
+    (fringe-mode 2))
+  :hook (org-mode . gp/org-mode-hook)
   :init
-  (use-package ox-tufte
-    :defer t)
-  (use-package ox-gfm
-    :defer t)
-  (use-package org-gcal)
+  (setq org-directory "~/Documents/Dropbox/org")
+  (setq org-default-notes-file (expand-file-name "dump.org" org-directory))
+  (setq org-startup-with-inline-images t)
   :config
   (progn
-    (require 'ox-md)
-    (require 'ox-gfm)
-    (require 'ox-html)
-    (require 'ox-tufte)
-    (require 'org-protocol)
-
     ;; This functionality isn't in a package yet.
     ;; I installed it into ~/.emacs.d/site-lisp with wget https://raw.githubusercontent.com/alphapapa/org-protocol-capture-html/master/org-protocol-capture-html.el
-    (require 'org-protocol-capture-html)
-    
-    (add-hook 'org-mode-hook 'gp/org-mode-hook)
+    ;; (require 'org-protocol-capture-html)
     
     ;; configuration
-    (setq org-directory "~/Documents/Dropbox/org")
-    (setq cal-directory "~/Documents/Dropbox/org/calendars")
-    
-    (setq line-spacing 3)
-    (setq org-startup-with-inline-images t)
+
+    ;;
+    ;; General Config
+    ;;
+    ;; actually emphasise text (e.g. show as italic instead of /italic/)
+    (setq org-hide-emphasis-markers t)
+
+    ;; syntax highlight code blocks
+    (setq org-src-fontify-natively t)
+
+    ;; replace list indicators with bullet points
+    (font-lock-add-keywords 'org-mode
+                            '(("^ +\\([-*]\\) "
+                               (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
     
     ;;
     ;; Agenda config
@@ -78,41 +78,20 @@
     ;; All the agenda/capture/refile stuff is heavily influenced by http://doc.norang.ca/org-mode.html
     (setq org-agenda-window-setup (quote current-window))
     (setq org-agenda-files (list (expand-file-name "todo.org" org-directory)
-                                 (expand-file-name "refile.org" org-directory)
-                                 (expand-file-name "projects/" org-directory)
-                                 (expand-file-name "projects/work/" org-directory)
-                                 (expand-file-name "projects/personal/" org-directory)
-                                 (expand-file-name "personal_schedule.org" org-directory)
-                                 (expand-file-name "calendars/" org-directory)))
-
-    ;; org-gcal config
-    (setq
-     org-gcal-client-id "603475159806-f87h1knp429dkbqei98f8csk68fo2f7n.apps.googleusercontent.com"
-     org-gcal-client-secret "AnnpgXKHwUIMyyqrNSsW2liG"
-     org-gcal-file-alist '(("giles@vurt.co.uk" .
-                            "~/Documents/Dropbox/org/calendars/personal.org")
-                           ("jj55h065t2qkbiu351jirv09kk@group.calendar.google.com" .
-                            "~/Documents/Dropbox/org/calendars/oliver.org")
-                           ("7ahnde9usu8cj8ni2c7idtrq48@group.calendar.google.com" .
-                            "~/Documents/Dropbox/org/calendars/house.org")))
-
-    (add-hook 'org-agenda-mode-hook (lambda () (org-gcal-sync) ))
-    (add-hook 'org-capture-after-finalize-hook (lambda () (org-gcal-sync) ))
+                                 (expand-file-name "dump.org" org-directory)
+                                 (expand-file-name "projects/" org-directory)))
     
-    (add-hook 'org-mode-hook 'turn-on-auto-fill)
+    ;; (add-hook 'org-mode-hook 'turn-on-auto-fill)
     
-    (setq org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "STARTED(s)" "|" "DONE(d)")
-                              (sequence "WAITING(w@/!)" "DEFERRED(e)" "|" "CANCELLED(c@/!)" "MEETING")))
+    (setq org-todo-keywords '((sequence "TODO(t)" "STARTED(s)" "BLOCKED(b!)" "|" "DONE(d)" "CANCELLED(c)")))
+    
     (setq org-todo-keyword-faces
           (quote
            (("DONE" . success)
-            ("STARTED" . underline)
-            ("WAITING" . warning)
-            ("TODO" . error)
-            ("NEXT" . highlight)
-            ("DEFERRED" . default)
             ("CANCELLED" . default)
-            ("MEETING" . diary))))
+            ("STARTED" . underline)
+            ("BLOCKED" . warning)
+            ("TODO" . error))))
 
     ;; allow changing from any task todo state to another by selecting appropriate key from the menu
     ;; C-c C-t KEY
@@ -121,34 +100,21 @@
     ;; set appropriate tags on tasks (used for filtering)
     (setq org-todo-state-tags-triggers
           '(("CANCELLED" ("CANCELLED" . t))
-            ("WAITING" ("WAITING" . t))
-            ("DEFERRED" ("WAITING") ("DEFERRED" . t))
-            (done ("WAITING") ("DEFERRED"))
-            ("TODO" ("WAITING") ("CANCELLED") ("DEFERRED"))
-            ("NEXT" ("WAITING") ("CANCELLED") ("DEFERRED"))
-            ("DONE" ("WAITING") ("CANCELLED") ("DEFERRED"))))
+            ("BLOCKED" ("WAITING" . t))
+            (done ("WAITING"))
+            ("TODO" ("WAITING") ("CANCELLED"))
+            ("DONE" ("WAITING") ("CANCELLED"))))
     
     (setq org-capture-templates
           '(("t" "Todo"
-             entry (file "refile.org" "Tasks")
-             "* TODO [#B] %?")
+             entry (file+headline "todo.org" "Things to do")
+             "* TODO %?")
+            ("m" "Multi-part Todo"
+             entry (file+headline "todo.org" "Things to do")
+             "* TODO %? [/]\n- [ ] ")
             ("n" "Note"
-             entry (file "refile.org" "Notes")
-             "* %? :NOTE:\n%U\n%a\n")
-            ("j" "Journal Entry"
-             entry (file+datetree "journal.org")
-             "* %?"
-             :empty-lines 1)
-            ("p" "Protocol"
-             entry (file+headline "refile.org" "Notes")
-             "* %:description :NOTE:RESEARCH:\n#+BEGIN_QUOTE\n%i\n\n -- %:link %u\n #+END_QUOTE\n\n%?")
-            ("L" "Protocol Link"
-             entry (file+headline "refile.org" "Notes")
-             "* %? [[%:link][%:description]] :NOTE:RESEARCH:\nCaptured On: %u")
-            ("P" "Pandoc Converted Website"
-             entry (file+headline "refile.org" "Notes")
-             "* %a :NOTE:RESEARCH:\n\n%U %?\n\n%:initial")
-            ))
+             entry (file+headline "dump.org" "Notes")
+             "* %? :NOTE:\n%U\n")))
 
     ;;
     ;; Refile config
@@ -183,80 +149,30 @@
              ((org-agenda-overriding-header "Notes")
               (org-tags-match-list-sublevels t)))
             (" " "Agenda"
-             ((agenda "" nil)
-              (tags "REFILE"
-                    ((org-agenda-overriding-header "Tasks to Refile")
+             ((tags "REFILE"
+                    ((org-agenda-overriding-header "Things to Refile")
                      (org-tags-match-list-sublevels nil)))
-              (tags-todo "WORK/NEXT"
-                         ((org-agenda-overriding-header "Work Next Tasks")
+              (tags-todo "BLOCKED"
+                         ((org-agenda-overriding-header "Blocked Tasks")
                           (org-tags-match-list-sublevels nil)))
-              (tags-todo "PERSONAL/NEXT"
-                         ((org-agenda-overriding-header "Personal Next Tasks")
+              (tags-todo "STARTED"
+                         ((org-agenda-overriding-header "In Progress")
                           (org-tags-match-list-sublevels nil)))
               nil))))
-    ;;
-    ;; General Config
-    ;;
-    ;; actually emphasise text (e.g. show as italic instead of /italic/)
-    (setq org-hide-emphasis-markers t)
-
-    ;; syntax highlight code blocks
-    (setq org-src-fontify-natively t)
-
-    ;; replace list indicators with bullet points
-    (font-lock-add-keywords 'org-mode
-                            '(("^ +\\([-*]\\) "
-                               (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
-    
-
-    
-    ;; (add-hook 'org-mode-hook
-    ;;           '(lambda ()
-    ;;              (variable-pitch-mode 1)
-    ;;              ((mapc function )
-    ;;               (lambda (face)
-    ;;                 (set-face-attribute face nil :inherit 'fixed-pitch))
-    ;;               (list 'org-code
-    ;;                     'org-link
-    ;;                     'org-block
-    ;;                     'org-table
-    ;;                     'org-block-begin-line
-    ;;                     'org-block-end-line
-    ;;                     'org-src-block
-    ;;                     'org-verbatim
-    ;;                     'org-date
-    ;;                     'org-meta-line
-    ;;                     'org-document-info-keyword))))
     ))
 
-;; (eval-after-load "org"
-;;   '(progn
-;;      (defun gp/adjoin-to-list-or-symbol (element list-or-symbol)
-;;        (let ((list (if (not (listp list-or-symbol))
-;;                        (list list-or-symbol)
-;;                      list-or-symbol)))
-;;          (require 'cl-lib)
-;;          (cl-adjoin element list)))
+(use-package ox-tufte
+  :after (org)
+  :defer t)
 
+(use-package ox-gfm
+  :after (org)
+  :defer t)
 
-;;      (mapc
-;;       (lambda (face)
-;;         (set-face-attribute
-;;          face nil
-;;          :inherit
-;;          (gp/adjoin-to-list-or-symbol
-;;           'fixed-pitch
-;;           (face-attribute face :inherit))))
-;;       (list 'org-code 'org-block 'org-block-begin-line 'org-block-end-line 'org-verbatim 'org-macro 'org-table 'org-link 'org-footnote 'org-date))
-;;      )
-;;   )
-
-;; TODO: Figure out where the odt schema files live so I can include them in the config
-;; These live in ~/.emacs.d/elpa/org-YYYYMMDD/etc/ but I'm not sure if I need to specify them now
-;; Require OpenDocument Text export mode
-;;  (setq org-odt-schema-dir "~/.emacs.d/org-mode/etc/schema")
-;;  (setq org-odt-styles-dir "~/.emacs.d/org-mode/etc/styles")
-;;  (require 'ox-odt nil t)
+(use-package org-bullets
+  :after (org)
+  :config
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
 (provide 'init-org)
 ;;; init-org.el ends here
