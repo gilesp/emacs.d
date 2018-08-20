@@ -84,7 +84,7 @@
 (require 'init-zoom)
 (require 'init-spaceline)
 (require 'init-which-key)
-(require 'init-neotree)
+;; (require 'init-neotree)
 (require 'init-magit)
 (require 'init-hugo-blogging)
 (require 'init-yasnippet)

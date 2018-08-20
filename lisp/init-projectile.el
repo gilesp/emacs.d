@@ -6,15 +6,21 @@
 
 ;;; Code:
 (use-package projectile
-  :diminish projectile-mode
+  :demand
+  :bind (:map projectile-mode-map
+              ("C-c p" . projectile-command-map))
+  :defines projectile-globally-ignored-files
+  :init
+  (setq projectile-completion-system 'helm)
+  (setq projectile-switch-project-action 'projectile-vc)
+  (setq projectile-mode-line
+        '(:eval
+          (format " Pr[%s]"
+                  (projectile-project-name))))
+  
   :config
-  (progn
-    (setq projectile-keymap-prefix (kbd "C-c p"))
-    (setq projectile-completion-system 'helm)
-    (setq projectile-enable-caching t)
-    (add-to-list 'projectile-globally-ignored-files "node-modules"))
-  :config
-  (projectile-global-mode))
+  (add-to-list 'projectile-globally-ignored-files "node-modules")
+  (projectile-mode))
 
 ;; enable the helm versions of projectile functions
 (use-package helm-projectile

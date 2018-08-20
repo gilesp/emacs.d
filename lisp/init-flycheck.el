@@ -2,9 +2,10 @@
 ;;; Commentary:
 ;;; Code:
 (use-package flycheck
-  :init
-  (global-flycheck-mode)
-  :diminish flycheck-mode)
+  :defer 1
+  :diminish flycheck-mode
+  :hook
+  (after-init . global-flycheck-mode))
 
 (provide 'init-flycheck)
 ;;; init-flycheck.el ends here
