@@ -9,12 +9,13 @@
 (require 'init-dockerfile-mode)
 (require 'init-yaml-mode)
 ;; (require 'init-webdev)
-(require 'init-lang-javascript)
-(require 'init-lang-web)
+;; (require 'init-lang-javascript)
+;; (require 'init-lang-web)
 ;; (require 'init-swift)
 ;; (require 'init-java)
-(require 'init-typescript)
+;; (require 'init-typescript)
 (require 'init-editorconfig)
+(require 'init-lsp)
 
-(provide 'kennington)
+(provide 'norbiton)
 ;;; norbiton.el ends here
