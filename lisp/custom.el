@@ -44,4 +44,5 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(italic ((t (:slant italic)))))
+ '(italic ((t (:slant italic))))
+ '(org-level-2 ((t (:inherit outline-2 :foreground "dark gray")))))

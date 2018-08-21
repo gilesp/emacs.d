@@ -30,7 +30,8 @@
   :mode ("\\.org\\'" . org-mode)
   :bind (("C-c l" . org-store-link)
          ("C-c a" . org-agenda)
-         ("C-c c" . org-capture))
+         ("C-c c" . org-capture)
+         ("C-c r" . gp/org-refile-hydra/body))
   :pin org ;; Use version from orgmode.org/elpa instead of gnu
   :preface
   ;; hook to run when org-mode is started, to turn on certain modes etc.
@@ -63,6 +64,10 @@
     ;;
     ;; General Config
     ;;
+
+    ;; edit src blocks in place, rather than a new window
+    (setq org-src-window-setup 'current-window)
+    
     ;; actually emphasise text (e.g. show as italic instead of /italic/)
     (setq org-hide-emphasis-markers t)
 
@@ -109,15 +114,26 @@
     
     (setq org-capture-templates
           '(("t" "Todo"
-             entry (file "todo.org")
-             "* TODO %?")
+             entry (file+headline "todo.org" "Inbox")
+             "* TODO %?\nAdded: %T\n")
             ("m" "Multi-part Todo"
-             entry (file "todo.org")
-             "* TODO %? [/]\n- [ ] ")
+             entry (file+headline "todo.org" "Inbox")
+             "* TODO %? [/]\nAdded: %T\n- [ ] ")
             ("n" "Note"
              entry (file "dump.org")
              "* %? :NOTE:\n%U\n")))
 
+    ;; Tags with fast selection keys
+    (setq org-tag-alist (quote ((:startgroup)
+                                ("@errand" . ?e)
+                                ("@office" . ?o)
+                                ("@home" . ?h)
+                                (:endgroup)
+                                ("WAITING" . ?w)
+                                ("PERSONAL" . ?P)
+                                ("WORK" . ?W)
+                                ("NOTE" . ?n)
+                                ("CANCELLED" . ?c))))
     ;;
     ;; Refile config
     ;;
@@ -135,6 +151,46 @@
       (not (member (nth 2 (org-heading-components)) org-done-keywords)))
 
     (setq org-refile-target-verify-function 'gp/verify-refile-target)
+
+    (defun gp/refile-to (file headline &optional arg)
+      "Move current headline to specified location"
+      (let ((pos (save-excursion
+                   (find-file (expand-file-name file org-directory))
+                   (org-find-exact-headline-in-buffer headline))))
+        (org-refile arg nil (list headline file nil pos)))
+      (switch-to-buffer (current-buffer)))
+
+    (defun gp/refile-to-project-notes ()
+      "Move current item to the notes section of a project file"
+      (interactive)
+      (let ((project_file (read-file-name "Project file: " (expand-file-name "projects" org-directory))))
+        (gp/refile-to project_file "Notes")))
+
+    (defun gp/refile-to-project-tasks ()
+      "Move current item to the tasks section of a project file"
+      (interactive)
+      (let ((project_file (read-file-name "Project file: " (expand-file-name "projects" org-directory))))
+        (gp/refile-to project_file "Tasks")))
+    
+    ;; (defun gp/refile-to-bookmarks ()
+    ;;   "Move current headline to bookmarks"
+    ;;   (interactive)
+    ;;   (org-mark-ring-push)
+    ;;   (gp/refile-to "bookmarks.org" "New")
+    ;;   (org-mark-ring-goto))
+
+    (defhydra gp/org-refile-hydra (:foreign-keys run)
+      "Refile"
+      ("t" (gp/refile-to-project-tasks) "Refile to project tasks")
+      ("n" (gp/refile-to-project-notes) "Refile to project notes")
+      ;; ("o" (my/refile "shopping.org" "Office supplies") "Refile to Office supplies")
+      ;; ("e" (my/refile "tasks.org" "Email tasks") "Email tasks")
+      ;; ("r" (my/refile "tasks.org" "Research tasks") "Research tasks")
+      ("j" org-refile-goto-last-stored "Jump to last refile")
+      ("q" nil "cancel"))
+    
+    ;; Or whatever you want your keybinding to be
+    ;; (global-set-key (kbd "C-c r") 'gp/org-refile-hydra/body)
 
     ;;
     ;; Custom agenda views

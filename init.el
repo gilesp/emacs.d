@@ -38,6 +38,10 @@
 ;; Move to a separate init file when more than a couple of lines required
 ;;-------------------------------------------------------------------------
 
+;; About me
+(setq user-full-name "Giles Paterson"
+      user-mail-address "giles@vurt.uk")
+
 ;; Unbind Pesky Sleep Button
 (global-unset-key [(control z)])
 (global-unset-key [(control x)(control z)])
@@ -50,6 +54,10 @@
 
 ;; y or n instead of yes or no.
 (fset 'yes-or-no-p 'y-or-n-p)
+
+;; disable audible bell, use visual instead
+(setq ring-bell-function 'ignore)
+(setq visible-bell t)
 
 ;; enable visual line mode with indicators
 ;(visual-line-mode)

@@ -25,8 +25,6 @@
 
 ;; Unicode!
 ;; UTF-8 All the things!
-; disable CJK coding/encoding (Chinese/Japanese/Korean characters)
-; (setq utf-translate-cjk-mode nil)
 (setq locale-coding-system 'utf-8-unix)
 (setq default-file-name-coding-system 'utf-8-unix)
 (setq buffer-file-coding-system 'utf-8-unix)
@@ -75,23 +73,37 @@ point reaches the beginning or end of the buffer, stop there."
 (global-set-key (kbd "C-;") 'comment-or-uncomment-region)
 
 
+;; Save history
+(setq savehist-file "~/.emacs.d/savehist")
+(savehist-mode 1)
+(setq history-length t)
+(setq history-delete-duplicates t)
+(setq savehist-save-minibuffer-history 1)
+(setq savehist-additional-variables
+      '(kill-ring
+        search-ring
+        regexp-search-ring))
+
 ;; scrolling!
-
-;; don't scroll past end of buffer
-(setq scroll-conservatively 101)
-
-;; smooth scrolling
-(use-package smooth-scrolling
-  :init
-  (progn
-    (require 'smooth-scrolling)
-    (smooth-scrolling-mode 1)
-    (setq smooth-scroll-margin 5)))
+(use-package sublimity
+  :config
+  (require 'sublimity)
+  (require 'sublimity-scroll)
+  (sublimity-mode 1))
 
 ;; uniquify buffer names
 (require 'uniquify)
-(setq uniquify-buffer-name-style 'post-forward
-      uniquify-separator "::")
+
+;; Enable use of hydras
+(use-package hydra
+  :config
+  (defhydra hydra-goto-line (goto-map "")
+    "goto-line"
+    ("g" goto-line "go")
+    ("m" set-mark-command "mark" :bind nil)
+    ("q" nil "quit")))
+
+
 
 (provide 'init-editing)
 ;;; init-editing.el ends here
