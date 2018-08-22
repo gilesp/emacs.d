@@ -134,6 +134,16 @@
                                 ("WORK" . ?W)
                                 ("NOTE" . ?n)
                                 ("CANCELLED" . ?c))))
+
+    ;; Bulk archive all done tasks in a file
+    (defun gp/org-archive-done-tasks ()
+      (interactive)
+      (org-map-entries
+       (lambda ()
+         (org-archive-subtree)
+         (setq org-map-continue-from (outline-previous-heading)))
+       "/DONE" 'file))
+    
     ;;
     ;; Refile config
     ;;
@@ -183,6 +193,7 @@
       "Refile"
       ("t" (gp/refile-to-project-tasks) "Refile to project tasks")
       ("n" (gp/refile-to-project-notes) "Refile to project notes")
+      ("d" (gp/org-archive-done-tasks) "Archive all done tasks")
       ;; ("o" (my/refile "shopping.org" "Office supplies") "Refile to Office supplies")
       ;; ("e" (my/refile "tasks.org" "Email tasks") "Email tasks")
       ;; ("r" (my/refile "tasks.org" "Research tasks") "Research tasks")
