@@ -23,7 +23,6 @@
    (quote
     ("^\\(Enter \\)?[Pp]assphrase\\( for \\(RSA \\)?key '.*'\\)?: ?$" "^\\(Enter \\)?[Pp]assword\\( for '\\(?99:.*\\)'\\)?: ?$" "^.*'s password: ?$" "^Yubikey for .*: ?$" "^Enter PIN for '.*': ?$")))
  '(make-backup-files t)
- '(mouse-wheel-progressive-speed nil)
  '(org-agenda-files
    (quote
     ("/home/giles/Documents/Dropbox/org/todo.org" "/home/giles/Documents/Dropbox/org/refile.org" "/home/giles/Documents/Dropbox/org/projects/work/brown_bags.org" "/home/giles/Documents/Dropbox/org/projects/work/hackathon.org" "/home/giles/Documents/Dropbox/org/projects/work/innovation-strategy-mindmap.org" "/home/giles/Documents/Dropbox/org/projects/work/innovation-strategy.org" "/home/giles/Documents/Dropbox/org/projects/work/video-portal.org" "/home/giles/Documents/Dropbox/org/projects/work/virtual-teams.org" "/home/giles/Documents/Dropbox/org/projects/personal/bike.org" "/home/giles/Documents/Dropbox/org/projects/personal/child_maintenance.org" "/home/giles/Documents/Dropbox/org/projects/personal/emacs.org" "/home/giles/Documents/Dropbox/org/projects/personal/house.org" "/home/giles/Documents/Dropbox/org/projects/personal/musical_toddler_toy.org" "/home/giles/Documents/Dropbox/org/calendars/house.org" "/home/giles/Documents/Dropbox/org/calendars/oliver.org" "/home/giles/Documents/Dropbox/org/calendars/personal.org")))

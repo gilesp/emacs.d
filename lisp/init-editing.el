@@ -85,11 +85,15 @@ point reaches the beginning or end of the buffer, stop there."
         regexp-search-ring))
 
 ;; scrolling!
-(use-package sublimity
-  :config
-  (require 'sublimity)
-  (require 'sublimity-scroll)
-  (sublimity-mode 1))
+;; (setq scroll-step 1)
+(setq scroll-conservatively 101)
+(setq auto-window-vscroll nil)
+;; I'm still trying to figure out how to stop the mouse wheel from scrolling past the end of the file
+;; so for the time being, I'm just disabling scrollbars
+(setq scroll-bar-height nil)
+(setq scroll-bar-width 5)
+(setq scroll-error-top-bottom t)
+(setq scroll-bar-adjust-thumb-portion nil)
 
 ;; uniquify buffer names
 (require 'uniquify)
@@ -102,8 +106,6 @@ point reaches the beginning or end of the buffer, stop there."
     ("g" goto-line "go")
     ("m" set-mark-command "mark" :bind nil)
     ("q" nil "quit")))
-
-
 
 (provide 'init-editing)
 ;;; init-editing.el ends here
