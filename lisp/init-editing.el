@@ -73,6 +73,14 @@ point reaches the beginning or end of the buffer, stop there."
 (global-set-key (kbd "C-;") 'comment-or-uncomment-region)
 
 
+;; Nicer wrapping of long lines
+(use-package adaptive-wrap
+  :diminish
+  :hook (visual-line-mode . adaptive-wrap-prefix-mode)
+  :config
+  ;;(setq-default adaptive-wrap-extra-indent 2)
+  (global-visual-line-mode +1))
+
 ;; Save history
 (setq savehist-file "~/.emacs.d/savehist")
 (savehist-mode 1)
