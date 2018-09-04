@@ -16,14 +16,14 @@
 (defvar org-hide-emphasis-markers)
 (defvar org-src-fontify-natively)
 
-
-(use-package writegood-mode
-  :bind (("C-c C-g g" . writegood-grade-level)
-         ("C-c C-g e" . writegood-reading-ease)))
+;; (use-package writegood-mode
+;;   :bind (("C-c C-g g" . writegood-grade-level)
+;;          ("C-c C-g e" . writegood-reading-ease)))
 
 (setq package-check-signature nil)
 
-(use-package olivetti)
+(use-package olivetti
+  :diminish)
 
 ;; :ensure org-plus-contrib
 (use-package org
@@ -58,13 +58,14 @@
     ;; This functionality isn't in a package yet.
     ;; I installed it into ~/.emacs.d/site-lisp with wget https://raw.githubusercontent.com/alphapapa/org-protocol-capture-html/master/org-protocol-capture-html.el
     ;; (require 'org-protocol-capture-html)
+    (require 'org-protocol)
     
     ;; configuration
 
     ;;
     ;; General Config
     ;;
-
+    
     ;; edit src blocks in place, rather than a new window
     (setq org-src-window-setup 'current-window)
     
@@ -84,8 +85,10 @@
     ;;
     ;; All the agenda/capture/refile stuff is heavily influenced by http://doc.norang.ca/org-mode.html
     (setq org-agenda-window-setup (quote current-window))
-    (setq org-agenda-files (list (expand-file-name "todo.org" org-directory)
+    (setq org-agenda-files (list (expand-file-name "inbox.org" org-directory)
+                                 (expand-file-name "todo.org" org-directory)
                                  (expand-file-name "dump.org" org-directory)
+                                 (expand-file-name "bookmarks.org" org-directory)
                                  (expand-file-name "projects/" org-directory)))
     
     ;; (add-hook 'org-mode-hook 'turn-on-auto-fill)
@@ -114,14 +117,18 @@
     
     (setq org-capture-templates
           '(("t" "Todo"
-             entry (file+headline "todo.org" "Inbox")
-             "* TODO %?\nAdded: %T\n")
+             entry (file "inbox.org")
+             "* TODO %? \nAdded: %T\n")
             ("m" "Multi-part Todo"
-             entry (file+headline "todo.org" "Inbox")
+             entry (file "inbox.org")
              "* TODO %? [/]\nAdded: %T\n- [ ] ")
             ("n" "Note"
              entry (file "dump.org")
-             "* %? :NOTE:\n%U\n")))
+             "* %? :NOTE:\n%U\n")
+            ("l" "Link"
+             entry (file "bookmarks.org")
+             "* %:annotation\n:PROPERTIES:\n:CREATED: %u\n:URL: %:link\n:END:\n%:initial\n%?"
+             :empty-lines 1)))
 
     ;; Tags with fast selection keys
     (setq org-tag-alist (quote ((:startgroup)
@@ -207,28 +214,27 @@
     ;; Custom agenda views
     ;;
     ;; do not dim blocked tasks
-    (setq org-agenda-dim-blocked-tasks nil)
+    ;; (setq org-agenda-dim-blocked-tasks nil)
 
     ;; compact the block agenda view
     (setq org-agenda-compact-blocks t)
 
     ;; custom agenda commands
     (setq org-agenda-custom-commands
-          '(("N" "Notes" tags "NOTE"
-             ((org-agenda-overriding-header "Notes")
-              (org-tags-match-list-sublevels t)))
-            (" " "Agenda"
+          '((" " "Agenda"
              ((tags "REFILE"
                     ((org-agenda-overriding-header "Things to Refile")
                      (org-tags-match-list-sublevels nil)))
-              (todo "BLOCKED"
-                    ((org-agenda-overriding-header "Blocked Tasks")))
               (todo "STARTED"
                     ((org-agenda-overriding-header "In Progress")))
-              (todo "TODO"
-                    ((org-agenda-overriding-header "Tasks")))
+              (todo "BLOCKED"
+                    ((org-agenda-overriding-header "Blocked Tasks")))
+              
+              (tags-todo "-REFILE/!-STARTED-BLOCKED"
+                    ((org-agenda-overriding-header "Backlog")))
               nil)
              )))
+
     ))
 
 (use-package ox-tufte
@@ -241,6 +247,9 @@
 
 (use-package org-bullets
   :after (org)
+  :init
+  (setq org-bullets-bullet-list
+        '("⚫" "◉" "◎" "○"))
   :config
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
