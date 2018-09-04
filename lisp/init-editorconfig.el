@@ -5,6 +5,7 @@
 
 ;;; Code:
 (use-package editorconfig
+  :diminish
   :config
   (editorconfig-mode 1))
 
