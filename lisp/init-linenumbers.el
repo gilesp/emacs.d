@@ -24,7 +24,8 @@
 				  ))))
 (advice-add #'linum-update-window :after #'linum-update-window-scale-fix)
 
-(global-linum-mode t)
+;;(global-linum-mode t)
+(add-hook 'prog-mode-hook #'linum-mode)
 
 (provide 'init-linenumbers)
 ;;; init-linenumbers.el ends here

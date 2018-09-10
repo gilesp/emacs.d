@@ -59,6 +59,9 @@
 (setq ring-bell-function 'ignore)
 (setq visible-bell t)
 
+;; set line spacing to 3px to give a bit more breathing room
+(setq-default line-spacing 3)
+
 ;; enable visual line mode with indicators
 ;(visual-line-mode)
 ;(setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
@@ -75,9 +78,15 @@
 (require 'init-server)
 (require 'init-packages)
 (require 'init-editing)
-(require 'init-linenumbers)
-(require 'init-autocompletion)
 
+;; use linum mode if running emacs 25 or below
+(if (version< emacs-version "26.0.50")
+    (require 'init-linenumbers)
+  (progn
+    (add-hook 'prog-mode-hook #'display-line-numbers-mode)
+    (setq display-line-numbers-width-start t)))
+
+(require 'init-autocompletion)
 (require 'init-flycheck)
 (require 'init-theme)
 (require 'init-switch-window)

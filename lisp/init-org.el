@@ -28,6 +28,7 @@
 ;; :ensure org-plus-contrib
 (use-package org
   :mode ("\\.org\\'" . org-mode)
+  :defines linum-mode
   :bind (("C-c l" . org-store-link)
          ("C-c a" . org-agenda)
          ("C-c c" . org-capture)
@@ -36,8 +37,6 @@
   :preface
   ;; hook to run when org-mode is started, to turn on certain modes etc.
   (defun gp/org-mode-hook ()
-    ;; disable linum
-    (linum-mode -1)
 
     ;; enable on the fly spell checking
     (flyspell-mode 1)
@@ -45,7 +44,9 @@
     ;; center the text area and set a minimal fringe
     (olivetti-mode)
     (olivetti-set-width 120)
-    (fringe-mode 2))
+    (fringe-mode 2)
+    ;;(variable-pitch-mode)
+    )
   :hook (org-mode . gp/org-mode-hook)
   :init
   (setq org-directory "~/Documents/Dropbox/org")
@@ -55,16 +56,16 @@
   (setq org-outline-path-complete-in-steps nil) ;; so we can use helm for refiling
   :config
   (progn
-    ;; This functionality isn't in a package yet.
-    ;; I installed it into ~/.emacs.d/site-lisp with wget https://raw.githubusercontent.com/alphapapa/org-protocol-capture-html/master/org-protocol-capture-html.el
-    ;; (require 'org-protocol-capture-html)
     (require 'org-protocol)
-    
     ;; configuration
 
     ;;
     ;; General Config
     ;;
+    ;; Use the clean indentation mode
+    (setq org-startup-indented t)
+    ;; Only show one bullet per heading
+    (setq org-hide-leading-stars t)
     
     ;; edit src blocks in place, rather than a new window
     (setq org-src-window-setup 'current-window)
@@ -74,7 +75,9 @@
 
     ;; syntax highlight code blocks
     (setq org-src-fontify-natively t)
-
+    ;; don't indent src unnecessarily
+    (setq-default org-edit-src-content-indentation 0)
+    
     ;; replace list indicators with bullet points
     (font-lock-add-keywords 'org-mode
                             '(("^ +\\([-*]\\) "
@@ -253,5 +256,9 @@
   :config
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
+;; (use-package org-variable-pitch
+;;   :after (org)
+;;   :hook (org-mode . org-variable-pitch-minor-mode))
+  
 (provide 'init-org)
 ;;; init-org.el ends here

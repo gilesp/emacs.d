@@ -6,6 +6,7 @@
 ;;; Code:
 (use-package helm
   :diminish helm-mode
+  :defines helm-idle-delay helm-yas-display-key-on-candidate helm-M-x-requires-pattern helm-ff-skip-boring-files helm-buffers-fuzzy-matching helm-recentf-fuzzy-match helm-apropos-fuzzy-match
   :init
   (progn
     (require 'helm-config)
@@ -25,12 +26,7 @@
     
     (helm-mode))
   :config
-  (progn
     (helm-autoresize-mode)
-    (when linum-mode
-      (add-hook 'helm-after-initialize-hook (lambda ()
-                                              (with-helm-buffer
-                                                (linum-mode 0))))))
   :bind (("M-x" . helm-M-x)
          ("C-x C-b" . helm-buffers-list)
          ("C-x b" . helm-mini)
