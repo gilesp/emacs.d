@@ -78,7 +78,6 @@
 (require 'init-linenumbers)
 (require 'init-autocompletion)
 
-;; (require 'init-exec-path-from-shell)
 (require 'init-flycheck)
 (require 'init-theme)
 (require 'init-switch-window)
@@ -86,19 +85,14 @@
 (require 'init-projectile)
 (require 'init-duplicateline)
 (require 'init-browse-url-chrome)
-(require 'init-modeline)
 (require 'init-org)
 (require 'init-markdown)
 (require 'init-zoom)
-(require 'init-spaceline)
+(require 'init-powerline)
 (require 'init-which-key)
-;; (require 'init-neotree)
 (require 'init-magit)
 (require 'init-hugo-blogging)
 (require 'init-yasnippet)
-;; (require 'init-typescript)
-
-;; (require 'init-google-this)
 
 ;; load machine specific init file
 ;; it looks for a file names <hostname>.el and loads it if present

@@ -3,10 +3,13 @@
 ;;; see https://github.com/TheBB/spaceline
 
 ;;; Code:
-(require-package 'spaceline)
+(use-package spaceline)
 
-(require 'spaceline-config)
-(spaceline-emacs-theme)
-(spaceline-helm-mode t)
+(use-package spaceline-config
+  :ensure spaceline
+  :config
+  (spaceline-emacs-theme)
+  (spaceline-helm-mode t))
+
 (provide 'init-spaceline)
 ;;; init-spaceline.el ends here
