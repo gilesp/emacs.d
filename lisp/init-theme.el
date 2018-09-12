@@ -7,7 +7,10 @@
 (use-package base16-theme
   :ensure t
   :config
-  (load-theme 'base16-gruvbox-dark-hard t))
+  ;; (load-theme 'base16-gruvbox-dark-hard t)
+  ;; (load-theme 'base16-tomorrow-night t)
+  ;; (load-theme 'base16-woodland t)
+  (load-theme 'base16-brewer t))
 
 (provide 'init-theme)
 ;;; init-theme ends here

@@ -16,11 +16,7 @@
 (defvar org-hide-emphasis-markers)
 (defvar org-src-fontify-natively)
 
-;; (use-package writegood-mode
-;;   :bind (("C-c C-g g" . writegood-grade-level)
-;;          ("C-c C-g e" . writegood-reading-ease)))
-
-(setq package-check-signature nil)
+;; (setq package-check-signature nil)
 
 (use-package olivetti
   :diminish)
@@ -51,7 +47,7 @@
   :init
   (setq org-directory "~/Documents/Dropbox/org")
   (setq org-default-notes-file (expand-file-name "dump.org" org-directory))
-  (setq org-startup-with-inline-images t)
+  (setq org-startup-with-inline-images nil)
   (setq org-completion-use-ido nil) ;; so we can use helm for refiling
   (setq org-outline-path-complete-in-steps nil) ;; so we can use helm for refiling
   :config
@@ -62,8 +58,10 @@
     ;;
     ;; General Config
     ;;
+
     ;; Use the clean indentation mode
     (setq org-startup-indented t)
+
     ;; Only show one bullet per heading
     (setq org-hide-leading-stars t)
     
@@ -75,6 +73,7 @@
 
     ;; syntax highlight code blocks
     (setq org-src-fontify-natively t)
+
     ;; don't indent src unnecessarily
     (setq-default org-edit-src-content-indentation 0)
     
@@ -256,9 +255,9 @@
   :config
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
-;; (use-package org-variable-pitch
-;;   :after (org)
-;;   :hook (org-mode . org-variable-pitch-minor-mode))
+ (use-package org-variable-pitch
+   :after (org)
+   :hook (org-mode . org-variable-pitch-minor-mode))
   
 (provide 'init-org)
 ;;; init-org.el ends here

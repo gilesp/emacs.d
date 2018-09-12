@@ -7,21 +7,21 @@
 (setq sentence-end-double-space nil)
 
 ;; font config.
-;; If it's installed, use Hack font, otherwise fall back to DejaVu Sans Mono
-(if (member "Hack" (font-family-list))
-    (progn
-      (set-face-attribute 'default nil :font "Hack")
-      (add-to-list 'default-frame-alist '(font . "Hack"))
-      (set-fontset-font t 'unicode "Hack" nil))
-  (set-face-attribute 'default nil :font "DejaVu Sans Mono")
-  (add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono"))
-  (set-fontset-font t 'unicode "DejaVu Sans Mono" nil))
+;; ;; If it's installed, use Hack font, otherwise fall back to DejaVu Sans Mono
+;; (if (member "Hack" (font-family-list))
+;;     (progn
+;;       (set-face-attribute 'default nil :font "Hack")
+;;       (add-to-list 'default-frame-alist '(font . "Hack"))
+;;       (set-fontset-font t 'unicode "Hack" nil))
+;;   (set-face-attribute 'default nil :font "DejaVu Sans Mono")
+;;   (add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono"))
+;;   (set-fontset-font t 'unicode "DejaVu Sans Mono" nil))
 
-;; specify fallback fonts for all unicode characters not in main font
-(when (member "Noto Sans" (font-family-list))
-  (set-fontset-font t 'unicode "Noto Sans" nil 'append))
-(when (member "Symbola" (font-family-list))
-  (set-fontset-font t 'unicode "Symbola" nil 'append))
+;; ;; specify fallback fonts for all unicode characters not in main font
+;; (when (member "Noto Sans" (font-family-list))
+;;   (set-fontset-font t 'unicode "Noto Sans" nil 'append))
+;; (when (member "Symbola" (font-family-list))
+;;   (set-fontset-font t 'unicode "Symbola" nil 'append))
 
 ;; Unicode!
 ;; UTF-8 All the things!

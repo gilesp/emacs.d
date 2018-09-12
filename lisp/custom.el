@@ -26,9 +26,10 @@
  '(org-agenda-files
    (quote
     ("/home/giles/Documents/Dropbox/org/todo.org" "/home/giles/Documents/Dropbox/org/refile.org" "/home/giles/Documents/Dropbox/org/projects/work/brown_bags.org" "/home/giles/Documents/Dropbox/org/projects/work/hackathon.org" "/home/giles/Documents/Dropbox/org/projects/work/innovation-strategy-mindmap.org" "/home/giles/Documents/Dropbox/org/projects/work/innovation-strategy.org" "/home/giles/Documents/Dropbox/org/projects/work/video-portal.org" "/home/giles/Documents/Dropbox/org/projects/work/virtual-teams.org" "/home/giles/Documents/Dropbox/org/projects/personal/bike.org" "/home/giles/Documents/Dropbox/org/projects/personal/child_maintenance.org" "/home/giles/Documents/Dropbox/org/projects/personal/emacs.org" "/home/giles/Documents/Dropbox/org/projects/personal/house.org" "/home/giles/Documents/Dropbox/org/projects/personal/musical_toddler_toy.org" "/home/giles/Documents/Dropbox/org/calendars/house.org" "/home/giles/Documents/Dropbox/org/calendars/oliver.org" "/home/giles/Documents/Dropbox/org/calendars/personal.org")))
+ '(org-variable-pitch-fixed-font "Hack")
  '(package-selected-packages
    (quote
-    (olivetti duplicate-thing lsp-javascript-typescript rjsx-mode add-node-modules-path company-lsp lsp-mode web-completion-data shut-up request-deferred request popup pkg-info log4e labburn-theme json-snatcher json-reformat gntp diminish deferred csharp-mode auto-complete omnisharp ghub epl bind-key with-editor typescript-mode swiper simple-httpd powerline org multiple-cursors htmlize haml-mode git-commit f dash-functional dash company base16-theme async alert s ivy helm-core flycheck counsel editorconfig nvm js2-refactor js-comint company-web ac-html-bootstrap ac-html-angular emmet-mode web-mode-edit-element impatient-mode helm-swoop which-key-buffer which-key--buffer counsel-projectile uniquify rainbow-identifiers eclim color-identifiers-mode tern js2-mode yasnippet git-gutter magit neotree projectile helm ox-gfm ox-tufte company-emacs-eclim zoom-frm yaml-mode writegood-mode which-key web-mode use-package toml-mode tide switch-window swift-mode spaceline smooth-scrolling sass-mode origami org-plus-contrib org-gcal org-bullets markdown-mode json-mode helm-projectile helm-ls-git helm-git-grep helm-descbinds dockerfile-mode company-tern)))
+    (eglot org-variable-pitch spaceline-config olivetti duplicate-thing lsp-javascript-typescript rjsx-mode add-node-modules-path company-lsp lsp-mode web-completion-data shut-up request-deferred request popup pkg-info log4e labburn-theme json-snatcher json-reformat gntp diminish deferred csharp-mode auto-complete omnisharp ghub epl bind-key with-editor typescript-mode swiper simple-httpd powerline org multiple-cursors htmlize haml-mode git-commit f dash-functional dash company base16-theme async alert s ivy helm-core flycheck counsel editorconfig nvm js2-refactor js-comint company-web ac-html-bootstrap ac-html-angular emmet-mode web-mode-edit-element impatient-mode helm-swoop which-key-buffer which-key--buffer counsel-projectile uniquify rainbow-identifiers eclim color-identifiers-mode tern js2-mode yasnippet git-gutter magit neotree projectile helm ox-gfm ox-tufte company-emacs-eclim zoom-frm yaml-mode writegood-mode which-key web-mode use-package toml-mode tide switch-window swift-mode spaceline smooth-scrolling sass-mode origami org-plus-contrib org-gcal org-bullets markdown-mode json-mode helm-projectile helm-ls-git helm-git-grep helm-descbinds dockerfile-mode company-tern)))
  '(pop-up-frames nil)
  '(safe-local-variable-values
    (quote
@@ -44,4 +45,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(italic ((t (:slant italic))))
- '(org-level-2 ((t (:inherit outline-2 :foreground "dark gray")))))
+ '(line-number ((t (:background "nil" :foreground "#665c54"))))
+ '(org-level-2 ((t (:inherit outline-2 :foreground "dark gray"))))
+ '(org-variable-pitch-face ((t (:slant normal :weight normal :height 120 :width normal :family "Noto Sans"))))
+ '(variable-pitch ((t (:family "Noto Sans")))))
