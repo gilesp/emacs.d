@@ -23,6 +23,10 @@
 ;; (when (member "Symbola" (font-family-list))
 ;;   (set-fontset-font t 'unicode "Symbola" nil 'append))
 
+;; disable use of tabs for indentation
+;; tabs lost, get over it.
+(setq indent-tabs-mode nil)
+
 ;; Unicode!
 ;; UTF-8 All the things!
 (setq locale-coding-system 'utf-8)

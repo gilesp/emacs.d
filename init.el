@@ -42,9 +42,15 @@
 (setq user-full-name "Giles Paterson"
       user-mail-address "giles@vurt.uk")
 
+;; No startup screen please.
+(setq inhibit-startup-screen t)
+
 ;; Unbind Pesky Sleep Button
 (global-unset-key [(control z)])
 (global-unset-key [(control x)(control z)])
+
+;; Disable tool bar.
+(tool-bar-mode -1)
 
 ;; Enable auto reloading when files change (will prompt for confirmation)
 (global-auto-revert-mode t)
