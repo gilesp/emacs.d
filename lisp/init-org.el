@@ -23,65 +23,74 @@
 
 ;; :ensure org-plus-contrib
 (use-package org
-  :mode ("\\.org\\'" . org-mode)
-  :defines linum-mode
-  :bind (("C-c l" . org-store-link)
-         ("C-c a" . org-agenda)
-         ("C-c c" . org-capture)
-         ("C-c r" . gp/org-refile-hydra/body))
   :pin org ;; Use version from orgmode.org/elpa instead of gnu
-  :preface
-  ;; hook to run when org-mode is started, to turn on certain modes etc.
-  (defun gp/org-mode-hook ()
-
-    ;; enable on the fly spell checking
-    (flyspell-mode 1)
-
-    ;; center the text area and set a minimal fringe
-    (olivetti-mode)
-    (olivetti-set-width 120)
-    (fringe-mode 2)
-    ;;(variable-pitch-mode)
-    )
-  :hook (org-mode . gp/org-mode-hook)
-  :init
-  (setq org-directory "~/Documents/Dropbox/org")
-  (setq org-default-notes-file (expand-file-name "dump.org" org-directory))
-  (setq org-startup-with-inline-images nil)
-  (setq org-completion-use-ido nil) ;; so we can use helm for refiling
-  (setq org-outline-path-complete-in-steps nil) ;; so we can use helm for refiling
+  :mode
+    ("\\.org\\'" . org-mode)
+  :bind
+    (("C-c l" . org-store-link)
+    ("C-c a" . org-agenda)
+    ("C-c c" . org-capture)
+    ("C-c r" . gp/org-refile-hydra/body))
+  :custom
+    (org-directory "~/Documents/Dropbox/org")
+    (org-startup-indented t)
+    (org-default-notes-file (expand-file-name "dump.org" org-directory))
+    (org-startup-with-inline-images nil)
+    (org-completion-use-ido nil) ;; so we can use helm for refiling
+    (org-outline-path-complete-in-steps nil) ;; so we can use helm for refiling
+    (org-hide-leading-stars t) ;; Only show one bullet per heading
+    (org-src-window-setup 'current-window) ;; edit src blocks in place, rather than a new window
+    (org-fontify-quote-and-verse-blocks t)
+    (org-fontify-whole-heading-line t)
+    (org-hide-emphasis-markers t) ;; actually emphasise text (e.g. show as italic instead of /italic/)
+    (org-src-fontify-natively t) ;; syntax highlight code blocks
+    (org-edit-src-content-indentation 0) ;; don't indent src unnecessarily
+  :hook
+    (org-mode . variable-pitch-mode)
+    (org-mode . olivetti-mode)
+    (org-mode . (lambda () (olivetti-set-width 120)))
   :config
   (progn
     (require 'org-protocol)
     ;; configuration
-
     ;;
     ;; General Config
     ;;
-
-    ;; Use the clean indentation mode
-    (setq org-startup-indented t)
-
-    ;; Only show one bullet per heading
-    (setq org-hide-leading-stars t)
+    (flyspell-mode 1) ;; enable on the fly spell checking
     
-    ;; edit src blocks in place, rather than a new window
-    (setq org-src-window-setup 'current-window)
+    (fringe-mode 2)
     
-    ;; actually emphasise text (e.g. show as italic instead of /italic/)
-    (setq org-hide-emphasis-markers t)
-
-    ;; syntax highlight code blocks
-    (setq org-src-fontify-natively t)
-
-    ;; don't indent src unnecessarily
-    (setq-default org-edit-src-content-indentation 0)
+    (set-face-attribute 'org-table nil :inherit 'fixed-pitch)
+    (set-face-attribute 'org-code nil :inherit 'fixed-pitch)
+    (set-face-attribute 'org-block nil :inherit 'fixed-pitch :background "gray10")
+    (set-face-attribute 'org-level-1 nil :height 1.6 :foreground "#b7b8b9")
+    (set-face-attribute 'org-level-2 nil :height 1.5 :foreground "#b7b8b9")
+    (set-face-attribute 'org-level-3 nil :height 1.25 :foreground "#b7b8b9")
+    (set-face-attribute 'org-level-4 nil :height 1.1 :foreground "#b7b8b9")
+    
+    ;; (set-face-attribute 'org-block-background nil :inherit 'fixed-pitch)
     
     ;; replace list indicators with bullet points
     (font-lock-add-keywords 'org-mode
                             '(("^ +\\([-*]\\) "
                                (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
-    
+
+    ;; (let* ((variable-tuple
+    ;; 	    '(:font   "Noto Serif"))
+    ;;        (base-font-color (face-foreground 'default nil 'default))
+    ;;        (headline       `(:inherit default :weight bold :foreground ,base-font-color)))
+
+    ;;   (custom-theme-set-faces
+    ;;    'user
+    ;;    `(org-level-8        ((t (,@headline ,@variable-tuple))))
+    ;;    `(org-level-7        ((t (,@headline ,@variable-tuple))))
+    ;;    `(org-level-6        ((t (,@headline ,@variable-tuple))))
+    ;;    `(org-level-5        ((t (,@headline ,@variable-tuple))))
+    ;;    `(org-level-4        ((t (,@headline ,@variable-tuple :height 1.1))))
+    ;;    `(org-level-3        ((t (,@headline ,@variable-tuple :height 1.25))))
+    ;;    `(org-level-2        ((t (,@headline ,@variable-tuple :height 1.5))))
+    ;;    `(org-level-1        ((t (,@headline ,@variable-tuple :height 1.75))))
+    ;;    `(org-document-title ((t (,@headline ,@variable-tuple :height 2.0 :underline nil))))))
     ;;
     ;; Agenda config
     ;;
@@ -236,7 +245,6 @@
                     ((org-agenda-overriding-header "Backlog")))
               nil)
              )))
-
     ))
 
 (use-package ox-tufte
@@ -250,14 +258,17 @@
 (use-package org-bullets
   :after (org)
   :init
-  (setq org-bullets-bullet-list
-        '("⚫" "◉" "◎" "○"))
+  (setq org-bullets-bullet-list '("◉")) ;; no bullets
   :config
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
- (use-package org-variable-pitch
-   :after (org)
-   :hook (org-mode . org-variable-pitch-minor-mode))
+(use-package org-indent
+  :ensure nil
+  :diminish)
+
+ ;; (use-package org-variable-pitch
+ ;;   :after (org)
+ ;;   :hook (org-mode . org-variable-pitch-minor-mode))
   
 (provide 'init-org)
 ;;; init-org.el ends here

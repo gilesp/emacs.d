@@ -6,36 +6,32 @@
 ;;; Code:
 (use-package helm
   :diminish helm-mode
-  :defines helm-idle-delay helm-yas-display-key-on-candidate helm-M-x-requires-pattern helm-ff-skip-boring-files helm-buffers-fuzzy-matching helm-recentf-fuzzy-match helm-apropos-fuzzy-match
+  :defines helm-idle-delay helm-yas-display-key-on-candidate helm-M-x-requires-pattern helm-ff-skip-boring-files helm-buffers-fuzzy-matching helm-recentf-fuzzy-match helm-apropos-fuzzy-match helm-ff-file-name-history-use-recentf helm-command-prefix-key
   :init
-  (progn
+    (helm-mode)
+    (setq helm-command-prefix-key "C-c h")
+  :config
     (require 'helm-config)
-    (require 'helm-ls-git)
-    (require 'helm-git-grep)
-
     (setq helm-candidate-number-limit 100
           helm-idle-delay 0.01
           helm-input-idle-delay 0.01
           helm-yas-display-key-on-candidate t
           helm-M-x-requires-pattern nil
           helm-ff-skip-boring-files t
+	  helm-ff-file-name-history-use-recentf t
           helm-buffers-fuzzy-matching t
           helm-recentf-fuzzy-match t
-          helm-apropos-fuzzy-match t
-          )
-    
-    (helm-mode))
-  :config
+          helm-apropos-fuzzy-match t)
     (helm-autoresize-mode)
   :bind (("M-x" . helm-M-x)
-         ("C-x C-b" . helm-buffers-list)
-         ("C-x b" . helm-mini)
+	 ("M-s o" . helm-occur)
+	 ("M-/" . helm-dabbrev)
+	 ("C-x C-b" . helm-buffers-list)
          ("C-x C-f" . helm-find-files)
+         ("C-x b" . helm-mini)
          ("C-x C-d" . helm-browse-project)
-         ("C-x c o" . helm-occur)
          ("C-h a" . helm-apropos)
-         ("M-y" . helm-show-kill-ring)
-         ))
+         ("M-y" . helm-show-kill-ring)))
 
 (use-package helm-descbinds
   :defer t

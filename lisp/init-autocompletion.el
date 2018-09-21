@@ -35,6 +35,7 @@
 (use-package company-quickhelp
   :ensure t
   :after (company)
+  :bind (:map company-active-map ("C-c h" . company-quickhelp-manual-begin))
   :config
   (company-quickhelp-mode))
 

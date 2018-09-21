@@ -7,6 +7,10 @@
 (setq sentence-end-double-space nil)
 
 ;; font config.
+(set-face-attribute 'default nil :family "Hack")
+(set-face-attribute 'fixed-pitch nil :family "Hack")
+(set-face-attribute 'variable-pitch nil :family "Georgia")
+
 ;; ;; If it's installed, use Hack font, otherwise fall back to DejaVu Sans Mono
 ;; (if (member "Hack" (font-family-list))
 ;;     (progn
@@ -88,13 +92,17 @@ point reaches the beginning or end of the buffer, stop there."
 ;; Save history
 (setq savehist-file "~/.emacs.d/savehist")
 (savehist-mode 1)
+(savehist-autosave)
 (setq history-length t)
 (setq history-delete-duplicates t)
 (setq savehist-save-minibuffer-history 1)
 (setq savehist-additional-variables
-      '(kill-ring
-        search-ring
+      '(search-ring
         regexp-search-ring))
+
+;; keep a list of recently opened files
+(recentf-mode 1)
+(setq-default recent-save-file "~/.emacs.d/recentf")
 
 ;; scrolling!
 ;; (setq scroll-step 1)
