@@ -7,9 +7,9 @@
 (setq sentence-end-double-space nil)
 
 ;; font config.
-(set-face-attribute 'default nil :family "Hack")
-(set-face-attribute 'fixed-pitch nil :family "Hack")
-(set-face-attribute 'variable-pitch nil :family "Georgia")
+(set-face-attribute 'default nil :font "Hack")
+(set-face-attribute 'fixed-pitch nil :font "Hack")
+(set-face-attribute 'variable-pitch nil :font "Roboto")
 
 ;; ;; If it's installed, use Hack font, otherwise fall back to DejaVu Sans Mono
 ;; (if (member "Hack" (font-family-list))
