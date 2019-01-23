@@ -38,7 +38,8 @@
     (org-directory "~/Documents/Dropbox/org")
     (org-startup-indented t)
     (org-default-notes-file (expand-file-name "dump.org" org-directory))
-    (org-startup-with-inline-images nil)
+    (org-startup-with-inline-images t) ;; show images on load
+    (org-image-actual-width 600) ;; limit images to 600px wide by default. OVerride per org file with #+ATTR_HTML: :width 300px
     (org-completion-use-ido nil) ;; so we can use helm for refiling
     (org-outline-path-complete-in-steps nil) ;; so we can use helm for refiling
     (org-hide-leading-stars t) ;; Only show one bullet per heading
@@ -81,7 +82,7 @@
 					    `(org-level-3 ((t (,@headline))))
 					    `(org-level-2 ((t (,@headline ,@sans-font :height 1.25))))
 					    `(org-level-1 ((t (,@headline ,@sans-font :height 1.5))))
-					    `(org-document-title ((t (:inherit org-level-1 :height 2.0 :underline nil))))
+					    `(org-document-title ((t (:inherit org-level-1 :height 1.75 :underline nil))))
 					    `(org-block ((t (:foreground ,base-font-color :background ,background-color :box nil))))
 					    ;; `(org-block-begin-line ((t ,org-highlights)))
 					    ;; `(org-block-end-line ((t ,org-highlights)))
@@ -209,8 +210,8 @@
     ;; Refile config
     ;;
     ;; Targets include this file and any file contributing to the agenda - up to 9 levels deep
-    (setq org-refile-targets (quote ((nil :maxlevel . 9)
-                                     (org-agenda-files :maxlevel . 9))))
+    (setq org-refile-targets (quote ((nil :maxlevel . 2)
+                                     (org-agenda-files :maxlevel . 2))))
 
 
     ;; Allow refile to create parent tasks with confirmation

@@ -2,10 +2,7 @@
 # name: project
 # key: new-project
 # --
-* $1 :PROJECT:$2:
-$0
-** Tasks
-
-** Notes
-
-** References
+#+TITLE: $1
+* Tasks
+** TODO $0
+* Notes
