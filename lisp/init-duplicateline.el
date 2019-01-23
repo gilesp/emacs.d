@@ -7,7 +7,7 @@
 
 ;; (defun duplicate-line (arg)
 ;;   "Duplicate current line ARG, leaving point in lower line."
-;;   (interactive "*p")
+;   (interactive "*p")
 
 ;;   ;; save the point for undo
 ;;   (setq buffer-undo-list (cons (point) buffer-undo-list))

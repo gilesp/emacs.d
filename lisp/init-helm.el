@@ -51,8 +51,7 @@
   :defer t
   :bind (("C-x C-g" . helm-git-grep)
          ("C-c g" . helm-git-grep-from-helm)
-         :map isearch-mode-map
-         ("C-c g" . helm-git-grep-from-isearch)))
+         :map isearch-mode-map ("C-c g" . helm-git-grep-from-isearch)))
 
 (use-package helm-swoop
   :bind

@@ -13,11 +13,6 @@
   :init
   (setq projectile-completion-system 'helm)
   (setq projectile-switch-project-action 'projectile-vc)
-  (setq projectile-mode-line
-        '(:eval
-          (format " Pr[%s]"
-                  (projectile-project-name))))
-  
   :config
   (add-to-list 'projectile-globally-ignored-files "node-modules")
   (projectile-mode))
