@@ -15,8 +15,9 @@
 ;; (require 'init-java)
 ;; (require 'init-typescript)
 ;; (require 'init-editorconfig)
-(require 'init-lsp)
-;;(require 'init-eglot)
+;; (require 'init-lsp)
+;; (require 'init-eglot)
+(require 'init-javascript-2019)
 
 (provide 'norbiton)
 ;;; norbiton.el ends here
