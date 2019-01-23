@@ -9,7 +9,8 @@
               ("C-c h" . eglot-help-at-point)
               ("C-c a" . eglot-code-actions)
               ("C-c r" . eglot-rename))
-  :hook ((js2-mode . eglot-ensure)))
+  :hook ((js2-mode . eglot-ensure)
+	 (java-mode . eglot-ensure)))
 
 (use-package web-mode
   :defer t
