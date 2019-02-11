@@ -2,10 +2,13 @@
 ;;; Commentary:
 ;;; Code:
 (use-package flycheck
-  :defer 1
-  :diminish flycheck-mode
   :hook
   (after-init . global-flycheck-mode))
 
+(use-package flycheck-pos-tip
+  :after flycheck
+  :config
+  (flycheck-pos-tip-mode))
+  
 (provide 'init-flycheck)
 ;;; init-flycheck.el ends here
