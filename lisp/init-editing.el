@@ -29,7 +29,7 @@
 
 ;; disable use of tabs for indentation
 ;; tabs lost, get over it.
-(setq indent-tabs-mode nil)
+(setq-default indent-tabs-mode nil)
 
 ;; Unicode!
 ;; UTF-8 All the things!
