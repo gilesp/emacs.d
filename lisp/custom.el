@@ -22,8 +22,14 @@
  '(org-variable-pitch-fixed-font "Hack")
  '(package-selected-packages
    (quote
-    (flycheck-pos-tip eglot org-indent vscode-icon dired-subtree dired-sidebar treemacs-projectile treemacs helm-config org-variable-pitch spaceline-config olivetti duplicate-thing lsp-javascript-typescript rjsx-mode add-node-modules-path company-lsp lsp-mode web-completion-data shut-up request-deferred request popup pkg-info log4e labburn-theme json-snatcher json-reformat gntp diminish deferred csharp-mode auto-complete omnisharp ghub epl bind-key with-editor typescript-mode swiper simple-httpd powerline org multiple-cursors htmlize haml-mode git-commit f dash-functional dash company base16-theme async alert s ivy helm-core flycheck counsel editorconfig nvm js2-refactor js-comint company-web ac-html-bootstrap ac-html-angular emmet-mode web-mode-edit-element impatient-mode helm-swoop which-key-buffer which-key--buffer counsel-projectile uniquify rainbow-identifiers eclim color-identifiers-mode tern js2-mode yasnippet git-gutter magit neotree projectile helm ox-gfm ox-tufte company-emacs-eclim zoom-frm yaml-mode writegood-mode which-key web-mode use-package toml-mode tide switch-window swift-mode spaceline smooth-scrolling sass-mode origami org-plus-contrib org-gcal org-bullets markdown-mode json-mode helm-projectile helm-ls-git helm-git-grep helm-descbinds dockerfile-mode company-tern)))
+    (hydra ob-restclient restclient flycheck-pos-tip eglot org-indent vscode-icon dired-subtree dired-sidebar treemacs-projectile treemacs helm-config org-variable-pitch spaceline-config olivetti duplicate-thing lsp-javascript-typescript rjsx-mode add-node-modules-path company-lsp lsp-mode web-completion-data shut-up request-deferred request popup pkg-info log4e labburn-theme json-snatcher json-reformat gntp diminish deferred csharp-mode auto-complete omnisharp ghub epl bind-key with-editor typescript-mode swiper simple-httpd powerline org multiple-cursors htmlize haml-mode git-commit f dash-functional dash company base16-theme async alert s ivy helm-core flycheck counsel editorconfig nvm js2-refactor js-comint company-web ac-html-bootstrap ac-html-angular emmet-mode web-mode-edit-element impatient-mode helm-swoop which-key-buffer which-key--buffer counsel-projectile uniquify rainbow-identifiers eclim color-identifiers-mode tern js2-mode yasnippet git-gutter magit neotree projectile helm ox-gfm ox-tufte company-emacs-eclim zoom-frm yaml-mode writegood-mode which-key web-mode use-package toml-mode tide switch-window swift-mode spaceline smooth-scrolling sass-mode origami org-plus-contrib org-gcal org-bullets markdown-mode json-mode helm-projectile helm-ls-git helm-git-grep helm-descbinds dockerfile-mode company-tern)))
  '(pop-up-frames nil)
+ '(safe-local-variable-values
+   (quote
+    ((dockerfile-image-name . "gilesp/i-doit")
+     (dockerfile-image-name . "swift")
+     (dockerfile-image-name . "react-native")
+     (dockerfile-image-name . "gilesp/androidstudio"))))
  '(scalable-fonts-allowed t)
  '(show-paren-mode t))
 (custom-set-faces
@@ -32,4 +38,18 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(italic ((t (:slant italic))))
- '(line-number ((t (:background "nil" :foreground "#665c54")))))
+ '(line-number ((t (:background "nil" :foreground "#665c54"))))
+ '(org-agenda-structure ((t (:inherit default :font "Roboto" :height 1.5 :underline nil))))
+ '(org-block ((t (:foreground "#b7b8b9" :background "#0c0d0e" :box nil))))
+ '(org-checkbox ((t (:foreground "#000000" :background "#93a1a1" :box (:line-width -3 :color "#93a1a1" :style "released-button")))))
+ '(org-document-title ((t (:inherit org-level-1 :height 1.75 :underline nil))))
+ '(org-done ((t (:strike-through t))))
+ '(org-headline-done ((t (:strike-through t))))
+ '(org-level-1 ((t (:inherit default :foreground "#b7b8b9" :font "Roboto" :height 1.5))))
+ '(org-level-2 ((t (:inherit default :foreground "#b7b8b9" :font "Roboto" :height 1.25))))
+ '(org-level-3 ((t (:inherit default :foreground "#b7b8b9"))))
+ '(org-level-4 ((t (:inherit default :foreground "#b7b8b9"))))
+ '(org-level-5 ((t (:inherit default :foreground "#b7b8b9"))))
+ '(org-level-6 ((t (:inherit default :foreground "#b7b8b9"))))
+ '(org-level-7 ((t (:inherit default :foreground "#b7b8b9"))))
+ '(org-level-8 ((t (:inherit default :foreground "#b7b8b9")))))
