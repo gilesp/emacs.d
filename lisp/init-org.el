@@ -103,7 +103,6 @@
     (flyspell-mode 1) ;; enable on the fly spell checking
     
     (fringe-mode 2)
-
     ;; (set-face-attribute 'org-table nil :inherit 'fixed-pitch)
     ;; (set-face-attribute 'org-code nil :inherit 'fixed-pitch)
     ;; (set-face-attribute 'org-block nil :inherit 'fixed-pitch :background "gray10")
@@ -310,9 +309,12 @@
   :ensure nil
   :diminish)
 
- ;; (use-package org-variable-pitch
- ;;   :after (org)
- ;;   :hook (org-mode . org-variable-pitch-minor-mode))
+(use-package ob-restclient
+  :after (org)
+  :config
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((restclient . t))))
   
 (provide 'init-org)
 ;;; init-org.el ends here
