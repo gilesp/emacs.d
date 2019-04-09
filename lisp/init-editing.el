@@ -30,6 +30,10 @@
 ;; disable use of tabs for indentation
 ;; tabs lost, get over it.
 (setq-default indent-tabs-mode nil)
+;; For modes that don't know any better, set the tab stops to something other than 8
+(setq-default tab-stop-list (number-sequence 4 120 4))
+;; and make sure tab-width matches
+(setq-default tab-width 4)
 
 ;; Unicode!
 ;; UTF-8 All the things!
