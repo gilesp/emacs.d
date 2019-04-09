@@ -20,6 +20,7 @@
 
 ;; (require 'init-javascript-2019)
 (require 'init-javascript-typescript)
+(require 'init-restclient)
 
 (provide 'norbiton)
 ;;; norbiton.el ends here
